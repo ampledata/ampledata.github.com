@@ -20,7 +20,6 @@ Me, 30 minutes ago.
 
 As seen from the command line:
 
-    :::bash
     git clone https://github.com/ampledata/ampledata.github.com.git
     cd ampledata.github.com
     ./install.sh
