@@ -1,4 +1,3 @@
 Curious?
-
-* [README.html]<http://ampledata.org/README.html>
-* [LICENSE.html]<http://ampledata.org/LICENSE.html>
+* [README](http://ampledata.org/README.html)
+* [LICENSE](http://ampledata.org/LICENSE.html)
