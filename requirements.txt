@@ -1,0 +1,10 @@
+# Python Module requirements for generating articles.
+#
+# Author: Greg Albrecht
+# Copyright: Copyright 2012 Greg Albrecht
+# License: Free.
+# URL: http://ampledata.org/
+
+
+pygments
+markdown
