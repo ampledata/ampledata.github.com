@@ -4,8 +4,6 @@
 > I can create an article of ideas using no more than my favorite text
 > editor in the world, vim.
 
-Me, 30 minutes ago.
-
 # The Deal
 - I want to create articles of ideas using vim.
 - I want to write these articles in Markdown format.
@@ -24,10 +22,11 @@ As seen from the command line:
     cd ampledata.github.com
     ./install.sh
     ./make.py
+    ./publish.sh
 
 # Meta
 - Author: Greg Albrecht <gba@splunk.com>
 - Copyright: Copyright 2012 Greg Albrecht
-- License: Free.
+- License: Creative Commons Attribution 3.0 Unported License.
 - URL: <http://ampledata.org/>
 - Twitter: [@ampledata](http://twitter.com/ampledata)
