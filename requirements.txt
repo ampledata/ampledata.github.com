@@ -2,7 +2,7 @@
 #
 # Author: Greg Albrecht
 # Copyright: Copyright 2012 Greg Albrecht
-# License: Free.
+# License: Creative Commons Attribution 3.0 Unported License.
 # URL: http://ampledata.org/
 
 

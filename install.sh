@@ -3,7 +3,7 @@
 #
 # @author: Greg Albrecht <gba@splunk.com>
 # @copyright: Copyright 2012 Greg Albrecht
-# @license: Free.
+# @license: Creative Commons Attribution 3.0 Unported License.
 # @url: http://ampledata.org/
 
 
