@@ -13,20 +13,18 @@ Me, 30 minutes ago.
 - I want these code snippets to include syntax highlighting.
 
 # How
-<ol>
-<li>By whatever means, download the contents of this directory.</li>
-<li>Install the prerequisite Python Modules and generate some CSS:</li>
+1. By whatever means, download the contents of this directory.
+2. Install the prerequisite Python Modules and generate some CSS.
+3. Write an article and render it into HTML.
+4. Publish.
+
+As seen from the command line:
 
     :::bash
+    git clone https://github.com/ampledata/ampledata.github.com.git
+    cd ampledata.github.com
     ./install.sh
-
-<li>Write an article and render it into HTML:</li>
-
-    :::bash
     ./make.py
-
-<li>Publish.</li>
-</ol>
 
 # Meta
 - Author: Greg Albrecht <gba@splunk.com>
