@@ -21,6 +21,7 @@ As seen from the command line:
     git clone https://github.com/ampledata/ampledata.github.com.git
     cd ampledata.github.com
     ./install.sh
+    vi how_does_beer_work.md
     ./make.py
     ./publish.sh
 
