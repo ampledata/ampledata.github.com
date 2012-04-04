@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="syntax.css">
+<p>Create an eventtype for the conditions you want to alert on, for
+example from eventtypes.conf:</p>
+<div class="codehilite"><pre><span class="k">[nbx]</span>
+<span class="na">search</span> <span class="o">=</span> <span class="s">&quot;status err&quot;</span>
+</pre></div>
+
+
+<p>Then create a Saved Search that Alerts if there are any events with this
+eventtype:</p>
+<div class="codehilite"><pre><span class="k">[nbx]</span>
+<span class="na">action.email</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.inline</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.sendresults</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.to</span> <span class="o">=</span> <span class="s">gba@splunk.com</span>
+<span class="na">alert.digest_mode</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">alert.severity</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">alert.suppress</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">alert.track</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">counttype</span> <span class="o">=</span> <span class="s">number of events</span>
+<span class="na">cron_schedule</span> <span class="o">=</span> <span class="s">*/5 * * * *</span>
+<span class="na">description</span> <span class="o">=</span> <span class="s">gba&#39;s nbx experiment</span>
+<span class="na">dispatch.earliest_time</span> <span class="o">=</span> <span class="s">-6m@m</span>
+<span class="na">dispatch.latest_time</span> <span class="o">=</span> <span class="s">-1m@m</span>
+<span class="na">enableSched</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">quantity</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">relation</span> <span class="o">=</span> <span class="s">greater than</span>
+<span class="na">search</span> <span class="o">=</span> <span class="s">eventtype=&quot;nbx&quot;</span>
+</pre></div>
+
+
+<p>Going forward, anytime Splunk indexes an event with the string <strong>status err</strong>,
+I'll receive an email alert.</p>
+<hr />
+<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></p>
+<p>April 4th, 2012</p><h2>License</h2>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
+</a></p>
+<p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a
+<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported
+License</a>.</p>
+<p>Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
