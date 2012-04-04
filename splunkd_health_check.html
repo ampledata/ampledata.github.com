@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="syntax.css"><p>Here's a dead simple splunkd health check. It uses an auth token
+returned by splunkd's
+<a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
+to double check daemon health. (excuse my awk ignorance)</p>
+<div class="codehilite"><pre><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;
+<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;
+<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;
+<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login|egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span>|awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span>|awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>;
+curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span>;
+<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span>;
+logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
+</pre></div>
+
+
+<p>I've intentionally left the semicolon at the end of each line for one
+reason: This entire script can be concatinated into a single line and
+executed via crontab:</p>
+<div class="codehilite"><pre>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
+</pre></div>
+
+
+<p>This command will print a line similar to this when there's an error:</p>
+<div class="codehilite"><pre><span class="n">Apr</span>  4 05<span class="p">:</span>30<span class="p">:</span>13 <span class="n">domU</span><span class="o">-</span>12<span class="o">-</span>31<span class="o">-</span>39<span class="o">-</span>00<span class="o">-</span><span class="n">E5</span><span class="o">-</span>32 <span class="n">ubuntu</span><span class="p">:</span> <span class="n">splunkd_auth_status</span><span class="p">:</span> <span class="n">err</span>
+</pre></div>
+
+
+<p>Using a Splunk Saved Search with Alerting, you could easily match this event
+and trigger and alert.</p>
+<p>Alternatively, if you're using Cloudkick you could change the logger
+call at the end of this command to a simple echo:</p>
+<div class="codehilite"><pre><span class="nb">echo</span> <span class="s2">&quot;status $STATUS&quot;</span>
+</pre></div>
+
+
+<hr />
+<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></br></p>
+<p>April 3rd, 2012</p>
