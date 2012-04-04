@@ -6,7 +6,7 @@ example from eventtypes.conf:
     search = "status err"
 
 Then create a Saved Search that Alerts if there are any events with this
-eventtype:
+eventtype in savedsearch.conf:
 
     :::ini
     [nbx]
