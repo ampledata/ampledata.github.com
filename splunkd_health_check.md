@@ -21,7 +21,7 @@ executed via crontab:
 
 This command will print a line similar to this when there's an error:
 
-    Apr  4 05:30:13 domU-12-31-39-00-E5-32 ubuntu: splunkd_auth_status: err
+    Apr  4 05:55:01 domU-12-31-39-00-E5-32 splunkd_auth_status: err
 
 Using a Splunk Saved Search with Alerting, you could easily match this event
 and trigger and alert.
