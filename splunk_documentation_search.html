@@ -14,7 +14,34 @@
 
 </script>
 </head>
-<li><a href='LICENSE.html'>LICENSE</a></li><li><a href='README.html'>README</a></li><li><a href='splunk_documentation_search.html'>splunk documentation search</a></li><li><a href='splunkd_health_check.html'>splunkd health check</a></li><li><a href='strategy_for_conditional_alerting_with_splunk.html'>strategy for conditional alerting with splunk</a></li>
+<h1>splunk documentation search</h1><p>Working on a project that relies heavily on Splunk (that is, Splunk itself)
+requires frequent trips to the <a href="http://docs.splunk.com">Splunk Documentation</a>.</p>
+<p>I'm a <a href="http://www.obdev.at/products/launchbar/index.html">LaunchBar</a> user
+(think Quicksilver), here's the steps I've used to create a Custom Search
+Template for Splunk Documentation:</p>
+<ol>
+<li>Open the LaunchBar Index (Option+Command+I).</li>
+<li>Select the <em>Custom Search Template</em> folder.</li>
+<li>On the bottom of the LaunchBar Index window click <em>Add...</em>.</li>
+<li>For <em>Name</em>, enter a string you'll use to shortcut to this search, for
+   Splunk Documentation I used <strong>docs</strong>.</li>
+<li>For <em>Details</em>, enter: <strong>http://docs.splunk.com/Special:SplunkSearch/docs?q=</strong>*</li>
+<li>Save (Command+S).</li>
+</ol>
+<p><img alt="LaunchBar Index Window" src="http://dl.dropbox.com/u/4036736/Screenshots/2b88.png" /></p>
+<h2>To search:</h2>
+<p><img alt="LaunchBar Search Box" src="http://dl.dropbox.com/u/4036736/Screenshots/-r49.png" /></p>
+<ol>
+<li>Hit your LaunchBar shortcut key sequence (for me it's Command+Space).</li>
+<li>Type 'docs' + Space.</li>
+<li>Enter your search terms.</li>
+<li>Press [return].</li>
+</ol>
+<p><img alt="Splunk Documentation Search Results" src="http://dl.dropbox.com/u/4036736/Screenshots/mbfi.png" /></p>
+<p>Enjoy!</p>
+<hr />
+<p>Greg Albrecht</p>
+<p>April 5th, 2012</p>
 <h2>Comments</h2>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
