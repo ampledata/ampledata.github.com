@@ -43,9 +43,11 @@ def main():
             article_content = article_fd.read()
 
         html_output = markdown.markdown(article_content, ['codehilite'])
+        article_head = "<h1>%s</h1>" % friendly_name
 
         with open(html_file, 'w') as html_fd:
             html_fd.write(header)
+            html_fd.write(article_head)
             html_fd.write(html_output)
             if article_name != 'LICENSE':
                 html_fd.write(footer)
