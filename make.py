@@ -16,13 +16,13 @@ import markdown
 
 def main():
     """Reads in all article content and renders to HTML."""
-    index_html = ''
+    index_body = '<h1>ampledata.org articles</h1>'
 
     with open('header.html', 'r') as header_fd:
-        header = header_fd.read()
+        generic_header = header_fd.read()
 
     with open('footer.html', 'r') as footer_fd:
-        footer = footer_fd.read()
+        generic_footer = footer_fd.read()
 
     articles = glob.glob('*.md')
     for article in articles:
@@ -32,8 +32,8 @@ def main():
         html_file = '.'.join([article_name, 'html'])
         friendly_name = article_name.replace('_', ' ')
 
-        index_html = ''.join((
-            index_html,
+        index_body = ''.join((
+            index_body,
             "<li><a href='%s'>%s</a></li>" % (html_file, friendly_name)))
 
         print "in: %s" % article
@@ -42,20 +42,29 @@ def main():
         with open(article, 'r') as article_fd:
             article_content = article_fd.read()
 
-        html_output = markdown.markdown(article_content, ['codehilite'])
-        article_head = "<h1>%s</h1>" % friendly_name
+        article_body = markdown.markdown(article_content, ['codehilite'])
+        article_headline = "<h1>%s</h1>" % friendly_name
+        article_title = "<title>%s</title>" % friendly_name
+
+        header = '\n'.join(
+            ('<head>', generic_header, article_title, '</head>'))
+
+        body = '\n'.join(
+            ('<body>', article_headline, article_body, generic_footer,
+            '</body>'))
 
         with open(html_file, 'w') as html_fd:
             html_fd.write(header)
-            html_fd.write(article_head)
-            html_fd.write(html_output)
-            if article_name != 'LICENSE':
-                html_fd.write(footer)
+            html_fd.write(body)
+
+    index_title = '<title>ampledata.org</title>'
+    index_header = '\n'.join(
+        ('<head>', generic_header, index_title, '</head>'))
 
     with open('index.html', 'w') as index_fd:
-        index_fd.write(header)
-        index_fd.write(index_html)
-        index_fd.write(footer)
+        index_fd.write(index_header)
+        index_fd.write(index_body)
+        index_fd.write(generic_footer)
 
 
 if __name__ == '__main__':
