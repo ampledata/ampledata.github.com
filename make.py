@@ -32,10 +32,9 @@ def main():
         html_file = '.'.join([article_name, 'html'])
         friendly_name = article_name.replace('_', ' ')
 
-        if not article_name == 'LICENSE':
-            index_body = '\n'.join((
-                index_body,
-                "<li><a href='%s'>%s</a></li>" % (html_file, friendly_name)))
+        article_item = (
+            "<li><a href='%s'>%s</a></li>" % (html_file, friendly_name))
+        index_body = '\n'.join([index_body, article_item])
 
         print "in: %s" % article
         print "out: %s" % html_file
@@ -48,11 +47,11 @@ def main():
         article_title = "<title>%s</title>" % friendly_name
 
         header = '\n'.join(
-            ('<head>', generic_header, article_title, '</head>'))
+            ['<head>', generic_header, article_title, '</head>'])
 
         body = '\n'.join(
-            ('<body>', article_headline, article_body, generic_footer,
-            '</body>'))
+            ['<body>', article_headline, article_body, generic_footer,
+            '</body>'])
 
         with open(html_file, 'w') as html_fd:
             html_fd.write(header)
@@ -60,7 +59,7 @@ def main():
 
     index_title = '<title>ampledata.org</title>'
     index_header = '\n'.join(
-        ('<head>', generic_header, index_title, '</head>'))
+        ['<head>', generic_header, index_title, '</head>'])
 
     with open('index.html', 'w') as index_fd:
         index_fd.write(index_header)
