@@ -32,9 +32,10 @@ def main():
         html_file = '.'.join([article_name, 'html'])
         friendly_name = article_name.replace('_', ' ')
 
-        index_body = ''.join((
-            index_body,
-            "<li><a href='%s'>%s</a></li>" % (html_file, friendly_name)))
+        if not article_name == 'LICENSE':
+            index_body = '\n'.join((
+                index_body,
+                "<li><a href='%s'>%s</a></li>" % (html_file, friendly_name)))
 
         print "in: %s" % article
         print "out: %s" % html_file
