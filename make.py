@@ -24,6 +24,8 @@ def main():
     with open('footer.html', 'r') as footer_fd:
         generic_footer = footer_fd.read()
 
+
+    index_body = '\n'.join([index_body, '<ul>'])
     articles = glob.glob('*.md')
     for article in articles:
         article_content = ''
@@ -54,17 +56,25 @@ def main():
             '</body>'])
 
         with open(html_file, 'w') as html_fd:
+            html_fd.write('\n'.join(['<!DOCTYPE html>', '<html lang="en">']))
             html_fd.write(header)
             html_fd.write(body)
+            html_fd.write('\n'.join(['</html>']))
+
+    index_body = '\n'.join([index_body, '</ul>'])
 
     index_title = '<title>ampledata.org</title>'
     index_header = '\n'.join(
         ['<head>', generic_header, index_title, '</head>'])
 
     with open('index.html', 'w') as index_fd:
+        index_fd.write('\n'.join(['<!DOCTYPE html>', '<html lang="en">']))
         index_fd.write(index_header)
+        index_fd.write('<body>\n')
         index_fd.write(index_body)
         index_fd.write(generic_footer)
+        index_fd.write('\n</body>')
+        index_fd.write('\n'.join(['</html>']))
 
 
 if __name__ == '__main__':
