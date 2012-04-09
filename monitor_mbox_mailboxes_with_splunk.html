@@ -16,16 +16,44 @@
   })();
 </script>
 
-<title>ampledata.org</title>
+<title>monitor mbox mailboxes with splunk</title>
 </head><body>
-<h1>ampledata.org articles</h1>
-<ul>
-<li><a href='monitor_mbox_mailboxes_with_splunk.html'>monitor mbox mailboxes with splunk</a></li>
-<li><a href='README.html'>README</a></li>
-<li><a href='splunk_documentation_search.html'>splunk documentation search</a></li>
-<li><a href='splunkd_health_check.html'>splunkd health check</a></li>
-<li><a href='strategy_for_conditional_alerting_with_splunk.html'>strategy for conditional alerting with splunk</a></li>
-</ul>
+<h1>monitor mbox mailboxes with splunk</h1>
+<p>I hate reading email. So much. I do however enjoy searching email. Using
+Splunk I can monitor and index my email. This is incredibly useful for
+administrators of Unix boxes where cron jobs very often generate an
+unprecidented amount of email messages.</p>
+<p>Steps:</p>
+<ol>
+<li>Download &amp; Install <a href="http://www.splunk.com/download">Splunk</a>.</li>
+<li>
+<p>Configure Splunk to monitor your mailboxes:</p>
+<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
+<span class="k">[batch:///var/mail]</span>
+<span class="na">disabled</span> <span class="o">=</span> <span class="s">false</span>
+<span class="na">move_policy</span> <span class="o">=</span> <span class="s">sinkhole</span>
+<span class="na">sourcetype</span> <span class="o">=</span> <span class="s">mbox</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Configure Splunk to properly extract messages from your mailbox:</p>
+<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/props.conf</span>
+<span class="k">[mbox]</span>
+<span class="na">LINE_BREAKER</span> <span class="o">=</span> <span class="s">([\r\n]+)From\s</span>
+<span class="na">SHOULD_LINEMERGE</span> <span class="o">=</span> <span class="s">false</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>You're now ready to search and view your email messages in Splunk:</p>
+<p><img alt="email message in Splunk" src="http://dl.dropbox.com/u/4036736/Screenshots/g8tg.png" title="Email messsage as a Splunk event." /></p>
+<hr />
+<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></p>
+<p>April 8th, 2012</p>
+
 <h2>Share</h2>
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
