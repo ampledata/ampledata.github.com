@@ -23,7 +23,8 @@ def generate_header():
 def generate_index(articles):
     generic_header = generate_header()
     generic_footer = generate_footer()
-    index_body = "<h1>Greg Albrecht's ampledata.org Articles</h1>"
+    index_body = "<h1>Greg Albrecht's ampledata.org</h1>"
+    index_body = '\n'.join([index_body, '<h2>Articles</h2>'])
     index_body = '\n'.join([index_body, '<ul>'])
 
     for article in articles:
