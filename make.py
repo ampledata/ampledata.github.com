@@ -56,7 +56,7 @@ def generate_footer():
 
 def generate_article_names(article_file):
     article = {}
-    article['name'], _ = os.path.splitext(article_file)
+    article['name'] = os.path.basename(os.path.splitext(article_file)[0])
     article['file'] = article_file
     article['html_file'] = '.'.join([article['name'], 'html'])
     article['friendly_name'] =  article['name'].replace('_', ' ')
@@ -95,7 +95,7 @@ def generate_articles(articles):
 
 def main():
     """Reads in all article content and renders to HTML."""
-    article_files = glob.glob('*.md')
+    article_files = glob.glob('articles/*.md')
     articles = []
     for article_file in article_files:
         articles.append(generate_article_names(article_file))
