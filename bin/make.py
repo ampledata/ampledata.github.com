@@ -15,7 +15,7 @@ import markdown
 
 
 def generate_header():
-    with open('header.html', 'r') as header_fd:
+    with open('inc/header.html', 'r') as header_fd:
         generic_header = header_fd.read()
     return generic_header
 
@@ -49,7 +49,7 @@ def generate_index(articles):
 
 
 def generate_footer():
-    with open('footer.html', 'r') as footer_fd:
+    with open('inc/footer.html', 'r') as footer_fd:
         generic_footer = footer_fd.read()
     return generic_footer
 
