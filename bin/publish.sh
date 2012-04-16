@@ -7,5 +7,5 @@
 # @url: http://ampledata.org/
 
 
-git commit -m 'publishing articles' *.md *.html
+git commit -m 'publishing articles' articles/*.md *.html
 git push origin
