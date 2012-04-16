@@ -21,30 +21,32 @@
 <h1>strategy for conditional alerting with splunk</h1>
 <p>Create an eventtype for the conditions you want to alert on, for
 example from eventtypes.conf:</p>
-<pre class="codehilite"><code class="language-ini">[nbx]
-search = &quot;status err&quot;</code></pre>
+<div class="codehilite"><pre><span class="k">[nbx]</span>
+<span class="na">search</span> <span class="o">=</span> <span class="s">&quot;status err&quot;</span>
+</pre></div>
 
 
 <p>Then create a Saved Search that Alerts if there are any events with this
 eventtype in savedsearch.conf:</p>
-<pre class="codehilite"><code class="language-ini">[nbx]
-action.email = 1
-action.email.inline = 1
-action.email.sendresults = 1
-action.email.to = gba@splunk.com
-alert.digest_mode = False
-alert.severity = 4
-alert.suppress = 0
-alert.track = 1
-counttype = number of events
-cron_schedule = */5 * * * *
-description = gba's nbx experiment
-dispatch.earliest_time = -6m@m
-dispatch.latest_time = -1m@m
-enableSched = 1
-quantity = 0
-relation = greater than
-search = eventtype=&quot;nbx&quot;</code></pre>
+<div class="codehilite"><pre><span class="k">[nbx]</span>
+<span class="na">action.email</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.inline</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.sendresults</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">action.email.to</span> <span class="o">=</span> <span class="s">gba@splunk.com</span>
+<span class="na">alert.digest_mode</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">alert.severity</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">alert.suppress</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">alert.track</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">counttype</span> <span class="o">=</span> <span class="s">number of events</span>
+<span class="na">cron_schedule</span> <span class="o">=</span> <span class="s">*/5 * * * *</span>
+<span class="na">description</span> <span class="o">=</span> <span class="s">gba&#39;s nbx experiment</span>
+<span class="na">dispatch.earliest_time</span> <span class="o">=</span> <span class="s">-6m@m</span>
+<span class="na">dispatch.latest_time</span> <span class="o">=</span> <span class="s">-1m@m</span>
+<span class="na">enableSched</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">quantity</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">relation</span> <span class="o">=</span> <span class="s">greater than</span>
+<span class="na">search</span> <span class="o">=</span> <span class="s">eventtype=&quot;nbx&quot;</span>
+</pre></div>
 
 
 <p>Going forward, anytime Splunk indexes an event with the string <strong>status err</strong>,
