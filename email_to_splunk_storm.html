@@ -23,9 +23,7 @@
 Webhook</a> and an email
 service provider like <a href="http://www.emailyak.com/">Email Yak</a> we can
 easily index, search and report on email messages using <a href="https://www.splunkstorm.com">Splunk
-Storm</a>. I chose Email Yak for this
-tutorial because they offer a 'Free' account level and allow Email Push
-notifications via HTTP POST (aka <a href="http://webhooks.org/">Webhooks</a>).</p>
+Storm</a>.</p>
 <h1>Steps</h1>
 <ol>
 <li>Follow the instructions for setting up the <a href="https://github.com/ampledata/splunkstorm-webhook">Splunk Storm
@@ -40,6 +38,22 @@ notifications via HTTP POST (aka <a href="http://webhooks.org/">Webhooks</a>).</
 <p>Here's another useful search that extracts the message body and displays it
 as a table:</p>
 <pre class="codehilite"><code>*simpleyak* | spath output=TextBody TextBody | table TextBody</code></pre>
+
+
+<h1>Update</h1>
+<p>When I initially wrote this article I chose Email Yak as my provider
+because of their 'Free' account level and Email Push via HTTP POST
+(aka <a href="http://webhooks.org/">Webhooks</a>) support. As it turns out, our friends
+over at <a href="http://mailgun.net">mailgun</a> also support Email Push via HTTP
+POST. The difference here is that Email Yak POSTs messages as JSON,
+where as mailgun POSTs messages in their original RFC2822 format.</p>
+<p>It is possible to index both of these formats with Splunk Storm given one
+change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype</code> from
+<code>generic_single_line</code> to <strong>generic_multi_line</strong>:</p>
+<pre class="codehilite"><code class="language-python">def storm():
+    &quot;&quot;&quot;Endpoint handler for POST requests.&quot;&quot;&quot;
+    sourcetype = 'generic_multi_line'
+    source = 'webhook'</code></pre>
 
 
 <hr />

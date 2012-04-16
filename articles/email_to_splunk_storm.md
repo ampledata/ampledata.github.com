@@ -2,9 +2,7 @@ Using my [Splunk Storm
 Webhook](https://github.com/ampledata/splunkstorm-webhook) and an email
 service provider like [Email Yak](http://www.emailyak.com/) we can
 easily index, search and report on email messages using [Splunk
-Storm](https://www.splunkstorm.com). I chose Email Yak for this
-tutorial because they offer a 'Free' account level and allow Email Push
-notifications via HTTP POST (aka [Webhooks](http://webhooks.org/)).
+Storm](https://www.splunkstorm.com).
 
 # Steps
 
@@ -23,6 +21,24 @@ Here's another useful search that extracts the message body and displays it
 as a table:
 
     *simpleyak* | spath output=TextBody TextBody | table TextBody
+
+# Update
+When I initially wrote this article I chose Email Yak as my provider
+because of their 'Free' account level and Email Push via HTTP POST
+(aka [Webhooks](http://webhooks.org/)) support. As it turns out, our friends
+over at [mailgun](http://mailgun.net) also support Email Push via HTTP
+POST. The difference here is that Email Yak POSTs messages as JSON,
+where as mailgun POSTs messages in their original RFC2822 format.
+
+It is possible to index both of these formats with Splunk Storm given one
+change in my Webhook. In `app.py` on line 31 change `sourcetype` from
+`generic_single_line` to **generic_multi_line**:
+
+    :::python
+    def storm():
+        """Endpoint handler for POST requests."""
+        sourcetype = 'generic_multi_line'
+        source = 'webhook'
 
 ---
 Greg Albrecht <gba@splunk.com>
