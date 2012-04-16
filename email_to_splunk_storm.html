@@ -32,13 +32,16 @@ notifications via HTTP POST (aka <a href="http://webhooks.org/">Webhooks</a>).</
    Webhook</a>.</li>
 <li>Sign up with <a href="http://www.emailyak.com/">Email Yak</a> and register a new domain:</li>
 </ol>
-<p><img alt="Email Yak New Domain Control
-  Panel" src="http://dl.dropbox.com/u/4036736/Screenshots/g-9w.png" /></br>
+<p><img alt="Email Yak New Domain Control Panel" src="http://dl.dropbox.com/u/4036736/Screenshots/g-9w.png" /></br>
 3. Send a test email: <code>echo 'this is a test email'| mail -s 'test email' gba@emailtostorm.simpleyak.com</code></br>
 4. Search for and report on your email with Splunk Storm:</p>
 <p><img alt="Email in Splunk Storm" src="http://dl.dropbox.com/u/4036736/Screenshots/48d-.png" /></p>
+<h1>Bonus</h1>
 <p>Here's another useful search that extracts the message body and displays it
-as a table: <code>*simpleyak* | spath output=TextBody TextBody| table TextBody</code></p>
+as a table:</p>
+<pre class="codehilite"><code>*simpleyak* | spath output=TextBody TextBody | table TextBody</code></pre>
+
+
 <hr />
 <p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></p>
 <p>April 16th, 2012</p>
