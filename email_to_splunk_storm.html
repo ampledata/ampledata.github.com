@@ -16,42 +16,32 @@
   })();
 </script>
 
-<title>splunkd health check</title>
+<title>email to splunk storm</title>
 </head><body>
-<h1>splunkd health check</h1>
-<p>Here's a dead simple splunkd health check. It uses an auth token
-returned by splunkd's
-<a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
-to double check daemon health. (excuse my awk ignorance)</p>
-<pre class="codehilite"><code class="language-bash">SPL_USER=&quot;admin&quot;;
-SPL_PASS=&quot;xxx&quot;;
-STATUS=&quot;err&quot;;
-TOKEN=$(curl --max-time 60 -f -o /dev/null -s -k -u $SPL_USER:$SPL_PASS -d username=$SPL_USER -d password=$SPL_PASS https://localhost:8089/services/auth/login|egrep '&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;'|awk -F'&gt;' '{print $2}'|awk -F'&lt;' '{print $1}');
-curl --max-time 60 -f -o /dev/null -s -k -u $SPL_USER:$SPL_PASS https://localhost:8089/services/authentication/httpauth-tokens/$TOKEN;
-[[ $? == 0 ]] &amp;&amp; STATUS=&quot;ok&quot;;
-logger -p local1.debug -t splunkd_auth_status $STATUS</code></pre>
-
-
-<p>I've intentionally left the semicolon at the end of each line for one
-reason: This entire script can be concatinated into a single line and
-executed via crontab:</p>
-<pre class="codehilite"><code class="language-bash">*/5 * * * * SPL_USER=&quot;admin&quot;;SPL_PASS=&quot;xxx&quot;;STATUS=&quot;err&quot;;TOKEN=$(...</code></pre>
-
-
-<p>This command will print a line similar to this when there's an error:</p>
-<pre class="codehilite"><code>Apr  4 05:55:01 domU-12-31-39-00-E5-32 splunkd_auth_status: err</code></pre>
-
-
-<p>Using a Splunk Saved Search with Alerting, you could easily match this event
-and trigger and alert.</p>
-<p>Alternatively, if you're using Cloudkick you could change the logger
-call at the end of this command to a simple echo:</p>
-<pre class="codehilite"><code class="language-bash">echo &quot;status $STATUS&quot;</code></pre>
-
-
+<h1>email to splunk storm</h1>
+<p>Using my <a href="https://github.com/ampledata/splunkstorm-webhook">Splunk Storm
+Webhook</a> and an email
+service provider like <a href="http://www.emailyak.com/">Email Yak</a> we can
+easily index, search and report on email messages using <a href="https://www.splunkstorm.com">Splunk
+Storm</a>. I chose Email Yak for this
+tutorial because they offer a 'Free' account level and allow Email Push
+notifications via HTTP POST (aka <a href="http://webhooks.org/">Webhooks</a>).</p>
+<h1>Steps</h1>
+<ol>
+<li>Follow the instructions for setting up the <a href="https://github.com/ampledata/splunkstorm-webhook">Splunk Storm
+   Webhook</a>.</li>
+<li>Sign up with <a href="http://www.emailyak.com/">Email Yak</a> and register a new domain:</li>
+</ol>
+<p><img alt="Email Yak New Domain Control
+  Panel" src="http://dl.dropbox.com/u/4036736/Screenshots/g-9w.png" /></br>
+3. Send a test email: <code>echo 'this is a test email'| mail -s 'test email' gba@emailtostorm.simpleyak.com</code></br>
+4. Search for and report on your email with Splunk Storm:</p>
+<p><img alt="Email in Splunk Storm" src="http://dl.dropbox.com/u/4036736/Screenshots/48d-.png" /></p>
+<p>Here's another useful search that extracts the message body and displays it
+as a table: <code>*simpleyak* | spath output=TextBody TextBody| table TextBody</code></p>
 <hr />
-<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></br></p>
-<p>April 3rd, 2012</p>
+<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></p>
+<p>April 16th, 2012</p>
 
 <h2>Share</h2>
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
