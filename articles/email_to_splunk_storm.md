@@ -32,12 +32,12 @@ where as mailgun POSTs messages in their original RFC2822 format.
 
 It is possible to index both of these formats with Splunk Storm given one
 change in my Webhook. In `app.py` on line 31 change `sourcetype` from
-`generic_single_line` to **generic_multi_line**:
+`generic_single_line` to **storm_multi_line**:
 
     :::python
     def storm():
         """Endpoint handler for POST requests."""
-        sourcetype = 'generic_multi_line'
+        sourcetype = 'storm_multi_line'
         source = 'webhook'
 
 ---

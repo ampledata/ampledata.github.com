@@ -50,10 +50,10 @@ POST. The difference here is that Email Yak POSTs messages as JSON,
 where as mailgun POSTs messages in their original RFC2822 format.</p>
 <p>It is possible to index both of these formats with Splunk Storm given one
 change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype</code> from
-<code>generic_single_line</code> to <strong>generic_multi_line</strong>:</p>
+<code>generic_single_line</code> to <strong>storm_multi_line</strong>:</p>
 <div class="codehilite"><pre><span class="k">def</span> <span class="nf">storm</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Endpoint handler for POST requests.&quot;&quot;&quot;</span>
-    <span class="n">sourcetype</span> <span class="o">=</span> <span class="s">&#39;generic_multi_line&#39;</span>
+    <span class="n">sourcetype</span> <span class="o">=</span> <span class="s">&#39;storm_multi_line&#39;</span>
     <span class="n">source</span> <span class="o">=</span> <span class="s">&#39;webhook&#39;</span>
 </pre></div>
 
