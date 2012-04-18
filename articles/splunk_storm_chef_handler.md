@@ -26,7 +26,7 @@ A search for * should result in events like these:
 ## Report
 The following dashboard shows the **Average chef-client Elapsed Time by Host**:
 
-![Average chef-client Elapsed Time by Host](http://dl.dropbox.com/u/4036736/Screenshots/x55o.png)
+![Average chef-client Elapsed Time by Host](http://dl.dropbox.com/u/4036736/Screenshots/qx9j.png)
 
 Here's the assocaited search:
 
