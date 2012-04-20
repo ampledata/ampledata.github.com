@@ -32,6 +32,7 @@ cd ampledata.github.com
 vi articles/how_does_beer_work.md
 ./bin/make.py
 ./bin/publish.sh
+```
 
 
 ## Meta
