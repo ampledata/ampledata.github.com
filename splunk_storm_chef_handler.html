@@ -1,27 +1,76 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
 
-<link rel="stylesheet" href="syntax.css">
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
 
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-30633417-1']);
-  _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
+    <meta charset="utf-8">
+    <title>Splunk Storm Chef Handler</title>
 
-<title>splunk storm chef handler</title>
-</head><body>
-<h1>splunk storm chef handler</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Splunk Storm Chef Handler</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<h3>Overview</h3>
 <p>Using my <a href="https://github.com/ampledata/chef_handler/tree/feature/COOK-1208_splunkstorm_handler">Chef Exception &amp; Reporting Handler for Splunk Storm</a>
 you can easily search for and report on your chef-client runs.</p>
-<h1>Steps</h1>
+<h3>Steps</h3>
 <ol>
 <li>Create a <a href="https://www.splunkstorm.com">Splunk Storm</a> account.</li>
 <li>Retrieve your Splunk Storm <a href="http://docs.splunk.com/Documentation/Storm/Beta/User/UseStormsRESTAPI">REST API Credentials</a>.</li>
@@ -40,26 +89,22 @@ as <strong>PROJECT_ID</strong>, add a chef_handler Resource to one of your Recip
 
 </li>
 </ol>
-<h1>Usage</h1>
-<h2>Search</h2>
+<h3>Usage</h3>
+<h4>Search</h4>
 <p>A search for * should result in events like these:</p>
 <p><img alt="chef-client report in Splunk Storm" src="http://dl.dropbox.com/u/4036736/Screenshots/h2hc.png" /></p>
-<h2>Report</h2>
+<h4>Report</h4>
 <p>The following dashboard shows the <strong>Average chef-client Elapsed Time by Host</strong>:</p>
 <p><img alt="Average chef-client Elapsed Time by Host" src="http://dl.dropbox.com/u/4036736/Screenshots/qx9j.png" /></p>
 <p>Here's the assocaited search:</p>
 <div class="codehilite"><pre><span class="o">*</span> <span class="o">|</span> <span class="n">spath</span> <span class="n">path</span><span class="p">=</span><span class="n">elapsed_time</span> <span class="n">output</span><span class="p">=</span><span class="n">elapsed_time</span> <span class="o">|</span> <span class="n">timechart</span> <span class="n">span</span><span class="p">=</span>&quot;15<span class="n">m</span>&quot; <span class="n">avg</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">)</span> <span class="n">by</span> <span class="n">host</span>
 </pre></div>
 
+      <hr>
+      
 <h2>Share</h2>
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Contact</h2>
-Email: <a href="mailto:gba@splunk.com">gba@splunk.com</a>. Twitter: <a
-  href="http://twitter.com/ampledata">@ampledata</a>.
-Github: <a
-  href="https://github.com/ampledata">https://www.github.com/ampledata</a>.
 
 <h2>Comments</h2>
 <div id="disqus_thread"></div>
@@ -76,13 +121,33 @@ Github: <a
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
-<h2>License</h2>
-<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
-</a></p>
-<p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a
-<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported
-License</a>.</p>
-<p>Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
 
-</body></html>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>

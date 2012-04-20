@@ -26,14 +26,8 @@ This command will print a line similar to this when there's an error:
 Using a Splunk Saved Search with Alerting, you could easily match this event
 and trigger and alert.
 
-
 Alternatively, if you're using Cloudkick you could change the logger
 call at the end of this command to a simple echo:
 
     :::bash
     echo "status $STATUS"
-
--------------
-Greg Albrecht <gba@splunk.com></br>
-
-April 3rd, 2012

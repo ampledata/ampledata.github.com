@@ -1,67 +1,149 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
 
-<link rel="stylesheet" href="syntax.css">
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
 
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-30633417-1']);
-  _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
+    <meta charset="utf-8">
+    <title>Greg Albrecht's ampledata.org</title>
 
-<title>Greg Albrecht's ampledata.org</title>
-</head><body>
-<h1>Greg Albrecht's ampledata.org</h1>
-<h2>Articles</h2>
-<ul>
-<li><a href='email_to_splunk_storm.html'>email to splunk storm</a></li>
-<li><a href='monitor_mbox_mailboxes_with_splunk.html'>monitor mbox mailboxes with splunk</a></li>
-<li><a href='san_francisco_public_safety_answering_point.html'>san francisco public safety answering point</a></li>
-<li><a href='splunk_documentation_search.html'>splunk documentation search</a></li>
-<li><a href='splunk_storm_chef_handler.html'>splunk storm chef handler</a></li>
-<li><a href='splunkd_health_check.html'>splunkd health check</a></li>
-<li><a href='strategy_for_conditional_alerting_with_splunk.html'>strategy for conditional alerting with splunk</a></li>
-<li><a href='wedding_vows_and_speech.html'>wedding vows and speech</a></li>
-</ul>
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
 
-<h2>Contact</h2>
-Email: <a href="mailto:gba@splunk.com">gba@splunk.com</a>. Twitter: <a
-  href="http://twitter.com/ampledata">@ampledata</a>.
-Github: <a
-  href="https://github.com/ampledata">https://www.github.com/ampledata</a>.
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
 
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
 
-<h2>License</h2>
-<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
-</a></p>
-<p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a
-<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported
-License</a>.</p>
-<p>Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  <body>
 
-</body></html>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Greg Albrecht's ampledata.org</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<div class="row">
+  <span class="span6">
+    <h2>Articles</h2>
+    <ul>
+      
+      <li><a href="email_to_splunk_storm.html">Email To Splunk Storm</a></li>
+      
+      <li><a href="monitor_mbox_mailboxes_with_splunk.html">Monitor Mbox Mailboxes With Splunk</a></li>
+      
+      <li><a href="san_francisco_public_safety_answering_point.html">San Francisco Public Safety Answering Point</a></li>
+      
+      <li><a href="splunk_documentation_search.html">Splunk Documentation Search</a></li>
+      
+      <li><a href="splunk_storm_chef_handler.html">Splunk Storm Chef Handler</a></li>
+      
+      <li><a href="splunkd_health_check.html">Splunkd Health Check</a></li>
+      
+      <li><a href="strategy_for_conditional_alerting_with_splunk.html">Strategy For Conditional Alerting With Splunk</a></li>
+      
+      <li><a href="wedding_vows_and_speech.html">Wedding Vows And Speech</a></li>
+      
+    </ul>
+  </span>
+  <span class="span6">
+    <h2>Projects</h2>
+    <dl>
+      <dt><a href="https://www.splunkstorm.com">Splunk Storm</a>
+      <dd>A cloud-based machine data analytics engine.</dd>
+      <dt><a
+        href="https://github.com/ampledata/cookbook-style-guide">cookbook-style-guide</a></dt>
+      <dd>Style & Coding guidelines for Opscode Chef Cookbooks, Recipes &amp;
+      Resources.</dd>
+      <dt><a href="https://github.com/ampledata/chef_handler/tree/feature/COOK-1208_splunkstorm_handler">SplunkStormHandler</a></dt>
+      <dd>Chef Exception &amp; Reporting Handler for Splunk Storm.</a></dd>
+      <dt><a href="https://github.com/ampledata/splunkstorm-webhook">splunkstorm-webhook</a></dt>
+      <dd>Webhook Interface for Splunk Storm.</a></dd>
+      <dt><a href="https://github.com/ampledata/cookbook-lsyncd">cookbook-lsyncd</a></dt>
+      <dd>lsyncd Cookbook for OpsCode Chef.</dd>
+      <dt><a href="https://github.com/ampledata/splunk-input-ruby">splunk-input-ruby</a></dt>
+      <dd>Library for getting data into Splunk using Ruby.</dd>
+      <dt><a href="https://github.com/ampledata/pydstat">pydstat</a></dt>
+      <dd>Pythonic pidstat.</dd>
+      <dt><a href="https://github.com/ampledata/nosh">nosh</a></dt>
+      <dd>Lightweight command-line utility for consuming data with Splunk.
+      Includes Mac OS X Service (for Finder click &amp; index functionality).</dd>
+    </dl>
+  </span>
+</div>
+
+      <hr>
+      
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>

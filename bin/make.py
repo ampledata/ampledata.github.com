@@ -12,46 +12,10 @@ import glob
 import os
 
 import markdown
+import jinja2
 
 
-def generate_header():
-    with open('inc/header.html', 'r') as header_fd:
-        generic_header = header_fd.read()
-    return generic_header
-
-
-def generate_index(articles):
-    generic_header = generate_header()
-    generic_footer = generate_footer()
-    index_body = "<h1>Greg Albrecht's ampledata.org</h1>"
-    index_body = '\n'.join([index_body, '<h2>Articles</h2>'])
-    index_body = '\n'.join([index_body, '<ul>'])
-
-    for article in articles:
-        article_item = (
-            "<li><a href='%s'>%s</a></li>"
-            % (article['html_file'], article['friendly_name']))
-        index_body = '\n'.join([index_body, article_item])
-    index_body = '\n'.join([index_body, '</ul>'])
-
-    index_title = "<title>Greg Albrecht's ampledata.org</title>"
-    index_header = '\n'.join(
-        ['<head>', generic_header, index_title, '</head>'])
-
-    with open('index.html', 'w') as index_fd:
-        index_fd.write('\n'.join(['<!DOCTYPE html>', '<html lang="en">']))
-        index_fd.write(index_header)
-        index_fd.write('<body>\n')
-        index_fd.write(index_body)
-        index_fd.write(generic_footer)
-        index_fd.write('\n</body>')
-        index_fd.write('\n'.join(['</html>']))
-
-
-def generate_footer():
-    with open('inc/footer.html', 'r') as footer_fd:
-        generic_footer = footer_fd.read()
-    return generic_footer
+JINJA2_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(['templates']))
 
 
 def generate_article_names(article_file):
@@ -63,9 +27,20 @@ def generate_article_names(article_file):
     return article
 
 
+def generate_index(articles):
+    index_title = "Greg Albrecht's ampledata.org"
+
+    index_template = JINJA2_ENV.get_template('index.html')
+
+    rendered_index = index_template.render(title=index_title, articles=articles)
+
+    with open('index.html', 'w') as index_fd:
+        index_fd.write(rendered_index)
+
+
 def generate_articles(articles):
-    generic_header = generate_header()
-    generic_footer = generate_footer()
+    article_template = JINJA2_ENV.get_template('article.html')
+
     for article in articles:
         article_content = ''
 
@@ -75,22 +50,13 @@ def generate_articles(articles):
         with open(article['file'], 'r') as article_fd:
             article_content = article_fd.read()
 
-        article_body = markdown.markdown(article_content, ['codehilite'])
-        article_headline = "<h1>%s</h1>" % article['friendly_name']
-        article_title = "<title>%s</title>" % article['friendly_name']
+        article_content = markdown.markdown(article_content, ['codehilite'])
 
-        header = '\n'.join(
-            ['<head>', generic_header, article_title, '</head>'])
-
-        body = '\n'.join(
-            ['<body>', article_headline, article_body, generic_footer,
-            '</body>'])
-
-        with open(article['html_file'], 'w') as html_fd:
-            html_fd.write('\n'.join(['<!DOCTYPE html>', '<html lang="en">']))
-            html_fd.write(header)
-            html_fd.write(body)
-            html_fd.write('\n'.join(['</html>']))
+        rendered_article = article_template.render(
+            title=article['friendly_name'], article_content=article_content)
+        
+        with open(article['html_file'], 'w') as article_fd:
+            article_fd.write(rendered_article)
 
 
 def main():

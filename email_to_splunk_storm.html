@@ -1,30 +1,79 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
 
-<link rel="stylesheet" href="syntax.css">
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
 
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-30633417-1']);
-  _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
+    <meta charset="utf-8">
+    <title>Email To Splunk Storm</title>
 
-<title>email to splunk storm</title>
-</head><body>
-<h1>email to splunk storm</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Email To Splunk Storm</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<h3>Overview</h3>
 <p>Using my <a href="https://github.com/ampledata/splunkstorm-webhook">Splunk Storm
 Webhook</a> and an email
 service provider like <a href="http://www.emailyak.com/">Email Yak</a> we can
 easily index, search and report on email messages using <a href="https://www.splunkstorm.com">Splunk
 Storm</a>.</p>
-<h1>Steps</h1>
+<h3>Steps</h3>
 <ol>
 <li>Follow the instructions for setting up the <a href="https://github.com/ampledata/splunkstorm-webhook">Splunk Storm
    Webhook</a>.</li>
@@ -34,14 +83,14 @@ Storm</a>.</p>
 3. Send a test email: <code>echo 'this is a test email'| mail -s 'test email' gba@emailtostorm.simpleyak.com</code></br>
 4. Search for and report on your email with Splunk Storm:</p>
 <p><img alt="Email in Splunk Storm" src="http://dl.dropbox.com/u/4036736/Screenshots/48d-.png" /></p>
-<h1>Bonus</h1>
+<h3>Bonus</h3>
 <p>Here's another useful search that extracts the message body and displays it
 as a table:</p>
 <div class="codehilite"><pre><span class="o">*</span><span class="n">simpleyak</span><span class="o">*</span> <span class="o">|</span> <span class="n">spath</span> <span class="n">output</span><span class="p">=</span><span class="n">TextBody</span> <span class="n">TextBody</span> <span class="o">|</span> <span class="n">table</span> <span class="n">TextBody</span>
 </pre></div>
 
 
-<h1>Update</h1>
+<h3>Other Email Services</h3>
 <p>When I initially wrote this article I chose Email Yak as my provider
 because of their 'Free' account level and Email Push via HTTP POST
 (aka <a href="http://webhooks.org/">Webhooks</a>) support. As it turns out, our friends
@@ -57,20 +106,11 @@ change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype<
     <span class="n">source</span> <span class="o">=</span> <span class="s">&#39;webhook&#39;</span>
 </pre></div>
 
-
-<hr />
-<p>Greg Albrecht <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;">&#103;&#98;&#97;&#64;&#115;&#112;&#108;&#117;&#110;&#107;&#46;&#99;&#111;&#109;</a></p>
-<p>April 16th, 2012</p>
-
+      <hr>
+      
 <h2>Share</h2>
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Contact</h2>
-Email: <a href="mailto:gba@splunk.com">gba@splunk.com</a>. Twitter: <a
-  href="http://twitter.com/ampledata">@ampledata</a>.
-Github: <a
-  href="https://github.com/ampledata">https://www.github.com/ampledata</a>.
 
 <h2>Comments</h2>
 <div id="disqus_thread"></div>
@@ -87,13 +127,33 @@ Github: <a
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
-<h2>License</h2>
-<p><a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
-</a></p>
-<p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a
-<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported
-License</a>.</p>
-<p>Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
 
-</body></html>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>

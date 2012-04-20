@@ -1,9 +1,14 @@
+### Overview
+
 Working on a project that relies heavily on Splunk (that is, Splunk itself)
 requires frequent trips to the [Splunk Documentation](http://docs.splunk.com).
 
 I'm a [LaunchBar](http://www.obdev.at/products/launchbar/index.html) user
 (think Quicksilver), here's the steps I've used to create a Custom Search
-Template for Splunk Documentation:
+Template for Splunk Documentation.
+
+
+### Steps
 
 1. Open the LaunchBar Index (Option+Command+I).
 2. Select the *Custom Search Template* folder.
@@ -15,7 +20,8 @@ Template for Splunk Documentation:
 
 ![LaunchBar Index Window](http://dl.dropbox.com/u/4036736/Screenshots/2b88.png)
 
-## To search:
+
+### Usage
 
 ![LaunchBar Search Box](http://dl.dropbox.com/u/4036736/Screenshots/-r49.png)
 
@@ -25,10 +31,3 @@ Template for Splunk Documentation:
 4. Press [return].
 
 ![Splunk Documentation Search Results](http://dl.dropbox.com/u/4036736/Screenshots/mbfi.png)
-
-Enjoy!
-
----
-Greg Albrecht
-
-April 5th, 2012

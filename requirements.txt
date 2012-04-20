@@ -8,3 +8,4 @@
 
 pygments
 markdown
+jinja2

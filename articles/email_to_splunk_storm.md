@@ -1,10 +1,13 @@
+### Overview
+
 Using my [Splunk Storm
 Webhook](https://github.com/ampledata/splunkstorm-webhook) and an email
 service provider like [Email Yak](http://www.emailyak.com/) we can
 easily index, search and report on email messages using [Splunk
 Storm](https://www.splunkstorm.com).
 
-# Steps
+
+### Steps
 
 1. Follow the instructions for setting up the [Splunk Storm
    Webhook](https://github.com/ampledata/splunkstorm-webhook).
@@ -16,13 +19,17 @@ Storm](https://www.splunkstorm.com).
 
   ![Email in Splunk Storm](http://dl.dropbox.com/u/4036736/Screenshots/48d-.png)
 
-# Bonus
+
+### Bonus
+
 Here's another useful search that extracts the message body and displays it
 as a table:
 
     *simpleyak* | spath output=TextBody TextBody | table TextBody
 
-# Update
+
+### Other Email Services
+
 When I initially wrote this article I chose Email Yak as my provider
 because of their 'Free' account level and Email Push via HTTP POST
 (aka [Webhooks](http://webhooks.org/)) support. As it turns out, our friends
@@ -39,8 +46,3 @@ change in my Webhook. In `app.py` on line 31 change `sourcetype` from
         """Endpoint handler for POST requests."""
         sourcetype = 'storm_multi_line'
         source = 'webhook'
-
----
-Greg Albrecht <gba@splunk.com>
-
-April 16th, 2012

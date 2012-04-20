@@ -30,8 +30,3 @@ eventtype in savedsearch.conf:
 
 Going forward, anytime Splunk indexes an event with the string **status err**,
 I'll receive an email alert.
-
----
-Greg Albrecht <gba@splunk.com>
-
-April 4th, 2012

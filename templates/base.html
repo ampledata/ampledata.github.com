@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    {% block head %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
 
@@ -19,7 +19,7 @@
     </script>
 
     <meta charset="utf-8">
-    <title>Strategy For Conditional Alerting With Splunk</title>
+    <title>{% block title %}{{ title }}{% endblock %}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Greg Albrecht's ampledata.org">
@@ -45,7 +45,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
-    
+    {% endblock %}
   </head>
 
   <body>
@@ -53,7 +53,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Strategy For Conditional Alerting With Splunk</a>
+          <a class="brand" href="#">{% block brand_title %}{{ title }}{% endblock %}</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="index.html">Home</a></li>
@@ -66,61 +66,9 @@
     </div>
 
     <div class="container">
-      
-<p>Create an eventtype for the conditions you want to alert on, for
-example from eventtypes.conf:</p>
-<div class="codehilite"><pre><span class="k">[nbx]</span>
-<span class="na">search</span> <span class="o">=</span> <span class="s">&quot;status err&quot;</span>
-</pre></div>
-
-
-<p>Then create a Saved Search that Alerts if there are any events with this
-eventtype in savedsearch.conf:</p>
-<div class="codehilite"><pre><span class="k">[nbx]</span>
-<span class="na">action.email</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">action.email.inline</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">action.email.sendresults</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">action.email.to</span> <span class="o">=</span> <span class="s">gba@splunk.com</span>
-<span class="na">alert.digest_mode</span> <span class="o">=</span> <span class="s">False</span>
-<span class="na">alert.severity</span> <span class="o">=</span> <span class="s">4</span>
-<span class="na">alert.suppress</span> <span class="o">=</span> <span class="s">0</span>
-<span class="na">alert.track</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">counttype</span> <span class="o">=</span> <span class="s">number of events</span>
-<span class="na">cron_schedule</span> <span class="o">=</span> <span class="s">*/5 * * * *</span>
-<span class="na">description</span> <span class="o">=</span> <span class="s">gba&#39;s nbx experiment</span>
-<span class="na">dispatch.earliest_time</span> <span class="o">=</span> <span class="s">-6m@m</span>
-<span class="na">dispatch.latest_time</span> <span class="o">=</span> <span class="s">-1m@m</span>
-<span class="na">enableSched</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">quantity</span> <span class="o">=</span> <span class="s">0</span>
-<span class="na">relation</span> <span class="o">=</span> <span class="s">greater than</span>
-<span class="na">search</span> <span class="o">=</span> <span class="s">eventtype=&quot;nbx&quot;</span>
-</pre></div>
-
-
-<p>Going forward, anytime Splunk indexes an event with the string <strong>status err</strong>,
-I'll receive an email alert.</p>
-
+      {% block content %}{% endblock %}
       <hr>
-      
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
+      {% block footer %}
       <footer>
         Contact Greg Albrecht: Email <a
           href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
@@ -129,8 +77,7 @@ I'll receive an email alert.</p>
         
         <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
       </footer>
-      
-
+      {% endblock %}
     </div> <!-- /container -->
 
     <!-- Le javascript
