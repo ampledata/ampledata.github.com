@@ -1,6 +1,6 @@
 ### Overview
 
-Using my [Chef Exception & Reporting Handler for Splunk Storm](https://github.com/ampledata/chef_handler/tree/feature/COOK-1208_splunkstorm_handler)
+Using my [Chef Exception & Reporting Handler for Splunk Storm](https://github.com/ampledata/chef-handler-splunkstorm)
 you can easily search for and report on your chef-client runs.
 
 
