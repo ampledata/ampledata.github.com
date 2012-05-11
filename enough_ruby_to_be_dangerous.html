@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <meta charset="utf-8">
+    <title>Enough Ruby To Be Dangerous</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Enough Ruby To Be Dangerous</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<h1>Introduction</h1>
+<p>I am a recovering System Administrator. It's a title I was chained to for the 
+first 10 or so years of my career. I've only recently decided to tackle 
+Software Engineering full-time, and it's kept me clear of on-call duties for 
+the past 4 years!</p>
+<p>This was until the company I work at, Splunk, decided to start a new 'cloud'
+based service, Splunk Storm. This project was going to be run 'DevOps' style,
+which was a perfect hybridization of my skills as a Sys Admin and Software 
+Engineer! In addition, we were going to be using Chef for infrastructure 
+automation!</p>
+<p>So, at this point, I was becoming pretty versed at Python. I had no interest 
+in taking on the task of learning Ruby, or a DSL there-of. I wanted to 
+continue getting really good at Python. I mean, I need SOME Pythonic fodder 
+on my resume.</p>
+<p>But, I knew the pains of repetitive System Administration tasks. So Chef, 
+and Ruby, it was.</p>
+<p>I figured I was going to have to learn <em>Enough Ruby to be Dangerous</em>.</p>
+<h1>Ruby</h1>
+<h2>What is Ruby, right?</h2>
+<p>Ruby is a Python DSL for Hipsters.</p>
+<p>j/k.</p>
+<blockquote>
+<p>An interpreted scripting language for quick and easy object-oriented 
+programming. -Matz</p>
+</blockquote>
+<p>That's Yukihiro 'Matz' Matsumoto, the creator of Ruby. He created Ruby in
+the 90's because he wanted something more powerful than Perl and more OOP
+Python.</p>
+<h2>Remember the mantra</h2>
+<p>It's <em>quick and easy</em> (and big in Japan).</p>
+<h2>Why Ruby for Chef?</h2>
+<p>Well, it comes down to ease-of-use. </p>
+<ol>
+<li>Ruby has minimal syntax, so it takes very little code to get most common 
+activities done.</li>
+<li>The code should look as close to a configuration as possible.
+        package 'foo'</li>
+<li>When Adam and Co were writing Chef many of their initial customers were 
+Rails shops, so adoption of another Ruby app was a no-brainer.</li>
+</ol>
+<h2>What's so different about Ruby?</h2>
+<p>Well, when Matz describes it as an object-orient language, he literally 
+means that everything is an object. For example, the line of code below
+converts the integer 1 into a floating point integer:</p>
+<div class="codehilite"><pre><span class="mi">1</span><span class="o">.</span><span class="n">to_f</span>
+ <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+
+
+<p>Everything is an object. It really is that simple:</p>
+<div class="codehilite"><pre><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;ocat&quot;</span>
+</pre></div>
+
+
+<p>Everything.</p>
+<div class="codehilite"><pre><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span><span class="o">.</span><span class="n">reverse</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;taco&quot;</span>
+</pre></div>
+
+
+<p>Everything!
+That's a little different, right?</p>
+<p>I mean, how would we do this in Python?</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="mf">1.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s">&#39;taco&#39;</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="s">&#39;ocat&#39;</span>
+</pre></div>
+
+
+<p>Yeah, it's about the same amount of coding, but unless you've reversed a
+string 100 times in Python, are you really going to remember what <code>[::-1]</code>
+does?</p>
+<h1>Style</h1>
+<p>Once I grasped that everything in Ruby was an object, I started exploring 
+my OOP prowess by browsing the Ruby Standard Library and writing obscure 
+shit that even I didn't understand (and my co-workers loathed):</p>
+<div class="codehilite"><pre><span class="c1"># I have no idea what this does:</span>
+<span class="n">build</span> <span class="o">=</span> <span class="p">(</span><span class="n">url_body</span><span class="o">/</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
+  <span class="n">l</span><span class="o">.</span><span class="n">inner_html</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">inner_html</span><span class="o">.</span><span class="n">start_with?</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">-&quot;</span> 
+<span class="k">end</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|!</span><span class="n">i</span><span class="o">.</span><span class="n">nil?</span><span class="p">}</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">|</span><span class="n">y</span><span class="o">&lt;=&gt;</span><span class="n">x</span><span class="p">}</span><span class="o">.</span><span class="n">first</span>
+</pre></div>
+
+
+<p>That was until I had to go back and fix it.</p>
+<h2>What did I learn?</h2>
+<p>Well, it's important to write code that other people can read, and a really 
+good guideline for writing readable code is the Style Guide.</p>
+<p>Even if you never go another Ruby talk, even if you never read a Ruby book: 
+Use the Style Guide!</p>
+<h1>Walk the Walk</h1>
+<p>Aside from helping you write better code as a new developer, the Style Guide 
+has the added benefit of training you the lexicon of the language. Speaking 
+in the context and the convention of a language is a prerequisite for 
+knowledge.</p>
+<blockquote>
+<p>Teaching conventions in isolation is ineffective at best, because students 
+need opportunities to apply their knowledge of conventions to their writing. </p>
+<p>Even daily oral language activities are a waste of time for students 
+without procedural knowledge of how and when to use conventions in writing.</p>
+<p>Consequently, the most effective way to teach conventions is to integrate 
+instruction directly into the writing process.</p>
+</blockquote>
+<p>I mean we've all had to describe bugs to other people. In fact, we've had to
+have people describe their bugs to us. Think of the difference between "The 
+website is down." and "I'm getting 'no route to host'." Big difference. Huge.</p>
+<h1>Smoke some irb</h1>
+<p>Ok, we know what good Ruby looks like, and we've got an idea of how we can 
+express ideas in Ruby. Where do we start? I recommend smoking some <strong>irb</strong>, 
+Ruby's Interactive Shell. For example, the examples above look something
+like this in irb:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">irb</span>
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s1">&#39;this is irb&#39;</span>
+<span class="n">this</span> <span class="n">is</span> <span class="n">irb</span>
+ <span class="o">=&gt;</span> <span class="kp">nil</span> 
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="n">me</span> <span class="o">=</span> <span class="s1">&#39;gba&#39;</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;gba&quot;</span> 
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s2">&quot;hi </span><span class="si">#{</span><span class="n">me</span><span class="si">}</span><span class="s2">, welcome to irb.&quot;</span>
+<span class="n">hi</span> <span class="n">gba</span><span class="p">,</span> <span class="n">welcome</span> <span class="n">to</span> <span class="n">irb</span><span class="o">.</span>
+ <span class="o">=&gt;</span> <span class="kp">nil</span> 
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="n">quit</span><span class="p">()</span>
+</pre></div>
+
+
+<p>You're going to experiment a lot. In fact, I highly recommend you experiment 
+before even beginning to write actual deployable code. Your options are 
+writing an entire program and finding a syntax error on a production system, 
+or incrementing through each code block in your terminal.</p>
+<h1>Primitive Primer</h1>
+<p>We've gotten a quick view of what Ruby looks like through my awesome OOP
+examples above, but before we get any deeper, lets have a look at some of the
+language primitives. These are the fundamental - atomic - types of 
+knowledge representation in any language:</p>
+<div class="codehilite"><pre><span class="c1"># String</span>
+<span class="s1">&#39;taco&#39;</span>
+
+<span class="c1"># Integer</span>
+<span class="mi">1</span>
+
+<span class="c1"># Float</span>
+<span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+
+<span class="c1"># Array</span>
+<span class="o">[</span><span class="s1">&#39;taco&#39;</span><span class="p">,</span> <span class="s1">&#39;burrito&#39;</span><span class="o">]</span>
+
+<span class="c1"># Hash</span>
+<span class="p">{</span><span class="s1">&#39;lunch&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;taco&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Shit just got real. </p>
+<p>So where does the OOP come in? Well, lets look at what we can do with these
+primitive types:</p>
+<div class="codehilite"><pre><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">methods</span>
+ <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;upcase!&quot;</span><span class="p">,</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span> <span class="s2">&quot;find_index&quot;</span><span class="p">,</span> <span class="s2">&quot;between?&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack&quot;</span><span class="p">,</span> <span class="s2">&quot;each_slice&quot;</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.]</span>
+</pre></div>
+
+
+<p>This lists just about everything you can do to a primitive of type String.
+You've already seen an example of this with <code>reverse</code>:</p>
+<div class="codehilite"><pre><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
+ <span class="o">=&gt;</span> <span class="s1">&#39;socat&#39;</span>
+</pre></div>
+
+
+<p>In addition to the methods listed for each of the primitives, Ruby also
+includes many built-in methods.</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;</span> <span class="nb">methods</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;irb_print_working_binding&quot;</span><span class="p">,</span> <span class="s2">&quot;inspect&quot;</span><span class="p">,</span> <span class="s2">&quot;workspaces&quot;</span><span class="p">,</span> <span class="s2">&quot;tap&quot;</span><span class="p">,</span> <span class="s2">&quot;clone&quot;</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.]</span>
+
+<span class="o">::</span><span class="ss">:ruby</span>
+<span class="o">&gt;&gt;</span> <span class="no">Kernel</span><span class="o">.</span><span class="n">methods</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;inspect&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;private_class_method&quot;</span><span class="p">,</span> <span class="s2">&quot;exit!&quot;</span><span class="p">,</span> <span class="s2">&quot;chomp!&quot;</span><span class="p">,</span> <span class="s2">&quot;tap&quot;</span><span class="p">,</span> <span class="o">.</span><span class="n">.</span><span class="o">.]</span>
+</pre></div>
+
+
+<h1>Library Hell</h1>
+<p>Any language gains its power through it's extensibility, including it's
+ability to support importing external libraries. Ruby is not immune. Using
+the <code>require</code> builtin method we can easily import libraries
+included in both the standard Ruby distribution, and those created by external
+authors. </p>
+<p>Here we're importing the <code>open-uri</code> library, which extends the
+built-in <code>open</code> method to support.. opening URIs!:</p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+<span class="n">gba</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;http://ampledata.org&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>Files &amp; Exceptions</h1>
+<p>On to the fun stuff. Lets actually do something. Lets start by opening a
+file. Since we've all got access to a Unix system, lets check out what our
+BOFH has left in our MOTD:</p>
+<div class="codehilite"><pre><span class="n">open</span><span class="p">(</span><span class="s">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+ <span class="p">=</span><span class="o">&gt;</span> <span class="n">Errno</span><span class="p">::</span><span class="n">ENOENT</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span> <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">motd</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1<span class="p">:</span><span class="n">in</span> `<span class="n">initialize</span><span class="o">&#39;</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1<span class="p">:</span><span class="n">in</span> `<span class="n">open</span><span class="o">&#39;</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1
+</pre></div>
+
+
+<p>What the crap happened here? </p>
+<p>We raised an exception, or a program interrupt. Apparently it's what big
+kids to in programming languages... no return codes here!</p>
+<p>What can we glean from this Exception? Well, for starters we can see what
+this exception is called: <strong>Errno::ENOENT</strong>. Additionally we've got a
+friendly error message in <strong>No such file or directory</strong>, and finally the
+code path leading back to our error.</p>
+<p>Ok, we're all System Administrators, we know that files and filesystems are 
+never eternal. If this were a chunk of code we were deploying to a 
+server, how would we keep this from causing our pager to go off at 
+3AM? We'll catch it!</p>
+<div class="codehilite"><pre><span class="k">begin</span>
+  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ENOENT</span>
+  <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
+<span class="k">end</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
+</pre></div>
+
+
+<p>We're telling Ruby that we want to rescue the specific error 
+<strong>Errno::ENOENT</strong> and if it happens, return a friendlier error message.</p>
+<p>Awesome. Our pager is quiet, back to drinking.</p>
+<p>But wait, we still don't have a MOTD. TOFIX!</p>
+<h1>RI &amp; RDoc</h1>
+<p>Since we're using <code>open</code> to try and read our MOTD, maybe we can also use it
+to write our MOTD. We've got some tools that can help us with that too. From
+the command line we can invoke the <code>ri</code> utility to look at the embedded
+documentation for <code>open</code>:</p>
+<div class="codehilite"><pre><span class="o">---------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="nb">open</span>
+     <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span>               <span class="o">=&gt;</span> <span class="n">io</span>
+     <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">io</span><span class="o">|</span> <span class="n">block</span> <span class="p">}</span> <span class="o">=&gt;</span> <span class="n">obj</span>
+<span class="o">------------------------------------------------------------------------</span>
+     <span class="no">With</span> <span class="n">no</span> <span class="n">associated</span> <span class="n">block</span><span class="p">,</span> <span class="o">+</span><span class="nb">open</span><span class="o">+</span> <span class="n">is</span> <span class="n">a</span> <span class="n">synonym</span> <span class="k">for</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="kp">new</span><span class="o">+.</span> <span class="no">If</span> <span class="n">the</span>
+     <span class="n">optional</span> <span class="n">code</span> <span class="n">block</span> <span class="n">is</span> <span class="n">given</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">passed</span> <span class="n">_io_</span> <span class="n">as</span> <span class="n">an</span>
+     <span class="n">argument</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="no">IO</span> <span class="n">object</span> <span class="n">will</span> <span class="n">automatically</span> <span class="n">be</span> <span class="n">closed</span> <span class="k">when</span> <span class="n">the</span>
+     <span class="n">block</span> <span class="n">terminates</span><span class="o">.</span> <span class="no">In</span> <span class="n">this</span> <span class="n">instance</span><span class="p">,</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="nb">open</span><span class="o">+</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span>
+     <span class="n">the</span> <span class="n">block</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Here's the ri for <strong>IO.new</strong>:</p>
+<div class="codehilite"><pre><span class="o">----------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="kp">new</span>
+     <span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>   <span class="o">=&gt;</span> <span class="n">io</span>
+<span class="o">------------------------------------------------------------------------</span>
+     <span class="no">Returns</span> <span class="n">a</span> <span class="kp">new</span> <span class="o">+</span><span class="no">IO</span><span class="o">+</span> <span class="n">object</span> <span class="p">(</span><span class="n">a</span> <span class="n">stream</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">given</span> <span class="n">integer</span> <span class="n">file</span>
+     <span class="n">descriptor</span> <span class="ow">and</span> <span class="n">mode</span> <span class="n">string</span><span class="o">.</span> <span class="no">See</span> <span class="n">also</span> <span class="o">+</span><span class="no">IO</span><span class="c1">#fileno+ and +IO::for_fd+.</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>      <span class="c1"># &#39;2&#39; is standard error</span>
+        <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;Hello&quot;</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;World&quot;</span>
+
+     <span class="n">_produces</span><span class="ss">:_</span>
+
+        <span class="no">Hello</span>
+        <span class="no">World</span>
+</pre></div>
+
+
+<p>Sweet. We now know how to open files, and write to files.</p>
+<h1>Back to the real MOTD</h1>
+<p>Where are we going to get the content for our MOTD? Luckily I know an
+inspirational source:</p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?count=1&amp;screen_name=georgetakei&#39;</span><span class="p">)</span>
+<span class="n">fd</span><span class="o">.</span><span class="n">read</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;[{</span><span class="se">\&quot;</span><span class="s2">created_at</span><span class="se">\&quot;</span><span class="s2">:</span><span class="se">\&quot;</span><span class="s2">Sat May 05 15:27:11 +0000 2012</span><span class="se">\&quot;</span><span class="s2">,</span><span class="se">\&quot;</span><span class="s2">id</span><span class="se">\&quot;</span><span class="s2">:198795988947...</span>
+</pre></div>
+
+
+<p>I have an idea for a Chef LWRP!</p>
+<h1>Of Resources &amp; Men</h1>
+<p>Real quick lets break down the components of a Chef LWRP:</p>
+<ol>
+<li><strong>Resource</strong>: Where we define the actions and parameters of an LWRP.</li>
+<li><strong>Provider</strong>: The actual implementation &amp; code for an interface.</li>
+</ol>
+<p>You can think of a Resource as a method definition, and the Provider as the
+method itself:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">resource</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+  <span class="n">provider</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>First, lets create a new Cookbook: <code>knife cookbook create motd</code></p>
+<p>Now lets create our Resource: <code>vi motd/resources/default.rb</code></p>
+<div class="codehilite"><pre><span class="n">actions</span> <span class="ss">:create</span>
+
+<span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">super</span>
+  <span class="vi">@action</span> <span class="o">=</span> <span class="ss">:create</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>Finally, we'll create our Provider: <code>vi motd/providers/default.rb</code></p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+
+<span class="n">action</span> <span class="ss">:create</span> <span class="k">do</span>
+  <span class="n">twitter</span> <span class="o">=</span> <span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?count=1&amp;screen_name=&#39;</span>
+  <span class="n">tweet</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+  <span class="c1"># Connect to twitter, ask them for the goods, parse the JSON:</span>
+  <span class="nb">open</span><span class="p">(</span><span class="n">twitter</span> <span class="o">+</span> <span class="n">new_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">tfd</span><span class="o">|</span> <span class="n">tweet</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">(</span><span class="n">tfd</span><span class="o">.</span><span class="n">read</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="c1"># Write only the text of the tweet to our file:</span>
+  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">mfd</span><span class="o">|</span> <span class="n">mfd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="c1"># Let the other Resources know we did some work today:</span>
+  <span class="n">new_resource</span><span class="o">.</span><span class="n">updated_by_last_action</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>As an added bonus, we'll include a base recipe: <code>vi motd/recipe/default.rb</code></p>
+<div class="codehilite"><pre><span class="n">motd</span> <span class="s1">&#39;georgetakei&#39;</span>
+</pre></div>
+
+
+<p>Cool, lets see if it works with <strong>shef</strong>:</p>
+<div class="codehilite"><pre><span class="n">chef</span> <span class="o">&gt;</span> <span class="n">recipe</span>
+<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="n">include_recipe</span> <span class="s1">&#39;motd&#39;</span>
+<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="n">run_chef</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="mo">06</span> <span class="no">May</span> <span class="mi">2012</span> <span class="mi">11</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">43</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="no">DEBUG</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">on</span> <span class="n">karman</span><span class="o">.</span><span class="n">home</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="mo">06</span> <span class="no">May</span> <span class="mi">2012</span> <span class="mi">11</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">43</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="no">INFO</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">action</span> <span class="n">create</span> <span class="p">(</span><span class="n">motd</span><span class="o">::</span><span class="n">default</span> <span class="n">line</span> <span class="mi">1</span><span class="p">)</span>
+ <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
+ <span class="o">=&gt;</span> <span class="s2">&quot;Ke$ha dubs herself </span><span class="se">\&quot;</span><span class="s2">Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&quot;</span>
+</pre></div>
+
+
+<h1>Testing</h1>
+<p>Having any amount of code in a Provider can lead down a dangerous path of
+having a code path that lacks coverage, or testing. Lets abstract our
+MOTD Provider out to a Library that we can then test: <code>vi motd/libraries/default.rb</code></p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+
+<span class="no">TWITTER</span> <span class="o">=</span> <span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?count=1&amp;screen_name=&#39;</span>
+
+<span class="c1"># Connects to twitter, retrieves tweets for screen_name.</span>
+<span class="k">def</span> <span class="nf">get_tweet</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+  <span class="nb">open</span><span class="p">(</span><span class="no">TWITTER</span> <span class="o">+</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">tfd</span><span class="o">|</span> <span class="no">JSON</span><span class="p">(</span><span class="n">tfd</span><span class="o">.</span><span class="n">read</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># Writes tweet out to /etc/motd.</span>
+<span class="k">def</span> <span class="nf">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">mfd</span><span class="o">|</span> <span class="n">mfd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>Now lets create some tests for our Library: <code>vi motd/libraries/default.rb</code></p>
+<div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
+
+<span class="k">class</span> <span class="nc">TestMOTDLibrary</span> <span class="o">&lt;</span> <span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="k">def</span> <span class="nf">test_get_tweet</span>
+    <span class="n">tweets</span> <span class="o">=</span> <span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;ampledata&#39;</span><span class="p">)</span>
+    <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+
+    <span class="n">assert_kind_of</span><span class="p">(</span><span class="nb">String</span><span class="p">,</span> <span class="n">tweet</span><span class="p">)</span>
+    <span class="n">assert_match</span><span class="p">(</span><span class="sr">/Ruby Testing/</span><span class="p">,</span> <span class="n">tweet</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">test_write_motd</span>
+    <span class="n">tweets</span> <span class="o">=</span> <span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
+    <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+
+    <span class="n">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+    <span class="n">motd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
+
+    <span class="n">assert_equal</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">motd</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>And lets run our tests <code>ruby libraries/default.rb</code>:</p>
+<div class="codehilite"><pre><span class="no">Loaded</span> <span class="n">suite</span> <span class="n">libraries</span><span class="o">/</span><span class="n">default</span>
+<span class="no">Started</span>
+<span class="n">F</span><span class="o">.</span>
+<span class="no">Finished</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="mi">428887</span> <span class="n">seconds</span><span class="o">.</span>
+
+  <span class="mi">1</span><span class="p">)</span> <span class="no">Failure</span><span class="p">:</span>
+<span class="n">test_get_tweet</span><span class="p">(</span><span class="no">TestMOTDLibrary</span><span class="p">)</span> <span class="o">[</span><span class="n">libraries</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">26</span><span class="o">]</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="no">Ke</span><span class="vg">$ha</span> <span class="n">dubs</span> <span class="n">herself</span> <span class="p">\</span><span class="s2">&quot;Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&gt; expected to be =~</span>
+<span class="s2">&lt;/Ruby Testing/&gt;.</span>
+
+<span class="s2">2 tests, 3 assertions, 1 failures, 0 errors</span>
+</pre></div>
+
+
+<p>Oh, right :)</p>
+<h1>References</h1>
+<ul>
+<li><a href="https://github.com/bbatsov/ruby-style-guide">A community-driven Ruby coding style guide</a></li>
+<li>
+<p><a href="http://en.wikibooks.org/wiki/Ruby_Programming/Unit_testing">Unit Testing in Ruby</a></p>
+</li>
+<li>
+<p><a href="http://wiki.opscode.com/display/chef/Just+Enough+Ruby+for+Chef">Just Enough Ruby for Chef</a></p>
+</li>
+<li><a href="http://mislav.uniqpath.com/poignant-guide/">_why's (poignant) Guide to Ruby</a></li>
+<li><a href="http://www.rubycentral.com/pickaxe/">Programming Ruby</a></li>
+</ul>
+
+      <hr>
+      
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
