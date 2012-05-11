@@ -74,15 +74,20 @@ you can easily search for and report on your chef-client runs.</p>
 <ol>
 <li>Create a <a href="https://www.splunkstorm.com">Splunk Storm</a> account.</li>
 <li>Retrieve your Splunk Storm <a href="http://docs.splunk.com/Documentation/Storm/Beta/User/UseStormsRESTAPI">REST API Credentials</a>.</li>
-<li>Download the <a href="https://github.com/ampledata/chef_handler/tree/feature/COOK-1208_splunkstorm_handler">chef_handler</a> Cookbook.</li>
-<li>Add the <strong>chef_handler</strong> Cookbook to your Run List.</li>
+<li>Download the <a href="http://community.opscode.com/cookbooks/chef_handler">chef_handler</a>
+Cookbook.</li>
 <li>
 <p>Given you've retrieved your Access Token as <strong>ACCESS_TOKEN</strong> and Project ID
-as <strong>PROJECT_ID</strong>, add a chef_handler Resource to one of your Recipes:</p>
-<div class="codehilite"><pre><span class="n">chef_handler</span> <span class="s1">&#39;SplunkStorm::SplunkStormHandler&#39;</span> <span class="k">do</span>
+as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:</p>
+<div class="codehilite"><pre><span class="n">include_recipe</span> <span class="s1">&#39;chef_handler&#39;</span>
+
+<span class="n">gem_package</span><span class="p">(</span><span class="s1">&#39;chef-handler-splunkstorm&#39;</span><span class="p">){</span><span class="n">action</span> <span class="ss">:nothing</span><span class="p">}</span><span class="o">.</span><span class="n">run_action</span><span class="p">(</span><span class="ss">:install</span><span class="p">)</span>
+
+<span class="n">chef_handler</span> <span class="s1">&#39;Chef::Handler::SplunkStorm&#39;</span> <span class="k">do</span>
   <span class="n">action</span> <span class="ss">:enable</span>
-  <span class="n">source</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">[</span><span class="s1">&#39;chef_handler&#39;</span><span class="o">][</span><span class="s1">&#39;handler_path&#39;</span><span class="o">]</span><span class="p">,</span> <span class="s1">&#39;splunkstorm.rb&#39;</span><span class="p">)</span>
   <span class="n">arguments</span> <span class="o">[</span><span class="s1">&#39;ACCESS_TOKEN&#39;</span><span class="p">,</span> <span class="s1">&#39;PROJECT_ID&#39;</span><span class="o">]</span>
+  <span class="n">source</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">Gem</span><span class="o">.</span><span class="n">all_load_paths</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="sr">/chef-handler-splunkstorm/</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">,</span>
+                   <span class="s1">&#39;chef&#39;</span><span class="p">,</span> <span class="s1">&#39;handler&#39;</span><span class="p">,</span> <span class="s1">&#39;splunkstorm.rb&#39;</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 

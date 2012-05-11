@@ -8,16 +8,21 @@ you can easily search for and report on your chef-client runs.
 
 1. Create a [Splunk Storm](https://www.splunkstorm.com) account.
 2. Retrieve your Splunk Storm [REST API Credentials](http://docs.splunk.com/Documentation/Storm/Beta/User/UseStormsRESTAPI).
-3. Download the [chef_handler](https://github.com/ampledata/chef_handler/tree/feature/COOK-1208_splunkstorm_handler) Cookbook.
-4. Add the **chef_handler** Cookbook to your Run List.
-5. Given you've retrieved your Access Token as **ACCESS_TOKEN** and Project ID
-as **PROJECT_ID**, add a chef_handler Resource to one of your Recipes:
+3. Download the [chef_handler](http://community.opscode.com/cookbooks/chef_handler)
+Cookbook.
+4. Given you've retrieved your Access Token as **ACCESS_TOKEN** and Project ID
+as **PROJECT_ID**, add a Recipe similar to the example below:
 
         :::ruby
-        chef_handler 'SplunkStorm::SplunkStormHandler' do
+        include_recipe 'chef_handler'
+
+        gem_package('chef-handler-splunkstorm'){action :nothing}.run_action(:install)
+
+        chef_handler 'Chef::Handler::SplunkStorm' do
           action :enable
-          source File.join(node['chef_handler']['handler_path'], 'splunkstorm.rb')
           arguments ['ACCESS_TOKEN', 'PROJECT_ID']
+          source File.join(Gem.all_load_paths.grep(/chef-handler-splunkstorm/).first,
+                           'chef', 'handler', 'splunkstorm.rb')
         end
 
 ### Usage
