@@ -2,25 +2,22 @@ Introduction
 ============
 
 I am a recovering System Administrator. It's a title I was chained to for the 
-first 10 or so years of my career. I've only recently decided to tackle 
-Software Engineering full-time, and it's kept me clear of on-call duties for 
-the past 4 years!
+first decade career. I've only recently decided to tackle Software 
+Engineering full-time. Despite the challenges of changing careers, it has
+kept me free of on-call pager duties.
 
-This was until the company I work at, Splunk, decided to start a new 'cloud'
-based service, Splunk Storm. This project was going to be run 'DevOps' style,
-which was a perfect hybridization of my skills as a Sys Admin and Software 
-Engineer! In addition, we were going to be using Chef for infrastructure 
-automation!
+This was until my company decided to start a new cloud-based service 
+offering. This service was to be run 'DevOps' style - a perfect hybrid of
+my experience in both System Administration and Software Engineering. To
+scale this new service, we were going to use Chef for infrastructure
+automation.
 
-So, at this point, I was becoming pretty versed at Python. I had no interest 
-in taking on the task of learning Ruby, or a DSL there-of. I wanted to 
-continue getting really good at Python. I mean, I need SOME Pythonic fodder 
-on my resume.
+At this point in my new career as a Software Engineer, I'd become somwhat
+versed in Python. I had little or no interest learning any other language, 
+be it Chef's Ruby DSL, or Ruby itself. But, I knew the pains of repetitive 
+System Administration tasks. So Chef, and Ruby, it was.
 
-But, I knew the pains of repetitive System Administration tasks. So Chef, 
-and Ruby, it was.
-
-I figured I was going to have to learn _Enough Ruby to be Dangerous_.
+I'm going to have to learn _Enough Ruby to be Dangerous_.
 
 
 Ruby
@@ -33,57 +30,65 @@ Ruby is a Python DSL for Hipsters.
 
 j/k.
 
-> An interpreted scripting language for quick and easy object-oriented 
-> programming. -Matz
+According to Yukihiro 'Matz' Matsumoto, the creator of Ruby:
 
-That's Yukihiro 'Matz' Matsumoto, the creator of Ruby. He created Ruby in
-the 90's because he wanted something more powerful than Perl and more OOP
-Python.
+> An interpreted scripting language for quick and easy object-oriented 
+> programming.
+
+Matz created Ruby in the 90's from a desire for a language more powerful
+than Perl, and more object-oriented than Python.
 
 Remember the mantra
 -------------------
 
-It's *quick and easy* (and big in Japan).
+At it's heart, Ruby is meant to be *quick and easy*. It's an important
+mantra to remember as you learn the language.
 
 Why Ruby for Chef?
 ------------------
 
-Well, it comes down to ease-of-use. 
+According to Adam, the creator of Chef, it comes down to ease-of-use:
 
 1. Ruby has minimal syntax, so it takes very little code to get most common 
 activities done.
-2. The code should look as close to a configuration as possible.
-        package 'foo'
-3. When Adam and Co were writing Chef many of their initial customers were 
-Rails shops, so adoption of another Ruby app was a no-brainer.
+2. The code should look as close to a configuration as possible. 
+e.g. `package 'foo'`
+3. Many of Adam's initial customers were Rails shops, so there was little
+opposition to the adoption of yet-another Ruby app.
 
 What's so different about Ruby?
 -------------------------------
 
-Well, when Matz describes it as an object-orient language, he literally 
-means that everything is an object. For example, the line of code below
-converts the integer 1 into a floating point integer:
+When Matz describes Ruby as an object-orient language, he really means that 
+everything is an object.
+
+For example, imagine the number '1'. There are various ways to describe the
+number, for example, as an Integer. Additionally, there are a number of
+things that can be done to the number, such as changing it into a Floating
+Point Integer. This is how Ruby sees the world.
+
+The line of Ruby below converts the integer 1 into a floating point integer:
 
     :::ruby
     1.to_f
      => 1.0
 
-Everything is an object. It really is that simple:
+What about Strings? What can we do to strings? Well, they're objects too:
 
     :::ruby
     'taco'.reverse
      => "ocat"
 
-Everything.
+In fact, everything Ruby does to an object returns yet another object. If
+we imagine the code above changing the object representation of the string
+'taco' into a object representation of the string 'ocat':
 
     :::ruby
     'taco'.reverse.reverse
      => "taco"
 
-Everything!
-That's a little different, right?
-
-I mean, how would we do this in Python?
+This is a little different than how other languages behave. In Python, for
+example, it might look something like this:
 
     :::python
     >>> float(1)
@@ -91,17 +96,19 @@ I mean, how would we do this in Python?
     >>> 'taco'[::-1]
     'ocat'
 
-Yeah, it's about the same amount of coding, but unless you've reversed a
-string 100 times in Python, are you really going to remember what `[::-1]`
-does?
+It's about the same amount of code, but unless you're reversing a string
+every day in Python, are you really going to remember what `[::-1]` does? 
+
+Ruby's `reverse` seems much more intuitive.
 
 
 Style
 =====
 
-Once I grasped that everything in Ruby was an object, I started exploring 
-my OOP prowess by browsing the Ruby Standard Library and writing obscure 
-shit that even I didn't understand (and my co-workers loathed):
+Once I grasped that everything in Ruby was an object, I started flexing my
+object-oriented programming prowess. I would browse the [Ruby Standard Library]() TK
+and chain together ridiculous programs, which, upon later inspection, even I
+couldn't understand:
 
     :::ruby
     # I have no idea what this does:
@@ -109,47 +116,42 @@ shit that even I didn't understand (and my co-workers loathed):
       l.inner_html if l.inner_html.start_with? "#{name}-" 
     end.select{|i|!i.nil?}.sort{|x,y|y<=>x}.first
 
-That was until I had to go back and fix it.
 
 What did I learn?
 -----------------
 
-Well, it's important to write code that other people can read, and a really 
-good guideline for writing readable code is the Style Guide.
+It's important to write code that other people can read. A great guideline 
+for writing readable code is the [community-driven Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-Even if you never go another Ruby talk, even if you never read a Ruby book: 
-Use the Style Guide!
+If you never go to another Ruby talk or read another Ruby book, do one thing: 
+**Read & Use the Style Guide!**
 
 
 Walk the Walk
 =============
 
 Aside from helping you write better code as a new developer, the Style Guide 
-has the added benefit of training you the lexicon of the language. Speaking 
-in the context and the convention of a language is a prerequisite for 
-knowledge.
+has the added benefit of training you in the descriptive context of Ruby.
+Speaking in the context and the convention of any language is a prerequisite 
+for knowledge. Without integrating these conventions into your discussions
+of Ruby, you'll be hard-pressed to find a forum guidance and support.
 
-> Teaching conventions in isolation is ineffective at best, because students 
-> need opportunities to apply their knowledge of conventions to their writing. 
->
-> Even daily oral language activities are a waste of time for students 
-> without procedural knowledge of how and when to use conventions in writing.
->
-> Consequently, the most effective way to teach conventions is to integrate 
-> instruction directly into the writing process.
-
-I mean we've all had to describe bugs to other people. In fact, we've had to
-have people describe their bugs to us. Think of the difference between "The 
-website is down." and "I'm getting 'no route to host'." Big difference. Huge.
+I consider this the classic problem of the verbosity of tech support requests.
+Akin to the difference between "The website is down." and "I'm getting
+'no route to host' when I try to ping the server."
 
 
 Smoke some irb
 ==============
 
-Ok, we know what good Ruby looks like, and we've got an idea of how we can 
-express ideas in Ruby. Where do we start? I recommend smoking some **irb**, 
-Ruby's Interactive Shell. For example, the examples above look something
-like this in irb:
+Once you're ready to start flexing your own Ruby muscle, I recommend starting
+with **irb**, Ruby's Interactive Shell. This tool allows a developer to
+explore the language, experiment with code, test new ideas, all without
+risking introducing bugs into existing programs (or production systems):
+
+Below are some examples of running some Ruby code through the Interactive
+Shell. You'll see that the shell provides a wide variety of information 
+on the code being executed, the environment it's being executed in, and more:
 
     :::ruby
     $ irb
@@ -163,19 +165,18 @@ like this in irb:
      => nil 
     ruby-1.8.7-p352 :004 > quit()
 
-You're going to experiment a lot. In fact, I highly recommend you experiment 
-before even beginning to write actual deployable code. Your options are 
-writing an entire program and finding a syntax error on a production system, 
-or incrementing through each code block in your terminal.
+
+irb comes installed with most standard Ruby distributions.
 
 
 Primitive Primer
 ================
 
-We've gotten a quick view of what Ruby looks like through my awesome OOP
-examples above, but before we get any deeper, lets have a look at some of the
-language primitives. These are the fundamental - atomic - types of 
-knowledge representation in any language:
+Before we get any deeper, lets have a look at some of Ruby's primitives. 
+These are the fundamental - atomic - types of knowledge representation in
+any language.
+
+Below are some of object types you'll be dealing with in Ruby:
 
     :::ruby
     # String
@@ -193,16 +194,18 @@ knowledge representation in any language:
     # Hash
     {'lunch' => 'taco', 'price' => 1}
 
-Shit just got real. 
 
-So where does the OOP come in? Well, lets look at what we can do with these
-primitive types:
+The power of these objects can be seen in the types of actions we can take
+on them. We can introspect into this object and see what it's capable of
+with the `method` method.
+
+Here's a sample of some of the dozens of built-in things we can do to an
+object type 'string':
 
     :::ruby
     'taco'.methods
-     => ["upcase!", "zip", "find_index", "between?", "unpack", "each_slice", ...]
+     => ["upcase!", "zip", "find_index", "between?", "unpack", ...]
 
-This lists just about everything you can do to a primitive of type String.
 You've already seen an example of this with `reverse`:
 
     :::ruby
@@ -213,22 +216,24 @@ In addition to the methods listed for each of the primitives, Ruby also
 includes many built-in methods.
 
     :::ruby
-    >> methods
-    => ["irb_print_working_binding", "inspect", "workspaces", "tap", "clone", ...]
+    methods
+    => ["irb_print_working_binding", "inspect", "workspaces", "tap", ...]
+
+There are also many methods inherited from Unix system calls:
 
     :::ruby
-    >> Kernel.methods
-    => ["inspect", "name", "private_class_method", "exit!", "chomp!", "tap", ...]
+    Kernel.methods
+    => ["inspect", "name", "private_class_method", "exit!", "chomp!", ...]
 
 
-Library Hell
-============
+Libraries
+=========
 
-Any language gains its power through it's extensibility, including it's
-ability to support importing external libraries. Ruby is not immune. Using
-the `require` builtin method we can easily import libraries
-included in both the standard Ruby distribution, and those created by external
-authors. 
+Languages gains their power through their extensibility, including their
+ability to support incorporating external libraries. Ruby too has this power.
+Using the `require` built-in method we can easily import libraries
+included in both the standard Ruby distribution, and those created by 
+external authors. 
 
 Here we're importing the `open-uri` library, which extends the
 built-in `open` method to support.. opening URIs!:
@@ -236,6 +241,7 @@ built-in `open` method to support.. opening URIs!:
     :::ruby
     require 'open-uri'
     gba = open('http://ampledata.org')
+
 
 Files & Exceptions
 ==================
@@ -250,20 +256,24 @@ BOFH has left in our MOTD:
       from (irb):1:in `open'
       from (irb):1
 
-What the crap happened here? 
 
-We raised an exception, or a program interrupt. Apparently it's what big
-kids to in programming languages... no return codes here!
+Something's gone awry here. We raised an exception, or a program interrupt.
+There's no shell return-codes here!
 
-What can we glean from this Exception? Well, for starters we can see what
-this exception is called: **Errno::ENOENT**. Additionally we've got a
-friendly error message in **No such file or directory**, and finally the
+There's a lot of information contained in this Exception. First, we can see 
+what this exception is called: **Errno::ENOENT**. Second, we've got a
+helpful error message in **No such file or directory**. Finally the
 code path leading back to our error.
 
-Ok, we're all System Administrators, we know that files and filesystems are 
-never eternal. If this were a chunk of code we were deploying to a 
-server, how would we keep this from causing our pager to go off at 
-3AM? We'll catch it!
+As I stated before, I was a System Administrator, and I know that files (and
+filesystems) are never eternal. If our attempt to open a missing MOTD were
+actually a chunk of code running on a production server, we'd definitely
+get a page at 3AM. Luckily, we can proactively avoid this by catching this 
+exception using Ruby's `begin`, `rescue` and `end` statements.
+
+Here we're telling Ruby that we want to rescue the specific error 
+**Errno::ENOENT**, and when it does happen, we actually just want to return
+a friendlier message:
 
     :::ruby
     begin
@@ -272,9 +282,6 @@ server, how would we keep this from causing our pager to go off at
       "dude the file isn't there"
     end
      => "dude the file isn't there"
-
-We're telling Ruby that we want to rescue the specific error 
-**Errno::ENOENT** and if it happens, return a friendlier error message.
 
 Awesome. Our pager is quiet, back to drinking.
 
@@ -285,9 +292,11 @@ RI & RDoc
 =========
 
 Since we're using `open` to try and read our MOTD, maybe we can also use it
-to write our MOTD. We've got some tools that can help us with that too. From
-the command line we can invoke the `ri` utility to look at the embedded
-documentation for `open`:
+to write our MOTD. Ruby has other tools that can help us find out if
+`open` is capable of writing to our MOTD. From the command line we can invoke 
+the `ri` utility to look at the embedded documentation for `open`.
+
+Here we're using `ri IO.open` to understand `open`'s capabilities:
 
     :::ruby
     --------------------------------------------------------------- IO::open
@@ -301,7 +310,8 @@ documentation for `open`:
          the block.
 
 
-Here's the ri for **IO.new**:
+The page above tell us that `IO.open` is really a synonym of `IO.new`, so
+lets use `ri IO.new` to check out it's capabilities:
 
     :::ruby
     ---------------------------------------------------------------- IO::new
@@ -319,11 +329,11 @@ Here's the ri for **IO.new**:
             Hello
             World
 
-Sweet. We now know how to open files, and write to files.
+It looks like we can pass the `w` flag to `open` to write to files.
 
 
-Back to the real MOTD
-=====================
+Will the real MOTD please stand up?
+===================================
 
 Where are we going to get the content for our MOTD? Luckily I know an
 inspirational source:
@@ -333,7 +343,7 @@ inspirational source:
     require 'open-uri'
     fd = open('https://api.twitter.com/1/statuses/user_timeline.json?count=1&screen_name=georgetakei')
     fd.read
-     => "[{\"created_at\":\"Sat May 05 15:27:11 +0000 2012\",\"id\":198795988947...
+     => "[{\"created_at\":\"Sat May 05 15:27:11 +0000 2012\",\"id\":198795...
 
 I have an idea for a Chef LWRP!
 
