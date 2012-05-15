@@ -483,6 +483,7 @@ Oh, right :)
 References
 ==========
 
+* [MOTD Chef Cookbook](https://github.com/ampledata/cookbook-motd)
 * [A community-driven Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide)
 * [Unit Testing in Ruby](http://en.wikibooks.org/wiki/Ruby_Programming/Unit_testing)
 * [Just Enough Ruby for Chef](http://wiki.opscode.com/display/chef/Just+Enough+Ruby+for+Chef)
