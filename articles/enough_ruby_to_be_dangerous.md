@@ -2,20 +2,20 @@ Introduction
 ============
 
 I am a recovering System Administrator. It's a title I was chained to for the 
-first decade career. I've only recently decided to tackle Software 
-Engineering full-time. Despite the challenges of changing careers, it has
+first decade of my career. I've only recently decided to tackle Software 
+Engineering full-time, and despite the challenges of changing careers, it has
 kept me free of on-call pager duties.
 
-This was until my company decided to start a new cloud-based service 
+That was until my company decided to start a new cloud-based service 
 offering. This service was to be run 'DevOps' style - a perfect hybrid of
 my experience in both System Administration and Software Engineering. To
 scale this new service, we were going to use Chef for infrastructure
 automation.
 
-At this point in my new career as a Software Engineer, I'd become somwhat
-versed in Python. I had little or no interest learning any other language, 
-be it Chef's Ruby DSL, or Ruby itself. But, I knew the pains of repetitive 
-System Administration tasks. So Chef, and Ruby, it was.
+At this point, I was becoming well versed in Python. I had little or no
+interest learning any other language, be it Chef's Ruby DSL, or Ruby itself.
+However, I knew the pains of repetitive System Administration tasks. So Chef,
+and Ruby, it would be.
 
 I'm going to have to learn _Enough Ruby to be Dangerous_.
 
@@ -63,9 +63,10 @@ When Matz describes Ruby as an object-orient language, he really means that
 everything is an object.
 
 For example, imagine the number '1'. There are various ways to describe the
-number, for example, as an Integer. Additionally, there are a number of
-things that can be done to the number, such as changing it into a Floating
-Point Integer. This is how Ruby sees the world.
+number, for example, as an Integer. There are also a number of things that 
+can be done to the number, such as changing it into a Floating Point Integer. 
+
+This is how Ruby sees the world.
 
 The line of Ruby below converts the integer 1 into a floating point integer:
 
@@ -79,9 +80,9 @@ What about Strings? What can we do to strings? Well, they're objects too:
     'taco'.reverse
      => "ocat"
 
-In fact, everything Ruby does to an object returns yet another object. If
-we imagine the code above changing the object representation of the string
-'taco' into a object representation of the string 'ocat':
+In fact, everything you do something to an object in Ruby, you're really
+just getting that object back, but changed. You can continue this recursion
+almost indefinitely:
 
     :::ruby
     'taco'.reverse.reverse
@@ -106,7 +107,7 @@ Style
 =====
 
 Once I grasped that everything in Ruby was an object, I started flexing my
-object-oriented programming prowess. I would browse the [Ruby Standard Library]() TK
+object-oriented programming prowess. I would browse the [Ruby Standard Library](http://www.ruby-doc.org)
 and chain together ridiculous programs, which, upon later inspection, even I
 couldn't understand:
 
@@ -131,7 +132,7 @@ Walk the Walk
 =============
 
 Aside from helping you write better code as a new developer, the Style Guide 
-has the added benefit of training you in the descriptive context of Ruby.
+has the added benefit of training you in the descriptive lexicon of Ruby.
 Speaking in the context and the convention of any language is a prerequisite 
 for knowledge. Without integrating these conventions into your discussions
 of Ruby, you'll be hard-pressed to find a forum guidance and support.
@@ -144,14 +145,14 @@ Akin to the difference between "The website is down." and "I'm getting
 Smoke some irb
 ==============
 
-Once you're ready to start flexing your own Ruby muscle, I recommend starting
+If you're ready to start flexing your own Ruby muscle, I recommend starting
 with **irb**, Ruby's Interactive Shell. This tool allows a developer to
-explore the language, experiment with code, test new ideas, all without
-risking introducing bugs into existing programs (or production systems):
+explore the language - experiment with code, test new ideas - all without
+risking introducing bugs into existing programs (or production systems!):
 
-Below are some examples of running some Ruby code through the Interactive
-Shell. You'll see that the shell provides a wide variety of information 
-on the code being executed, the environment it's being executed in, and more:
+Below are some examples of running some Ruby code through the irb Interactive
+Shell. You'll see that irb provides a wide variety of information on the code 
+being executed, the environment it's being executed in, and more:
 
     :::ruby
     $ irb
@@ -172,11 +173,11 @@ irb comes installed with most standard Ruby distributions.
 Primitive Primer
 ================
 
-Before we get any deeper, lets have a look at some of Ruby's primitives. 
+Before we dig any deeper, lets have a look at some of Ruby's primitive types. 
 These are the fundamental - atomic - types of knowledge representation in
 any language.
 
-Below are some of object types you'll be dealing with in Ruby:
+Below are some of primitive object types you'll be dealing with in Ruby:
 
     :::ruby
     # String
@@ -195,7 +196,7 @@ Below are some of object types you'll be dealing with in Ruby:
     {'lunch' => 'taco', 'price' => 1}
 
 
-The power of these objects can be seen in the types of actions we can take
+The power of these primitives can be seen in the types of actions we can take
 on them. We can introspect into this object and see what it's capable of
 with the `method` method.
 
@@ -210,7 +211,7 @@ You've already seen an example of this with `reverse`:
 
     :::ruby
     'taco'.reverse
-     => 'socat'
+     => 'ocat'
 
 In addition to the methods listed for each of the primitives, Ruby also
 includes many built-in methods.
@@ -219,7 +220,7 @@ includes many built-in methods.
     methods
     => ["irb_print_working_binding", "inspect", "workspaces", "tap", ...]
 
-There are also many methods inherited from Unix system calls:
+There are also many methods inherited from Unix system calls & Kernel:
 
     :::ruby
     Kernel.methods
@@ -229,11 +230,10 @@ There are also many methods inherited from Unix system calls:
 Libraries
 =========
 
-Languages gains their power through their extensibility, including their
+Languages gain their power through their extensibility, including their
 ability to support incorporating external libraries. Ruby too has this power.
-Using the `require` built-in method we can easily import libraries
-included in both the standard Ruby distribution, and those created by 
-external authors. 
+Using the `require` statement we can easily import libraries included in both 
+the standard Ruby distribution, and those created by external authors. 
 
 Here we're importing the `open-uri` library, which extends the
 built-in `open` method to support.. opening URIs!:
@@ -247,8 +247,8 @@ Files & Exceptions
 ==================
 
 On to the fun stuff. Lets actually do something. Lets start by opening a
-file. Since we've all got access to a Unix system, lets check out what our
-BOFH has left in our MOTD:
+file. Since we've probably all got access to a Unix system, lets check 
+out what our BOFH has left in our MOTD:
 
     open('/etc/motd', 'r')
      => Errno::ENOENT: No such file or directory - /etc/motd
@@ -260,16 +260,16 @@ BOFH has left in our MOTD:
 Something's gone awry here. We raised an exception, or a program interrupt.
 There's no shell return-codes here!
 
-There's a lot of information contained in this Exception. First, we can see 
-what this exception is called: **Errno::ENOENT**. Second, we've got a
+There's a lot of information contained in this exception. First, we can see
+the name of this exception: **Errno::ENOENT**. Second, we've got a
 helpful error message in **No such file or directory**. Finally the
-code path leading back to our error.
+path leading back to the code that caused our exception.
 
-As I stated before, I was a System Administrator, and I know that files (and
-filesystems) are never eternal. If our attempt to open a missing MOTD were
-actually a chunk of code running on a production server, we'd definitely
-get a page at 3AM. Luckily, we can proactively avoid this by catching this 
-exception using Ruby's `begin`, `rescue` and `end` statements.
+I was a sysadmin, I know that files (and filesystems) are never eternal. If 
+our attempt to open a missing MOTD were actually a chunk of code running on a 
+production server, we'd definitely get a page at 3AM. Luckily, we can 
+proactively avoid this by catching this exception using Ruby's 
+`begin`, `rescue` and `end` statements.
 
 Here we're telling Ruby that we want to rescue the specific error 
 **Errno::ENOENT**, and when it does happen, we actually just want to return
@@ -285,16 +285,15 @@ a friendlier message:
 
 Awesome. Our pager is quiet, back to drinking.
 
-But wait, we still don't have a MOTD. TOFIX!
+But wait, we still don't have a MOTD!
 
 
 RI & RDoc
 =========
 
 Since we're using `open` to try and read our MOTD, maybe we can also use it
-to write our MOTD. Ruby has other tools that can help us find out if
-`open` is capable of writing to our MOTD. From the command line we can invoke 
-the `ri` utility to look at the embedded documentation for `open`.
+to write our MOTD, here too Ruby can help. From the command line we can 
+invoke the `ri` utility to look at the embedded documentation for `open`.
 
 Here we're using `ri IO.open` to understand `open`'s capabilities:
 
@@ -341,17 +340,18 @@ inspirational source:
 
     :::ruby
     require 'open-uri'
-    fd = open('https://api.twitter.com/1/statuses/user_timeline.json?count=1&screen_name=georgetakei')
+    fd = open('https://api.twitter.com/1/statuses/user_timeline.json?screen_name=georgetakei')
     fd.read
      => "[{\"created_at\":\"Sat May 05 15:27:11 +0000 2012\",\"id\":198795...
 
-I have an idea for a Chef LWRP!
+I have an idea for a Chef lightweight resource provider!
 
 
 Of Resources & Men
 ==================
 
-Real quick lets break down the components of a Chef LWRP:
+Real quick lets break down the components of a Chef Lightweight Resource
+Provider, or LWRP:
 
 1. **Resource**: Where we define the actions and parameters of an LWRP.
 2. **Provider**: The actual implementation & code for an interface.
@@ -383,14 +383,14 @@ Finally, we'll create our Provider: `vi motd/providers/default.rb`
     require 'json'
     
     action :create do
-      twitter = 'https://api.twitter.com/1/statuses/user_timeline.json?count=1&screen_name='
+      tw = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name='
       tweet = ''
     
       # Connect to twitter, ask them for the goods, parse the JSON:
-      open(twitter + new_resource.name, 'r'){ |tfd| tweet = JSON(tfd.read) }
+      open(tw + new_resource.name, 'r'){ |t| tweet = JSON(t.read) }
     
       # Write only the text of the tweet to our file:
-      open('/etc/motd', 'w'){ |mfd| mfd.write(tweet.first['text']) }
+      open('/etc/motd', 'w'){ |m| m.write(tweet.first['text']) }
     
       # Let the other Resources know we did some work today:
       new_resource.updated_by_last_action(true)
@@ -407,8 +407,8 @@ Cool, lets see if it works with **shef**:
     chef > recipe
     chef:recipe > include_recipe 'motd'
     chef:recipe > run_chef
-    [Sun, 06 May 2012 11:57:43 -0700] DEBUG: Processing motd[georgetakei] on karman.home
-    [Sun, 06 May 2012 11:57:43 -0700] INFO: Processing motd[georgetakei] action create (motd::default line 1)
+    [Sun, xxx -0700] DEBUG: Processing motd[georgetakei] on jupiter.splunk.com
+    [Sun, xxx -0700] INFO: Processing motd[georgetakei] action create (motd::default line 1)
      => true
     chef:recipe > open('/etc/motd').read
      => "Ke$ha dubs herself \"Pop's dirty little sister.\" Didn't realize she was from\nthe Ozarks."
@@ -417,25 +417,24 @@ Cool, lets see if it works with **shef**:
 Testing
 =======
 
-Having any amount of code in a Provider can lead down a dangerous path of
-having a code path that lacks coverage, or testing. Lets abstract our
-MOTD Provider out to a Library that we can then test: `vi motd/libraries/default.rb`
+> Nothing in possible in programming if it's not tested.
+Lets refactor our MOTD Provider out to a Library that we can then 
+test it at the unit level: `vi motd/libraries/default.rb`
 
     :::ruby
     require 'open-uri'
-    require 'rubygems'
     require 'json'
     
-    TWITTER = 'https://api.twitter.com/1/statuses/user_timeline.json?count=1&screen_name='
+    tw = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name='
     
     # Connects to twitter, retrieves tweets for screen_name.
     def get_tweet(screen_name)
-      open(TWITTER + screen_name, 'r'){ |tfd| JSON(tfd.read) }
+      open(tw + screen_name, 'r'){ |t| JSON(t.read) }
     end
     
     # Writes tweet out to /etc/motd.
     def write_motd(tweet)
-      open('/etc/motd', 'w'){ |mfd| mfd.write(tweet) }
+      open('/etc/motd', 'w'){ |m| m.write(tweet) }
     end
 
 Now lets create some tests for our Library: `vi motd/libraries/default.rb`
@@ -445,11 +444,11 @@ Now lets create some tests for our Library: `vi motd/libraries/default.rb`
     
     class TestMOTDLibrary < Test::Unit::TestCase
       def test_get_tweet
-        tweets = get_tweets('ampledata')
+        tweets = get_tweets('georgetakei')
         tweet = tweets.first['text']
     
         assert_kind_of(String, tweet)
-        assert_match(/Ruby Testing/, tweet)
+        assert_match(/Shields Up!/, tweet)
       end
     
       def test_write_motd
@@ -474,7 +473,7 @@ And lets run our tests `ruby libraries/default.rb`:
       1) Failure:
     test_get_tweet(TestMOTDLibrary) [libraries/default.rb:26]:
     <Ke$ha dubs herself \"Pop's dirty little sister.\" Didn't realize she was from\nthe Ozarks.> expected to be =~
-    </Ruby Testing/>.
+    </Shields Up!/>.
     
     2 tests, 3 assertions, 1 failures, 0 errors
 
@@ -486,7 +485,6 @@ References
 
 * [A community-driven Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide)
 * [Unit Testing in Ruby](http://en.wikibooks.org/wiki/Ruby_Programming/Unit_testing)
-
 * [Just Enough Ruby for Chef](http://wiki.opscode.com/display/chef/Just+Enough+Ruby+for+Chef)
 * [_why's (poignant) Guide to Ruby](http://mislav.uniqpath.com/poignant-guide/)
 * [Programming Ruby](http://www.rubycentral.com/pickaxe/)
