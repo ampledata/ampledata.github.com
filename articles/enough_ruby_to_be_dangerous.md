@@ -489,3 +489,17 @@ References
 * [Just Enough Ruby for Chef](http://wiki.opscode.com/display/chef/Just+Enough+Ruby+for+Chef)
 * [_why's (poignant) Guide to Ruby](http://mislav.uniqpath.com/poignant-guide/)
 * [Programming Ruby](http://www.rubycentral.com/pickaxe/)
+
+
+Slides
+======
+
+<iframe
+  src="https://docs.google.com/presentation/embed?id=1wvruJYudlj2Mb951PFiDOC072oWc2TS4vbWX5PNNYOg&start=false&loop=false&delayms=3000"
+  frameborder="0"
+  width="960"
+  height="749"
+  allowfullscreen="true"
+  mozallowfullscreen="true"
+  webkitallowfullscreen="true">
+</iframe>
