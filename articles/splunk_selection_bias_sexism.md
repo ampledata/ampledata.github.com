@@ -44,8 +44,8 @@ Now lets look at correct responses.
 Out of 5 correct responses, 3 identified as male, and 2 identified as female.
 
 This graph shows that correct answers were more likely to come people who 
-identify as male. This follows the trend of more responses overall coming people
-who identify as male.
+identify as male. This follows the trend of more responses overall coming from
+people who identify as male.
 
 Selection Bias
 ==============
