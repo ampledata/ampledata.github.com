@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <meta charset="utf-8">
+    <title>Splunk Postfix Catch-All</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Splunk Postfix Catch-All</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<p>Servers generate a lot of email. If you're a sysadmin, you already know this.
+ If you work with sysadmins, then you're to blame (ok, maybe not).
+ In either case, dealing with server email is time consuming, and the 
+signal-to-noise ratio is low. More often than not these emails are ignored 
+(procmail FTW!). </p>
+<p><strong>Is this a good thing?</strong></p>
+<p>No.</p>
+<p><strong>Why?</strong></p>
+<p>These emails are generated for a reason, and that reason is usually that 
+there's something amiss on your server. Instead of <code>/dev/null</code>'ing all of 
+these useful nuggets, why not mine them with Splunk?</p>
+<p>In this <em>How To</em> we'll setup a catch-all Postfix server and use it to Splunk 
+all of your system generated email.</p>
+<h1>Overview</h1>
+<ul>
+<li>Install and start Splunk.</li>
+<li>Install and start Postifx.</li>
+<li>Configure Postfix catch-all.</li>
+<li>Configure your servers(s) to use the Postfix catch-all.</li>
+<li>Configure Splunk to consume the catch-all email.</li>
+</ul>
+<p><strong>Note:</strong> Splunk need not be installed on the same system as Postfix, but for 
+the purposes of this <em>How To</em>, they are co-existent.</p>
+<h1>Pre-Requisites</h1>
+<ol>
+<li>Ensure you've downloaded and installed <a href="http://www.splunk.com/download">Splunk</a>.</li>
+<li>Ensure you've installed Postfix (Ubuntu: <code>apt-get install postfix -f</code>).</li>
+</ol>
+<h1>Steps</h1>
+<ol>
+<li>Edit Postfix's <strong>main.cfg</strong> configuration and set the following values:</li>
+<li>Set <strong>virtual_alias_domains</strong> to all hosts from which you're going to accept 
+mail: <code>virtual_alias_domains = sfeserv01.splunk.com,sfeserv31.splunk.com</code></li>
+<li>Set <strong>virtual_alias_maps</strong> to your virtual alias map file: 
+<code>virtual_alias_maps = hash:/etc/postfix/virtual</code></li>
+<li>
+<p>In Postfix's <strong>virtual_alias_map</strong> file create a catch-all alias for each 
+host from which you'll be accepting mail:</p>
+<div class="codehilite"><pre><span class="p">@</span><span class="n">sfeserv01</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="k">catch</span><span class="o">-</span><span class="n">all</span>
+<span class="p">@</span><span class="n">sfeserv31</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="k">catch</span><span class="o">-</span><span class="n">all</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>In Postfix's <strong>aliases</strong> file create a catch-all alias and redirect it to a 
+Maildir: <code>catch-all: /var/mail/catch-all/</code></p>
+</li>
+<li>
+<p>Refresh aliases, rehash maps, and reload Postfix configs:</p>
+<div class="codehilite"><pre><span class="n">sudo</span> <span class="n">newaliases</span>
+<span class="n">sudo</span> <span class="n">postmap</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">postfix</span><span class="o">/</span><span class="n">virtual</span>
+<span class="n">sudo</span> <span class="n">postfix</span> <span class="n">reload</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>In Splunk's <strong>inputs.conf</strong> file configure batch monitor of the catch-all 
+Maildir:</p>
+<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
+<span class="p">[</span><span class="n">batch</span><span class="p">:</span><span class="o">///</span><span class="nb">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="k">catch</span><span class="o">-</span><span class="nb">all</span><span class="p">]</span>
+<span class="n">interval</span> <span class="p">=</span> 300
+<span class="n">disabled</span> <span class="p">=</span> <span class="nb">false</span>
+<span class="nb">index</span> <span class="p">=</span> <span class="n">admin_mail</span>
+<span class="nb">source</span> <span class="p">=</span> <span class="n">admin_mail</span>
+<span class="n">move_policy</span> <span class="p">=</span> <span class="n">sinkhole</span>
+<span class="n">sourcetype</span> <span class="p">=</span> <span class="n">admin_mail</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>In Splunk's <strong>props.conf</strong> file configure email event parsing:</p>
+<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/props.conf</span>
+<span class="p">[</span><span class="n">admin_mail</span><span class="p">]</span>
+<span class="n">TRUNCATE</span> <span class="p">=</span> 0
+<span class="n">MAX_EVENTS</span><span class="p">=</span>200000
+<span class="n">TIME_PREFIX</span> <span class="p">=</span> <span class="n">Date</span><span class="p">:</span><span class="o">\</span><span class="n">s</span>
+<span class="n">LINE_BREAKER</span> <span class="p">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+<span class="n">BREAK_ONLY_BEFORE</span> <span class="p">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>In Splunk's <strong>indexes.conf</strong> file configure the email index:</p>
+<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/indexes.conf</span>
+<span class="p">[</span><span class="n">admin_mail</span><span class="p">]</span>
+<span class="n">homePath</span>   <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">db</span>
+<span class="n">coldPath</span>   <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">colddb</span>
+<span class="n">thawedPath</span> <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">thaweddb</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Restart Splunk: <code>splunk restart</code></p>
+</li>
+<li>Now configure your servers(s) to use the Postfix catch-all mail server. 
+In Postfix this can be accomplished in <strong>main.cfg</strong>: <code>relayhost = mail-relay.splunk.com</code></li>
+</ol>
+<h1>Search</h1>
+<p>You can now search Splunk for system emails: <code>index="admin_mail" ERROR</code></p>
+<p>Which should return results like these:</p>
+<p><img alt="admin_mail splunk search result" src="http://undef.files.wordpress.com/2011/01/mvg_asvnwzj.png?w=300" /></p>
+
+      <hr>
+      
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
