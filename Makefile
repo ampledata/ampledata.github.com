@@ -15,5 +15,5 @@ build:
 	python bin/make.py
 
 publish:
-	git commit -m 'publishing articles' articles/*.md *.html
+	git commit -m 'publishing articles' articles/*.md *.html *.xml
 	git push origin
