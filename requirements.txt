@@ -9,3 +9,4 @@
 pygments
 markdown
 jinja2
+PyRSS2Gen

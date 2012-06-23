@@ -8,14 +8,52 @@ __copyright__ = 'Copyright 2012 Greg Albrecht'
 __license__ = 'Creative Commons Attribution 3.0 Unported License'
 
 
+import datetime
 import glob
 import os
+import shlex
+import subprocess
 
-import markdown
 import jinja2
+import markdown
+import PyRSS2Gen
 
 
 JINJA2_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(['templates']))
+BLOG_TITLE = "Greg Albrecht's ampledata.org"
+BLOG_URL = "http://ampledata.org/"
+BLOG_DESCRIPTION = "If it has an IP, I've probably touched it."
+
+
+def get_article_ts(article_file):
+    git_cmd = 'git log --reverse --pretty=format:%aD'
+    spc = subprocess.Popen(
+        shlex.split(' '.join([git_cmd, article_file])), stdout=subprocess.PIPE)
+    return spc.stdout.read().split('\n')[0]
+
+
+def generate_rss(articles):
+    """Generates RSS feed of Blog Articles."""
+    rss_items = []
+
+    for article in articles:
+        article_link = BLOG_URL + article['html_file']
+
+        rss_items.append(PyRSS2Gen.RSSItem(
+            title=article['friendly_name'],
+            link=article_link,
+            guid=PyRSS2Gen.Guid(article_link),
+            pubDate=get_article_ts(article['html_file'])
+        ))
+
+    rss = PyRSS2Gen.RSS2(
+        title=BLOG_TITLE,
+        description=BLOG_DESCRIPTION,
+        link=BLOG_URL,
+        lastBuildDate=datetime.datetime.utcnow(),
+        items=rss_items
+    )
+    rss.write_xml(open('index.xml', 'w'))
 
 
 def generate_article_names(article_file):
@@ -28,11 +66,9 @@ def generate_article_names(article_file):
 
 
 def generate_index(articles):
-    index_title = "Greg Albrecht's ampledata.org"
-
     index_template = JINJA2_ENV.get_template('index.html')
 
-    rendered_index = index_template.render(title=index_title, articles=articles)
+    rendered_index = index_template.render(title=BLOG_TITLE, articles=articles)
 
     with open('index.html', 'w') as index_fd:
         index_fd.write(rendered_index)
@@ -68,6 +104,7 @@ def main():
 
     generate_articles(articles)
     generate_index(articles)
+    generate_rss(articles)
 
 
 if __name__ == '__main__':
