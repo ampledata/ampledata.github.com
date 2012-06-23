@@ -32,24 +32,23 @@ Phase I: Configure Jenkins
 3. After Jenkins restarts, from the console, browse to **Manage Jenkins > Script Console**.
 4. Paste in the following Groovy script and click **Run**:
 
-	  ```Groovy
-	  def download = """curl -skLO http://xrl.us/pythonbrewinstall"""
-	  def download_proc = download.execute()
-	  def install = """bash pythonbrewinstall"""
-	  def install_proc = install.execute()
-    	
-	  download_proc.waitFor()
-    	
-	  println "return code: ${download_proc.exitValue()}"
-	  println "stderr: ${download_proc.err.text}"
-	  println "stdout: ${download_proc.in.text}"
-    	
-	  install_proc.waitFor()
-    	
-	  println "return code: ${install_proc.exitValue()}"
-	  println "stderr: ${install_proc.err.text}"
-	  println "stdout: ${install_proc.in.text}""
-	  ```
+        :::Groovy
+	    def download = """curl -skLO http://xrl.us/pythonbrewinstall"""
+	    def download_proc = download.execute()
+	    def install = """bash pythonbrewinstall"""
+	    def install_proc = install.execute()
+       	
+	    download_proc.waitFor()
+        
+	    println "return code: ${download_proc.exitValue()}"
+	    println "stderr: ${download_proc.err.text}"
+	    println "stdout: ${download_proc.in.text}"
+        
+	    install_proc.waitFor()
+        
+	    println "return code: ${install_proc.exitValue()}"
+	    println "stderr: ${install_proc.err.text}"
+	    println "stdout: ${install_proc.in.text}""
 
 5. From the Jenkins console, browse to **Manage Jenkins > Configure System**.
 6. Under **Python** click **Add Python**. 
@@ -80,10 +79,9 @@ Usage
 =====
 I prefer using the **Virtualenv Builder** for my project, with the following **Command**s:
 
-```bash
-$PYTHON_EXE setup.py install
-$PYTHON_EXE setup.py nosetests
-```
+    :::bash
+    $PYTHON_EXE setup.py install
+    $PYTHON_EXE setup.py nosetests
 
 !['Virtualenv Builder' dialog](http://dl.dropbox.com/u/4036736/Screenshots/811y.png)
 
