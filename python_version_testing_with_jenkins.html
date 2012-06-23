@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <meta charset="utf-8">
+    <title>Python Version Testing With Jenkins</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Python Version Testing With Jenkins</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<p><a href="http://jenkins-ci.org/">Jenkins CI's</a> <a href="https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin">ShiningPanda plugin</a> 
+makes testing Python extremely easy. It even includes support for testing 
+against multiple Python versions within the same Job. Unfortunately 
+ShiningPanda, and Jenkins itself, do not automatically install these 
+dependent Python versions.</p>
+<p>Using <a href="https://github.com/utahta/pythonbrew">Pythonbrew</a> we can configure 
+Jenkins to automatically download and install our dependent versions of Python.</p>
+<h1>Overview</h1>
+<ol>
+<li>Install Shining Panda Plugin.</li>
+<li>Install pythonbrew (from within Jenkins!)</li>
+<li>Configure Jenkins' Python 'Tools'.</li>
+<li>Create Jobs, and test!</li>
+</ol>
+<h1>Prerequisites</h1>
+<ol>
+<li>A live running Jenkins instance.</li>
+<li>That's it!</li>
+</ol>
+<h1>Steps</h1>
+<h2>Phase I: Configure Jenkins</h2>
+<ol>
+<li>From the Jenkins console browse to <strong>Manage Jenkins &gt; Manage Plugins &gt; Available</strong>.</li>
+<li>Select the <strong>ShiningPanda Plugin</strong> and click <strong>Download now and install after restart</strong>.</li>
+<li>After Jenkins restarts, from the console, browse to <strong>Manage Jenkins &gt; Script Console</strong>.</li>
+<li>
+<p>Paste in the following Groovy script and click <strong>Run</strong>:</p>
+<p>```Groovy
+def download = """curl -skLO http://xrl.us/pythonbrewinstall"""
+def download_proc = download.execute()
+def install = """bash pythonbrewinstall"""
+def install_proc = install.execute()</p>
+<p>download_proc.waitFor()</p>
+<p>println "return code: ${download_proc.exitValue()}"
+println "stderr: ${download_proc.err.text}"
+println "stdout: ${download_proc.in.text}"</p>
+<p>install_proc.waitFor()</p>
+<p>println "return code: ${install_proc.exitValue()}"
+println "stderr: ${install_proc.err.text}"
+println "stdout: ${install_proc.in.text}""
+```</p>
+</li>
+<li>
+<p>From the Jenkins console, browse to <strong>Manage Jenkins &gt; Configure System</strong>.</p>
+</li>
+<li>Under <strong>Python</strong> click <strong>Add Python</strong>. </li>
+<li>
+<p>For each Python version to install, enter a <strong>Name</strong> and click <strong>Install Automatically &gt; Add Installer &gt; Run Command</strong>.</p>
+<p><img alt="'Add Installer' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/9b~1.png" /></p>
+</li>
+<li>
+<p>Given a Python version of X.Y.Z, for <strong>Command</strong> enter: <code>$HOME/.pythonbrew/bin/pythonbrew install X.Y.Z</code></p>
+</li>
+<li>Given a Python version of X.Y.Z, for <strong>Tool Home</strong> enter: <code>$HOME/.pythonbrew/pythons/Python-X.Y.Z/</code></li>
+<li>Click <strong>Save</strong></li>
+</ol>
+<h2>Phase II: Create Job</h2>
+<ol>
+<li>From the Jenkins console, browse to <strong>New Job</strong>.</li>
+<li>Enter a <strong>Job name</strong> and select <strong>Build multi-configuration project</strong>.</li>
+<li>
+<p>Under <strong>Configuration Matrix</strong>, click <strong>Add Axis &gt; Python</strong>.</p>
+<p><img alt="'Add axis' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/_mvo.png" /></p>
+</li>
+<li>
+<p>Select the Python version(s) to run this job against.</p>
+<p><img alt="'Python' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/nhzn.png" /></p>
+</li>
+<li>
+<p>Under <strong>Build</strong>, <strong>Add build step</strong>s for your project.</p>
+</li>
+<li>Test!</li>
+</ol>
+<h1>Usage</h1>
+<p>I prefer using the <strong>Virtualenv Builder</strong> for my project, with the following <strong>Command</strong>s:</p>
+<p><code>bash
+$PYTHON_EXE setup.py install
+$PYTHON_EXE setup.py nosetests</code></p>
+<p><img alt="'Virtualenv Builder' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/811y.png" /></p>
+<p>Which leaves me with healthy, all natural, self-installed multiple Python version
+job configuration:</p>
+<p><img alt="'Configurations' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/5tz2.png" /></p>
+
+      <hr>
+      
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
