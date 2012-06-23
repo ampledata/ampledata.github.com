@@ -48,7 +48,7 @@ Phase I: Configure Jenkins
         
 	    println "return code: ${install_proc.exitValue()}"
 	    println "stderr: ${install_proc.err.text}"
-	    println "stdout: ${install_proc.in.text}""
+	    println "stdout: ${install_proc.in.text}"
 
 5. From the Jenkins console, browse to **Manage Jenkins > Configure System**.
 6. Under **Python** click **Add Python**. 
