@@ -1,11 +1,11 @@
 {
   "built_on": "master",
-  "duration": 294.446,
-  "full_display_name": "ampledata.github.com #6",
-  "id": "2012-07-31_18-10-46",
-  "number": 6,
+  "duration": 337.845,
+  "full_display_name": "ampledata.github.com #7",
+  "id": "2012-07-31_18-47-04",
+  "number": 7,
   "result": "SUCCESS",
   "status_message": "?",
-  "time": "2012-07-31 18:10:46 +0000",
-  "url": "job/ampledata.github.com/6/"
+  "time": "2012-07-31 18:47:04 +0000",
+  "url": "job/ampledata.github.com/7/"
 }
