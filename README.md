@@ -28,10 +28,10 @@ As seen from the command line:
 ```bash
 git clone https://github.com/ampledata/ampledata.github.com.git
 cd ampledata.github.com
-./bin/install.sh
+make init
 vi articles/how_does_beer_work.md
-./bin/make.py
-./bin/publish.sh
+make build
+make publish
 ```
 
 
