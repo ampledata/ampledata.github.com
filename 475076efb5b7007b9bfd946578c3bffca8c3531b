@@ -1,0 +1,11 @@
+{
+  "built_on": "stormci-slave-i-9356bfe8.gba.splunkstorm.com",
+  "duration": 77.456,
+  "full_display_name": "ampledata.github.com #4",
+  "id": "2012-08-05_21-16-06",
+  "number": 4,
+  "result": "SUCCESS",
+  "status_message": "?",
+  "time": "2012-08-05 21:16:06 +0000",
+  "url": "job/ampledata.github.com/4/"
+}
