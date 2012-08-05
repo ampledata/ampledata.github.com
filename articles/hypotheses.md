@@ -2,8 +2,7 @@ This page is a collection of hyotheses that I've put forth, some with
 obeservations, others with completely no basis in reality.
 
 
-# As the price of storing data has gone down, the value of the data
-stored has gone up.
+# As the price of storing data has gone down, the value of the data stored has gone up.
 
 Observations
 ---
