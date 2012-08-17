@@ -1,5 +1,7 @@
 # Just Enough Blog
 
+[![Build Status](https://secure.travis-ci.org/ampledata/ampledata.github.com.png?branch=master)](http://travis-ci.org/ampledata/ampledata.github.com)
+
 ## Manifesto
 
 > I just wanted a way of sharing my ideas with the internet. I didn't want
