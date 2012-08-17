@@ -36,3 +36,7 @@ nosetests:
 	nosetests -c nosetests.cfg bin/*.py
 
 test: init lint flake8 clonedigger nosetests
+
+
+clean:
+	rm *.pyc nohup.out nosetests.xml output.xml flake8.log pylint.log
