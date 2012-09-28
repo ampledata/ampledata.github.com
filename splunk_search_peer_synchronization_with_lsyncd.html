@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <meta charset="utf-8">
+    <title>Splunk Search Peer Synchronization With Lsyncd</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Splunk Search Peer Synchronization With Lsyncd</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<h1>DRAFT</h1>
+<p>gba@20120928 This article is a <strong>DRAFT</strong>.</p>
+<h2>Abstract</h2>
+<p>This article discusses a method of synchronizing Splunk Search Peers using  lsyncd.</p>
+<h2>Overview</h2>
+<p>As a it's installation scales out, different components of a <a href="http://www.splunk.com/">Splunk</a> can be distributed to separate systems across a network. For example, the Search Head and Indexer components of a Splunk Installation can be configured on two different servers. In this setup the Indexer component is known as a 'Search Peer' of the Search Head.</p>
+<p>Out of the box Splunk supports two different methods of synchronizing the configuration between a Search Head and its Search Peers: Bundle Replication and <a href="http://docs.splunk.com/Documentation/Splunk/latest/Deploy/Mounttheknowledgebundle">Mounted Bundles</a>. Each of these methods has its advantages, but for Splunk Storm we needed a method that scaled in a slightly different way, so we developed a method that uses <a href="http://code.google.com/p/lsyncd/">lsyncd</a> for synchronizing configuration.</p>
+<p>lsyncd is a Lua-based daemon that monitors <a href="http://en.wikipedia.org/wiki/Inotify">inotify</a> Linux kernel filesystem changes. Based on the changes it's been configured to watch, lsyncd, via <a href="http://en.wikipedia.org/wiki/Rsync">rsync</a>, can synchronize the deltas (changes) of files. We've utilized this to replace the existing behavior of bundle replication between Search Peers.</p>
+<h2>Pre-Requisites</h2>
+<ul>
+<li>Linux Operating System.</li>
+<li>A Splunk Search Head.</li>
+<li>One or more Splunk Search Peers (indexers, etc).</li>
+</ul>
+<h2>Steps Overview</h2>
+<ol>
+<li>Setup &amp; Configure Splunk.</li>
+<li>Install lsyncd.</li>
+<li>Configure lsyncd.</li>
+<li>Configure Splunk.</li>
+</ol>
+<h2>Detailed Steps</h2>
+<p>Assuming you've already configured <a href="http://docs.splunk.com/Documentation/Splunk/latest/Deploy/Configuredistributedsearch">Distributed Search</a>:</p>
+<ol>
+<li>
+<p>Disable Bundle Replication on the Search Head, where SEARCH_PEER is the IP or Hostname of the Search Peer from your distributed search setup:</p>
+<p>```ini</p>
+<h1>$SPLUNK_HOME/etc/system/local/distsearch.conf</h1>
+<p>[distributedSearch]
+shareBundles = false
+servers = SEARCH_PEER:8089
+```</p>
+</li>
+<li>
+<p>Configure lsyncd to monitor the $SPLUNK_HOME/etc/ directory for changes, where SEARCH_PEER is the IP or Hostname of the Search peer from your distributed search setup:</p>
+<p>```lua</p>
+<h1>/etc/lsyncd.conf.lua</h1>
+<p>sync{
+  rsyncssh,
+  source='/opt/splunk/etc',
+  host='spsync@SEARCH_PEER',
+  targetdir='/opt/searchpeer'
+}
+```</p>
+</li>
+<li>
+<p>Enable Mounted Bundles on the Search Peer, where SEARCH_HEAD is the IP or Hostname of the Search Head from your distributed search steup:</p>
+<p>```ini</p>
+<h1>$SPLUNK_HOME/etc/system/local/distsearch.conf</h1>
+<p>[searchhead:SEARCH_HEAD]
+mounted_bundles=true
+bundles_location=/opt/searchpeer
+```</p>
+</li>
+</ol>
+<h2>References</h2>
+<ul>
+<li><a href="http://docs.splunk.com/Documentation/Splunk/latest/Deploy/Distributedoverview">Distributed Splunk Overview</a></li>
+<li><a href="http://docs.splunk.com/Documentation/Splunk/latest/Installation/ComponentsofaSplunkdeployment">Components of a Splunk Deployment</a></li>
+</ul>
+
+      <hr>
+      
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
