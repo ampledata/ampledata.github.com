@@ -35,33 +35,27 @@ Assuming you've already configured [Distributed Search](http://docs.splunk.com/D
 
 1. Disable Bundle Replication on the Search Head, where SEARCH_PEER is the IP or Hostname of the Search Peer from your distributed search setup:
 
-    ```ini
-    # $SPLUNK_HOME/etc/system/local/distsearch.conf
-    [distributedSearch]
-    shareBundles = false
-    servers = SEARCH_PEER:8089
-    ```
+        # $SPLUNK_HOME/etc/system/local/distsearch.conf
+        [distributedSearch]
+        shareBundles = false
+        servers = SEARCH_PEER:8089
 
 2. Configure lsyncd to monitor the $SPLUNK_HOME/etc/ directory for changes, where SEARCH_PEER is the IP or Hostname of the Search peer from your distributed search setup:
 
-    ```lua
-    # /etc/lsyncd.conf.lua
-    sync{
-      rsyncssh,
-      source='/opt/splunk/etc',
-      host='spsync@SEARCH_PEER',
-      targetdir='/opt/searchpeer'
-    }
-    ```
+        # /etc/lsyncd.conf.lua
+        sync{
+          rsyncssh,
+          source='/opt/splunk/etc',
+          host='spsync@SEARCH_PEER',
+          targetdir='/opt/searchpeer'
+        }
 
 3. Enable Mounted Bundles on the Search Peer, where SEARCH_HEAD is the IP or Hostname of the Search Head from your distributed search steup:
 
-    ```ini
-    # $SPLUNK_HOME/etc/system/local/distsearch.conf
-    [searchhead:SEARCH_HEAD]
-    mounted_bundles=true
-    bundles_location=/opt/searchpeer
-    ```
+        # $SPLUNK_HOME/etc/system/local/distsearch.conf
+        [searchhead:SEARCH_HEAD]
+        mounted_bundles=true
+        bundles_location=/opt/searchpeer
 
 References
 ----
