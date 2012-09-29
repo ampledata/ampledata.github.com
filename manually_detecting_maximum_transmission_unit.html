@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <meta charset="utf-8">
+    <title>Manually Detecting Maximum Transmission Unit</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Manually Detecting Maximum Transmission Unit</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <!-- <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+<h2>Abstract</h2>
+<p>This article describes a method for manually detecting the maximum transmission unit (MTU) of interconnected systems on an IP network. It is derived from the process the author used to detect the MTU of off-site customer DSL connection.</p>
+<h2>Overview</h2>
+<p>The MTU of Ethernet v2 is <a href="http://en.wikipedia.org/wiki/Maximum_transmission_unit">1500</a>. This is a typical setting for office LANs where traffic does not traverse links of different capacities - that is, an entire office will usually all be on ethernet of some size. However, traffic that must cross non-ethernet links, such as DSL, will encounter capacities, and thus MTUs, of different sizes. </p>
+<p>When a network device receives a packet larger than its MTU two things can happen:</p>
+<ol>
+<li>If the packet has the <a href="http://en.wikipedia.org/wiki/IP_fragmentation">'do not fragment'</a> flag set the device will drop the packet and reply back to the packet originator with an error message.</li>
+<li>If the packet does not have the 'do not fragment' flag set the device will break the packet down into identical-but-smaller sterilized packets that fit within the MTU requirements of that link.</li>
+</ol>
+<h2>Steps Overview</h2>
+<p>What follows is a example of process for detecting the MTU between your current computer and a remote computer.</p>
+<p>In this example I've used:</p>
+<ul>
+<li>My Mac at home to test the MTU to yahoo.com.</li>
+<li>The 'ping' command with the '-D' (do not fragment) and '-s' (packet size) flags.</li>
+</ul>
+<h2>Steps</h2>
+<p>Normally when I ping yahoo.com I see:</p>
+<div class="codehilite"><pre>$ <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> 1 <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span>66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">):</span> 56 <span class="n">data</span> <span class="n">bytes</span>
+64 <span class="n">bytes</span> <span class="n">from</span> 66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">:</span> <span class="n">icmp_seq</span><span class="p">=</span>0 <span class="n">ttl</span><span class="p">=</span>47 <span class="n">time</span><span class="p">=</span>256<span class="p">.</span>573 <span class="n">ms</span>
+<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
+1 <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> 1 <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> 0<span class="c">% packet loss</span>
+<span class="nb">round</span><span class="o">-</span><span class="n">trip</span> <span class="n">min</span><span class="o">/</span><span class="n">avg</span><span class="o">/</span><span class="n">max</span><span class="o">/</span><span class="n">stddev</span> <span class="p">=</span> 256<span class="p">.</span>573<span class="o">/</span>256<span class="p">.</span>573<span class="o">/</span>256<span class="p">.</span>573<span class="o">/</span>0<span class="p">.</span>000 <span class="n">ms</span>
+</pre></div>
+
+
+<p>Now I'll ping yahoo.com with a packet size of 1492 bytes:</p>
+<div class="codehilite"><pre>$ <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> 1 <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">s</span> 1500 <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span>66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">):</span> 1500 <span class="n">data</span> <span class="n">bytes</span>
+<span class="n">ping</span><span class="p">:</span> <span class="n">sendto</span><span class="p">:</span> <span class="n">Message</span> <span class="n">too</span> <span class="n">long</span>
+<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
+1 <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> 0 <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> 100<span class="c">% packet loss</span>
+</pre></div>
+
+
+<p>Next I'll ping yahoo.com with a smaller packet size:</p>
+<div class="codehilite"><pre>$ <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> 1 <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">s</span> 1300 <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span>66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">):</span> 1300 <span class="n">data</span> <span class="n">bytes</span>
+1308 <span class="n">bytes</span> <span class="n">from</span> 66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">:</span> <span class="n">icmp_seq</span><span class="p">=</span>0 <span class="n">ttl</span><span class="p">=</span>47 <span class="n">time</span><span class="p">=</span>172<span class="p">.</span>396 <span class="n">ms</span>
+<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
+1 <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> 1 <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> 0<span class="c">% packet loss</span>
+<span class="nb">round</span><span class="o">-</span><span class="n">trip</span> <span class="n">min</span><span class="o">/</span><span class="n">avg</span><span class="o">/</span><span class="n">max</span><span class="o">/</span><span class="n">stddev</span> <span class="p">=</span> 172<span class="p">.</span>396<span class="o">/</span>172<span class="p">.</span>396<span class="o">/</span>172<span class="p">.</span>396<span class="o">/</span>0<span class="p">.</span>000 <span class="n">ms</span>
+</pre></div>
+
+
+<p>From our testing so far we can safely assume that our MTU is less than 1500 bytes and more than 1300 bytes. We can continue testing until we find a happy medium. </p>
+<p>Lets try 1329 bytes:</p>
+<div class="codehilite"><pre>$ <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> 1 <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">s</span> 1329 <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span>66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">):</span> 1329 <span class="n">data</span> <span class="n">bytes</span>
+<span class="n">ping</span><span class="p">:</span> <span class="n">sendto</span><span class="p">:</span> <span class="n">Message</span> <span class="n">too</span> <span class="n">long</span>
+<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
+1 <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> 0 <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> 100<span class="c">% packet loss</span>
+</pre></div>
+
+
+<p>Lets try 1328 bytes:</p>
+<div class="codehilite"><pre>$ <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> 1 <span class="o">-</span><span class="n">D</span> <span class="o">-</span><span class="n">s</span> 1328 <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span>66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">):</span> 1328 <span class="n">data</span> <span class="n">bytes</span>
+1336 <span class="n">bytes</span> <span class="n">from</span> 66<span class="p">.</span>94<span class="p">.</span>234<span class="p">.</span>13<span class="p">:</span> <span class="n">icmp_seq</span><span class="p">=</span>0 <span class="n">ttl</span><span class="p">=</span>48 <span class="n">time</span><span class="p">=</span>288<span class="p">.</span>600 <span class="n">ms</span>
+<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">--</span>
+1 <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> 1 <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> 0<span class="c">% packet loss</span>
+<span class="nb">round</span><span class="o">-</span><span class="n">trip</span> <span class="n">min</span><span class="o">/</span><span class="n">avg</span><span class="o">/</span><span class="n">max</span><span class="o">/</span><span class="n">stddev</span> <span class="p">=</span> 288<span class="p">.</span>600<span class="o">/</span>288<span class="p">.</span>600<span class="o">/</span>288<span class="p">.</span>600<span class="o">/</span>0<span class="p">.</span>000 <span class="n">ms</span>
+</pre></div>
+
+
+<p>Got it!</p>
+<p>Our MTU is going to be a number less than 1336 bytes that is a multiple of 8:</p>
+<ul>
+<li>NO: 1336 / 8 = 167</li>
+<li>NO: 1334 / 8 = 166.75</li>
+<li>YES: 1332 / 8 = 166.5</li>
+</ul>
+<p>The MTU between us and yahoo.com is 1332 bytes.</p>
+<p>Here's some more information on fragmentation:</p>
+<p><a href="http://tinyurl.com/6xunt8">"Internetworking with TCP/IP" Pg 81 - 6.7.6 Fragmentation Control</a></p>
+
+      <hr>
+      
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      <footer>
+        Contact Greg Albrecht: Email <a
+          href="mailto:gba@splunk.com">gba@splunk.com</a> Twitter <a
+          href="http://twitter.com/ampledata">@ampledata</a> Github <a
+          href="https://github.com/ampledata">ampledata</a>.
+        
+        <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      </footer>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
