@@ -10,9 +10,9 @@
 .DEFAULT_GOAL: all
 
 
-all: install_requires create_css
+all: install_requirements create_css build
 
-install_requires:
+install_requirements:
 	pip install -r requirements.txt --use-mirrors
 
 create_css:
