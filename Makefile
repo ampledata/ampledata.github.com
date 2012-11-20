@@ -1,20 +1,25 @@
 # Makefile for http://ampledata.org/ blog.
 #
-# @author: Greg Albrecht <gba@splunk.com>
+# @author: Greg Albrecht <gba@gregalbrecht.com>
 # @copyright: Copyright 2012 Greg Albrecht
 # @license: Creative Commons Attribution 3.0 Unported License.
 # @url: http://ampledata.org/
+#
 
 
-.DEFAULT: init
+.DEFAULT_GOAL: all
 
 
-init:
+all: install_requires create_css
+
+install_requires:
 	pip install -r requirements.txt --use-mirrors
+
+create_css:
 	pygmentize -S default -f html -a html -a 'div.codehilite' > syntax.css
 
 build:
-	python bin/make.py
+	jeb
 
 publish:
 	git commit -m 'publishing articles' articles/*.md *.html *.xml
@@ -36,7 +41,6 @@ nosetests:
 	nosetests -c nosetests.cfg bin/*.py
 
 test: init lint flake8 clonedigger nosetests
-
 
 clean:
 	rm *.pyc nohup.out nosetests.xml output.xml flake8.log pylint.log

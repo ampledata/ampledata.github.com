@@ -39,7 +39,7 @@ make publish
 
 ## Meta
 
-- Author: Greg Albrecht <gba@splunk.com>
+- Author: Greg Albrecht <gba@gregalbrecht.com>
 - Copyright: Copyright 2012 Greg Albrecht
 - License: Creative Commons Attribution 3.0 Unported License.
 - URL: <http://ampledata.org/>

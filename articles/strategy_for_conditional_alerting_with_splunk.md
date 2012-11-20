@@ -13,7 +13,7 @@ eventtype in savedsearch.conf:
     action.email = 1
     action.email.inline = 1
     action.email.sendresults = 1
-    action.email.to = gba@splunk.com
+    action.email.to = gba@gregalbrecht.com
     alert.digest_mode = False
     alert.severity = 4
     alert.suppress = 0
