@@ -95,6 +95,18 @@
 <p>We had initially planned to triangulate the sound source using three different physical locations around San Francisco. Unfortunately our third listening station on Alameda Island was too far off to pickup any discernible sound difference. Our two remaining stations were on Gurerro &amp; 16th in San Francisco's Mission District, and Judah &amp; 10th in San Francisco's Inner Sunset District.</p>
 <p><img alt="Mission: Raspberry PI + H2 Zoom Recorder" src="http://farm9.staticflickr.com/8225/8375016640_4cfd936ef5.jpg" /></p>
 <p><img alt="Inner Sunset: Lenovo R500 ThinkPad Laptop" src="https://dl.dropbox.com/u/4036736/Screenshots/Inner_Sunset_Listener.jpg" /></p>
+<h1>Data Format</h1>
+<p>Two methods of data recording were attempted for this project. </p>
+<p>The Mission Listening Station used periodic readings of Peak Envelope as heard by the microphone:</p>
+<div class="codehilite"><pre>1349921818<span class="p">.</span>185662 <span class="n">max_peak</span><span class="p">=</span>0
+</pre></div>
+
+
+<p>The Inner Sunset Listening Station used constant readings of dB levels as heard by the microphone:</p>
+<div class="codehilite"><pre>2012<span class="o">-</span>10<span class="o">-</span>08 11<span class="p">:</span>33<span class="p">:</span>41<span class="p">,</span>655 <span class="n">log_src</span><span class="p">=</span><span class="n">slim</span> <span class="n">CHANNELS</span><span class="p">=</span>1 <span class="n">RATE</span><span class="p">=</span>8000 <span class="n">MAX_AMPLITUDE</span><span class="p">=</span>32767 <span class="n">rms</span><span class="p">=</span>3510 <span class="n">max</span><span class="p">=</span>9443 <span class="n">amplitude</span><span class="p">=</span>0<span class="p">.</span>288186 <span class="n">dBg</span><span class="p">=</span><span class="o">-</span>10<span class="p">.</span>806534
+</pre></div>
+
+
 <h1>Results</h1>
 <h2>Practice Runs</h2>
 <p>The following graph shows 4 flyovers of the Blue Angels during a test-run over the city on Friday October 5th from 3PM to 4PM at the Inner Sunset listening station:</p>
@@ -103,12 +115,10 @@
 <img alt="Mission Listening Station (normalized)" src="http://dl.dropbox.com/u/4036736/Screenshots/_j6q.png" /></p>
 <p><img alt="Mission Listening Station" src="http://dl.dropbox.com/u/4036736/Screenshots/x6hj.png" /></p>
 <h2>Air Show</h2>
-<h3>Saturday</h3>
-<p><img alt="Mission Listening Station" src="http://cl.ly/image/221P1a2I0v2l/Screen%20Shot%202012-10-06%20at%201.49.39%20PM.png" /></p>
-<h3>Sunday</h3>
 <p><img alt="Both Stations" src="http://dl.dropbox.com/u/4036736/Screenshots/-bn3.png" /></p>
-<h1>Next Steps</h1>
-<p>...</p>
+<h1>Additional Results</h1>
+<p>In addition to detecting Blue Angels fly-overs, these listening stations have been used to detect diurnal noise patterns. The following are noise levels for mornings from 12 midnight to 12 noon during the week of January 14th.</p>
+<p><img alt="Morning Noise in the Inner Sunset" src="http://dl.dropbox.com/u/4036736/Screenshots/_svr.png" /></p>
 <h1>Source</h1>
 <p>Source for the scripts that captured and transmitted noise-level are available here:
 <a href="https://github.com/ampledata/sounding">https://github.com/ampledata/sounding</a></p>

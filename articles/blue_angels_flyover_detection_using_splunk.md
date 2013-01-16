@@ -37,6 +37,18 @@ We had initially planned to triangulate the sound source using three different p
 
 ![Inner Sunset: Lenovo R500 ThinkPad Laptop](https://dl.dropbox.com/u/4036736/Screenshots/Inner_Sunset_Listener.jpg)
 
+# Data Format
+Two methods of data recording were attempted for this project. 
+
+The Mission Listening Station used periodic readings of Peak Envelope as heard by the microphone:
+
+    1349921818.185662 max_peak=0
+
+The Inner Sunset Listening Station used constant readings of dB levels as heard by the microphone:
+
+    2012-10-08 11:33:41,655 log_src=slim CHANNELS=1 RATE=8000 MAX_AMPLITUDE=32767 rms=3510 max=9443 amplitude=0.288186 dBg=-10.806534
+
+
 # Results
 ## Practice Runs
 The following graph shows 4 flyovers of the Blue Angels during a test-run over the city on Friday October 5th from 3PM to 4PM at the Inner Sunset listening station:
@@ -49,13 +61,12 @@ This graph shows the same flyovers from the Mission listening station:
 ![Mission Listening Station](http://dl.dropbox.com/u/4036736/Screenshots/x6hj.png)
 
 ## Air Show
-### Saturday
-![Mission Listening Station](http://cl.ly/image/221P1a2I0v2l/Screen%20Shot%202012-10-06%20at%201.49.39%20PM.png)
-
-### Sunday
 ![Both Stations](http://dl.dropbox.com/u/4036736/Screenshots/-bn3.png)
-# Next Steps
-...
+
+# Additional Results
+In addition to detecting Blue Angels fly-overs, these listening stations have been used to detect diurnal noise patterns. The following are noise levels for mornings from 12 midnight to 12 noon during the week of January 14th.
+
+![Morning Noise in the Inner Sunset](http://dl.dropbox.com/u/4036736/Screenshots/_svr.png)
 
 # Source
 Source for the scripts that captured and transmitted noise-level are available here:
