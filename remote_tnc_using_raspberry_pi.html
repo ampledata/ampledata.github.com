@@ -19,7 +19,7 @@
     </script>
 
     <meta charset="utf-8">
-    <title>Splunkd Health Check</title>
+    <title>Remote Tnc Using Raspberry Pi</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Greg Albrecht's ampledata.org">
@@ -55,7 +55,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Splunkd Health Check</a>
+          <a class="brand" href="#">Remote Tnc Using Raspberry Pi</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="index.html">Home</a></li>
@@ -69,38 +69,20 @@
 
     <div class="container">
       
-<p>Here's a dead simple splunkd health check. It uses an auth token
-returned by splunkd's
-<a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
-to double check daemon health. (excuse my awk ignorance)</p>
-<div class="codehilite"><pre><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;
-<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;
-<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;
-<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login|egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span>|awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span>|awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>;
-curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span>;
-<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span>;
-logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
-</pre></div>
-
-
-<p>I've intentionally left the semicolon at the end of each line for one
-reason: This entire script can be concatinated into a single line and
-executed via crontab:</p>
-<div class="codehilite"><pre>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
-</pre></div>
-
-
-<p>This command will print a line similar to this when there's an error:</p>
-<div class="codehilite"><pre><span class="n">Apr</span>  <span class="mi">4</span> <span class="mo">05</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mo">01</span> <span class="n">domU</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="mi">39</span><span class="o">-</span><span class="mo">00</span><span class="o">-</span><span class="n">E5</span><span class="o">-</span><span class="mi">32</span> <span class="n">splunkd_auth_status</span><span class="o">:</span> <span class="n">err</span>
-</pre></div>
-
-
-<p>Using a Splunk Saved Search with Alerting, you could easily match this event
-and trigger and alert.</p>
-<p>Alternatively, if you're using Cloudkick you could change the logger
-call at the end of this command to a simple echo:</p>
-<div class="codehilite"><pre><span class="nb">echo</span> <span class="s2">&quot;status $STATUS&quot;</span>
-</pre></div>
+<h1>Abstract</h1>
+<p>This article describes a method for using a super-small single-board computer (<a href="http://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi</a>) as a remote Amateur Radio Terminal Node Controller (<a href="http://en.wikipedia.org/wiki/Terminal_node_controller">TNC</a>) for use with Amateur Radio Packet services like Automatic Packet Reporting System (<a href="http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System">APRS</a>), <a href="http://en.wikipedia.org/wiki/Packet_radio">Packet Radio</a>, et al.</p>
+<h1>Background</h1>
+<p>Existing TNC technology typically required direct connection between the TNC device and the computer running packet software. For users of Windows, there exists the option to use the <a href="http://www.sv2agw.com/ham/agwpe.htm">AGWPE</a> software to connect a computer running packet software to a remote Windows computer connected to a TNC.</p>
+<h1>Inspiration</h1>
+<p>The Raspberry Pi single-board computer is an open-source, open-hardware design that allows developers to create easy </p>
+<h1>Pre-requisite</h1>
+<ol>
+<li><a href="http://www.raspberrypi.org/faqs">Raspberry Pi</a></li>
+<li><a href="http://www.tnc-x.com/TNCPi.htm">TNCPi</a></li>
+<li><a href="">ldsped</a></li>
+<li>Linux distribution</li>
+<li>Radio</li>
+</ol>
 
       <hr>
       

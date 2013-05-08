@@ -79,7 +79,7 @@ unprecidented amount of email messages.</p>
 <li>Download &amp; Install <a href="http://www.splunk.com/download">Splunk</a>.</li>
 <li>
 <p>Configure Splunk to monitor your mailboxes:</p>
-<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
+<div class="codehilite"><pre><span class="c1"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
 <span class="k">[batch:///var/mail]</span>
 <span class="na">disabled</span> <span class="o">=</span> <span class="s">false</span>
 <span class="na">move_policy</span> <span class="o">=</span> <span class="s">sinkhole</span>
@@ -90,7 +90,7 @@ unprecidented amount of email messages.</p>
 </li>
 <li>
 <p>Configure Splunk to properly extract messages from your mailbox:</p>
-<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/props.conf</span>
+<div class="codehilite"><pre><span class="c1"># $SPLUNK_HOME/etc/system/local/props.conf</span>
 <span class="k">[mbox]</span>
 <span class="na">LINE_BREAKER</span> <span class="o">=</span> <span class="s">([\r\n]+)From\s</span>
 <span class="na">SHOULD_LINEMERGE</span> <span class="o">=</span> <span class="s">false</span>

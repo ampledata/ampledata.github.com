@@ -107,8 +107,8 @@ mail: <code>virtual_alias_domains = sfeserv01.splunk.com,sfeserv31.splunk.com</c
 <li>
 <p>In Postfix's <strong>virtual_alias_map</strong> file create a catch-all alias for each 
 host from which you'll be accepting mail:</p>
-<div class="codehilite"><pre><span class="p">@</span><span class="n">sfeserv01</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="k">catch</span><span class="o">-</span><span class="n">all</span>
-<span class="p">@</span><span class="n">sfeserv31</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="k">catch</span><span class="o">-</span><span class="n">all</span>
+<div class="codehilite"><pre><span class="err">@</span><span class="n">sfeserv01</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="n">catch</span><span class="o">-</span><span class="n">all</span>
+<span class="err">@</span><span class="n">sfeserv31</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span>  <span class="n">catch</span><span class="o">-</span><span class="n">all</span>
 </pre></div>
 
 
@@ -129,38 +129,38 @@ Maildir: <code>catch-all: /var/mail/catch-all/</code></p>
 <li>
 <p>In Splunk's <strong>inputs.conf</strong> file configure batch monitor of the catch-all 
 Maildir:</p>
-<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
-<span class="p">[</span><span class="n">batch</span><span class="p">:</span><span class="o">///</span><span class="nb">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="k">catch</span><span class="o">-</span><span class="nb">all</span><span class="p">]</span>
-<span class="n">interval</span> <span class="p">=</span> 300
-<span class="n">disabled</span> <span class="p">=</span> <span class="nb">false</span>
-<span class="nb">index</span> <span class="p">=</span> <span class="n">admin_mail</span>
-<span class="nb">source</span> <span class="p">=</span> <span class="n">admin_mail</span>
-<span class="n">move_policy</span> <span class="p">=</span> <span class="n">sinkhole</span>
-<span class="n">sourcetype</span> <span class="p">=</span> <span class="n">admin_mail</span>
+<div class="codehilite"><pre><span class="cp"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
+<span class="p">[</span><span class="n">batch</span><span class="o">:</span><span class="c1">///var/mail/catch-all]</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">disabled</span> <span class="o">=</span> <span class="nb">false</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">admin_mail</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">admin_mail</span>
+<span class="n">move_policy</span> <span class="o">=</span> <span class="n">sinkhole</span>
+<span class="n">sourcetype</span> <span class="o">=</span> <span class="n">admin_mail</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>In Splunk's <strong>props.conf</strong> file configure email event parsing:</p>
-<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/props.conf</span>
+<div class="codehilite"><pre><span class="cp"># $SPLUNK_HOME/etc/system/local/props.conf</span>
 <span class="p">[</span><span class="n">admin_mail</span><span class="p">]</span>
-<span class="n">TRUNCATE</span> <span class="p">=</span> 0
-<span class="n">MAX_EVENTS</span><span class="p">=</span>200000
-<span class="n">TIME_PREFIX</span> <span class="p">=</span> <span class="n">Date</span><span class="p">:</span><span class="o">\</span><span class="n">s</span>
-<span class="n">LINE_BREAKER</span> <span class="p">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
-<span class="n">BREAK_ONLY_BEFORE</span> <span class="p">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+<span class="n">TRUNCATE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MAX_EVENTS</span><span class="o">=</span><span class="mi">200000</span>
+<span class="n">TIME_PREFIX</span> <span class="o">=</span> <span class="n">Date</span><span class="o">:</span><span class="err">\</span><span class="n">s</span>
+<span class="n">LINE_BREAKER</span> <span class="o">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+<span class="n">BREAK_ONLY_BEFORE</span> <span class="o">=</span> <span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>In Splunk's <strong>indexes.conf</strong> file configure the email index:</p>
-<div class="codehilite"><pre><span class="c"># $SPLUNK_HOME/etc/system/local/indexes.conf</span>
+<div class="codehilite"><pre><span class="cp"># $SPLUNK_HOME/etc/system/local/indexes.conf</span>
 <span class="p">[</span><span class="n">admin_mail</span><span class="p">]</span>
-<span class="n">homePath</span>   <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">db</span>
-<span class="n">coldPath</span>   <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">colddb</span>
-<span class="n">thawedPath</span> <span class="p">=</span> $<span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">thaweddb</span>
+<span class="n">homePath</span>   <span class="o">=</span> <span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">db</span>
+<span class="n">coldPath</span>   <span class="o">=</span> <span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">colddb</span>
+<span class="n">thawedPath</span> <span class="o">=</span> <span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">thaweddb</span>
 </pre></div>
 
 

@@ -19,7 +19,7 @@
     </script>
 
     <meta charset="utf-8">
-    <title>Splunkd Health Check</title>
+    <title>Foursquare To Aprs Integration</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Greg Albrecht's ampledata.org">
@@ -55,7 +55,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Splunkd Health Check</a>
+          <a class="brand" href="#">Foursquare To Aprs Integration</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="index.html">Home</a></li>
@@ -69,38 +69,51 @@
 
     <div class="container">
       
-<p>Here's a dead simple splunkd health check. It uses an auth token
-returned by splunkd's
-<a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
-to double check daemon health. (excuse my awk ignorance)</p>
-<div class="codehilite"><pre><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;
-<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;
-<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;
-<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login|egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span>|awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span>|awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>;
-curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span>;
-<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span>;
-logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
-</pre></div>
-
-
-<p>I've intentionally left the semicolon at the end of each line for one
-reason: This entire script can be concatinated into a single line and
-executed via crontab:</p>
-<div class="codehilite"><pre>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
-</pre></div>
-
-
-<p>This command will print a line similar to this when there's an error:</p>
-<div class="codehilite"><pre><span class="n">Apr</span>  <span class="mi">4</span> <span class="mo">05</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mo">01</span> <span class="n">domU</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="mi">39</span><span class="o">-</span><span class="mo">00</span><span class="o">-</span><span class="n">E5</span><span class="o">-</span><span class="mi">32</span> <span class="n">splunkd_auth_status</span><span class="o">:</span> <span class="n">err</span>
-</pre></div>
-
-
-<p>Using a Splunk Saved Search with Alerting, you could easily match this event
-and trigger and alert.</p>
-<p>Alternatively, if you're using Cloudkick you could change the logger
-call at the end of this command to a simple echo:</p>
-<div class="codehilite"><pre><span class="nb">echo</span> <span class="s2">&quot;status $STATUS&quot;</span>
-</pre></div>
+<h1>Abstract</h1>
+<p>This article describes a method for integrating <a href="http://foursquare.com">Foursquare</a> check-ins with (Automatic Packet Reporting System)[http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System] (APRS) position reports. Using this integration, a licensed <a href="http://www.arrl.org/what-is-ham-radio">Amateur Radio</a> operator can have location check-ins on Foursquare automatically transmitted to the world-wide APRS network. The software and endpoints for this integration are written using Python.</p>
+<h1>Background</h1>
+<p>Foursquare is a location-based social network that allows check-ins at venues or locations using a mobile device (ie Phone, Tablet, Web). These check-ins note the coordinates of the associated location or venue.</p>
+<p>APRS is a packet-based reporting system used by Amateur Radio operators world-wide. Typically report packets are transmitted over Amateur Radio frequencies (such as 144.39MHz in North America). However, the APRS Internet System (APRS-IS) allows packets to be transmitted and received over the internet, creating a gateway between radio and the internet.</p>
+<h1>Requirements</h1>
+<ol>
+<li>A <a href="http://www.arrl.org/licensing-preparation-exams">Amateur Radio License</a></li>
+<li>A <a href="http://zapier.com">Zapier</a> account.</li>
+<li>A <a href="http://foursquare.com">Foursquare</a> account.</li>
+</ol>
+<h1>Setup</h1>
+<p>The instructions below walk through Zapier's steps for setting up the Foursquare to APRS integration.</p>
+<h2>Step 1: "Pick your Trigger and Action for this Zap"</h2>
+<ol>
+<li>From Zapier, login, go to your Dashboard, and select <strong>Create a New Zap</strong>.</li>
+<li>For <strong>Trigger Service</strong> select <strong>Foursquare</strong>.</li>
+<li>For <strong>Trigger</strong> select <strong>New Checkin</strong>.</li>
+<li>For <strong>Action Service</strong> select <strong>APRS</strong>.</li>
+<li>For <strong>Action</strong> select <strong>Create Message</strong>.</li>
+</ol>
+<h2>Step 2: "Select a Foursquare Account"</h2>
+<p>Select your Foursquare account.</p>
+<h2>Step 3: "Select a APRS Account"</h2>
+<p>Update the credentials for your APRS-IS account. </p>
+<ol>
+<li>Enter any <strong>Name</strong> for the account.</li>
+<li>Enter your <strong>Callsign</strong> plus a station number (-10 is recommended).</li>
+<li>Enter your APRS-IS <strong>Passcode</strong>. (TK)</li>
+</ol>
+<p><img alt="" src="http://dl.dropbox.com/u/4036736/Screenshots/24j35_5po0uq.png" /></p>
+<h2>Step 4: "Filter your Foursquare checkins"</h2>
+<p>No filters are needed, so you can skip this step.</p>
+<h2>Step 5: "Create your APRS Message"</h2>
+<ol>
+<li>For <strong>Message</strong> enter <strong>Foursquare Checkin at: {{venue__name}}</strong></li>
+<li>For <strong>Latitude</strong> enter <strong>{{venue__location__lat}}</strong></li>
+<li>For <strong>Longitude</strong> enter <strong>{{venue__location__lng}}</strong></li>
+</ol>
+<p><img alt="" src="http://dl.dropbox.com/u/4036736/Screenshots/yfx6cco_dzvj.png" /></p>
+<h2>Step 6: "Try out your Zap"</h2>
+<p>Test this integration, if you'd like.</p>
+<h2>Step 7: "Enable your Foursquare to APRS Zap"</h2>
+<p>Select <strong>Make Zap Live</strong>.</p>
+<h2>Done!</h2>
 
       <hr>
       

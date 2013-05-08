@@ -262,11 +262,11 @@ built-in <code>open</code> method to support.. opening URIs!:</p>
 <p>On to the fun stuff. Lets actually do something. Lets start by opening a
 file. Since we've probably all got access to a Unix system, lets check 
 out what our BOFH has left in our MOTD:</p>
-<div class="codehilite"><pre><span class="n">open</span><span class="p">(</span><span class="s">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
- <span class="p">=</span><span class="o">&gt;</span> <span class="n">Errno</span><span class="p">::</span><span class="n">ENOENT</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span> <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">motd</span>
-  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1<span class="p">:</span><span class="n">in</span> `<span class="n">initialize</span><span class="o">&#39;</span>
-  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1<span class="p">:</span><span class="n">in</span> `<span class="n">open</span><span class="o">&#39;</span>
-  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span>1
+<div class="codehilite"><pre><span class="n">open</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">motd</span><span class="err">&#39;</span><span class="p">,</span> <span class="sc">&#39;r&#39;</span><span class="p">)</span>
+ <span class="o">=&gt;</span> <span class="n">Errno</span><span class="o">::</span><span class="n">ENOENT</span><span class="o">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span> <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">motd</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">)</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="n">in</span> <span class="err">`</span><span class="n">initialize</span><span class="err">&#39;</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">)</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="n">in</span> <span class="err">`</span><span class="n">open</span><span class="err">&#39;</span>
+  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">)</span><span class="o">:</span><span class="mi">1</span>
 </pre></div>
 
 
@@ -286,7 +286,7 @@ proactively avoid this by catching this exception using Ruby's
 a friendlier message:</p>
 <div class="codehilite"><pre><span class="k">begin</span>
   <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ENOENT</span>
+<span class="k">rescue</span> <span class="ss">Errno</span><span class="p">:</span><span class="ss">:ENOENT</span>
   <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
 <span class="k">end</span>
  <span class="o">=&gt;</span> <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
@@ -300,21 +300,21 @@ a friendlier message:</p>
 to write our MOTD, here too Ruby can help. From the command line we can 
 invoke the <code>ri</code> utility to look at the embedded documentation for <code>open</code>.</p>
 <p>Here we're using <code>ri IO.open</code> to understand <code>open</code>'s capabilities:</p>
-<div class="codehilite"><pre><span class="o">---------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="nb">open</span>
+<div class="codehilite"><pre><span class="o">---------------------------------------------------------------</span> <span class="ss">IO</span><span class="p">:</span><span class="ss">:open</span>
      <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span>               <span class="o">=&gt;</span> <span class="n">io</span>
      <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">io</span><span class="o">|</span> <span class="n">block</span> <span class="p">}</span> <span class="o">=&gt;</span> <span class="n">obj</span>
 <span class="o">------------------------------------------------------------------------</span>
-     <span class="no">With</span> <span class="n">no</span> <span class="n">associated</span> <span class="n">block</span><span class="p">,</span> <span class="o">+</span><span class="nb">open</span><span class="o">+</span> <span class="n">is</span> <span class="n">a</span> <span class="n">synonym</span> <span class="k">for</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="kp">new</span><span class="o">+.</span> <span class="no">If</span> <span class="n">the</span>
+     <span class="no">With</span> <span class="n">no</span> <span class="n">associated</span> <span class="n">block</span><span class="p">,</span> <span class="o">+</span><span class="nb">open</span><span class="o">+</span> <span class="n">is</span> <span class="n">a</span> <span class="n">synonym</span> <span class="k">for</span> <span class="o">+</span><span class="ss">IO</span><span class="p">:</span><span class="ss">:new</span><span class="o">+.</span> <span class="no">If</span> <span class="n">the</span>
      <span class="n">optional</span> <span class="n">code</span> <span class="n">block</span> <span class="n">is</span> <span class="n">given</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">passed</span> <span class="n">_io_</span> <span class="n">as</span> <span class="n">an</span>
      <span class="n">argument</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="no">IO</span> <span class="n">object</span> <span class="n">will</span> <span class="n">automatically</span> <span class="n">be</span> <span class="n">closed</span> <span class="k">when</span> <span class="n">the</span>
-     <span class="n">block</span> <span class="n">terminates</span><span class="o">.</span> <span class="no">In</span> <span class="n">this</span> <span class="n">instance</span><span class="p">,</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="nb">open</span><span class="o">+</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span>
+     <span class="n">block</span> <span class="n">terminates</span><span class="o">.</span> <span class="no">In</span> <span class="n">this</span> <span class="n">instance</span><span class="p">,</span> <span class="o">+</span><span class="ss">IO</span><span class="p">:</span><span class="ss">:open</span><span class="o">+</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span>
      <span class="n">the</span> <span class="n">block</span><span class="o">.</span>
 </pre></div>
 
 
 <p>The page above tell us that <code>IO.open</code> is really a synonym of <code>IO.new</code>, so
 lets use <code>ri IO.new</code> to check out it's capabilities:</p>
-<div class="codehilite"><pre><span class="o">----------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="kp">new</span>
+<div class="codehilite"><pre><span class="o">----------------------------------------------------------------</span> <span class="ss">IO</span><span class="p">:</span><span class="ss">:new</span>
      <span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>   <span class="o">=&gt;</span> <span class="n">io</span>
 <span class="o">------------------------------------------------------------------------</span>
      <span class="no">Returns</span> <span class="n">a</span> <span class="kp">new</span> <span class="o">+</span><span class="no">IO</span><span class="o">+</span> <span class="n">object</span> <span class="p">(</span><span class="n">a</span> <span class="n">stream</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">given</span> <span class="n">integer</span> <span class="n">file</span>
@@ -324,7 +324,7 @@ lets use <code>ri IO.new</code> to check out it's capabilities:</p>
         <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;Hello&quot;</span>
         <span class="n">a</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;World&quot;</span>
 
-     <span class="n">_produces</span><span class="ss">:_</span>
+     <span class="ss">_produces</span><span class="p">:</span><span class="n">_</span>
 
         <span class="no">Hello</span>
         <span class="no">World</span>
@@ -396,12 +396,12 @@ method itself:</p>
 
 <p>Cool, lets see if it works with <strong>shef</strong>:</p>
 <div class="codehilite"><pre><span class="n">chef</span> <span class="o">&gt;</span> <span class="n">recipe</span>
-<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="n">include_recipe</span> <span class="s1">&#39;motd&#39;</span>
-<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="n">run_chef</span>
-<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="no">DEBUG</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">on</span> <span class="n">jupiter</span><span class="o">.</span><span class="n">splunk</span><span class="o">.</span><span class="n">com</span>
-<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="no">INFO</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">action</span> <span class="n">create</span> <span class="p">(</span><span class="n">motd</span><span class="o">::</span><span class="n">default</span> <span class="n">line</span> <span class="mi">1</span><span class="p">)</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="n">include_recipe</span> <span class="s1">&#39;motd&#39;</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="n">run_chef</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="ss">DEBUG</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">on</span> <span class="n">jupiter</span><span class="o">.</span><span class="n">splunk</span><span class="o">.</span><span class="n">com</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="ss">INFO</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">action</span> <span class="n">create</span> <span class="p">(</span><span class="ss">motd</span><span class="p">:</span><span class="ss">:default</span> <span class="n">line</span> <span class="mi">1</span><span class="p">)</span>
  <span class="o">=&gt;</span> <span class="kp">true</span>
-<span class="n">chef</span><span class="ss">:recipe</span> <span class="o">&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
  <span class="o">=&gt;</span> <span class="s2">&quot;Ke$ha dubs herself </span><span class="se">\&quot;</span><span class="s2">Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&quot;</span>
 </pre></div>
 
@@ -432,7 +432,7 @@ test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
 <p>Now lets create some tests for our Library: <code>vi motd/libraries/default.rb</code></p>
 <div class="codehilite"><pre><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
 
-<span class="k">class</span> <span class="nc">TestMOTDLibrary</span> <span class="o">&lt;</span> <span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+<span class="k">class</span> <span class="nc">TestMOTDLibrary</span> <span class="o">&lt;</span> <span class="ss">Test</span><span class="p">:</span><span class="ss">:Unit</span><span class="o">::</span><span class="no">TestCase</span>
   <span class="k">def</span> <span class="nf">test_get_tweet</span>
     <span class="n">tweets</span> <span class="o">=</span> <span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
     <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
@@ -460,7 +460,7 @@ test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
 <span class="n">F</span><span class="o">.</span>
 <span class="no">Finished</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="mi">428887</span> <span class="n">seconds</span><span class="o">.</span>
 
-  <span class="mi">1</span><span class="p">)</span> <span class="no">Failure</span><span class="p">:</span>
+  <span class="mi">1</span><span class="p">)</span> <span class="ss">Failure</span><span class="p">:</span>
 <span class="n">test_get_tweet</span><span class="p">(</span><span class="no">TestMOTDLibrary</span><span class="p">)</span> <span class="o">[</span><span class="n">libraries</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">26</span><span class="o">]</span><span class="p">:</span>
 <span class="o">&lt;</span><span class="no">Ke</span><span class="vg">$ha</span> <span class="n">dubs</span> <span class="n">herself</span> <span class="p">\</span><span class="s2">&quot;Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&gt; expected to be =~</span>
 <span class="s2">&lt;/Shields Up!/&gt;.</span>
