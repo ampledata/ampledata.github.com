@@ -8,6 +8,7 @@
 
 
 jeb
+pygments
 pylint
 pep8
 mock
