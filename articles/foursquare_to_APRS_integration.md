@@ -1,8 +1,5 @@
-# DRAFT
-gba@20130507 This article is a **DRAFT**.
-
 # Abstract
-This article describes a method for integrating [Foursquare](http://foursquare.com) check-ins with (Automatic Packet Reporting System)[http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System] (APRS) position reports. Using this integration, a licensed [Amateur Radio](http://www.arrl.org/what-is-ham-radio) operator can have location check-ins on Foursquare automatically transmitted to the world-wide APRS network. The software and endpoints for this integration are written using Python.
+This article describes a method for integrating [Foursquare](http://foursquare.com) check-ins with [Automatic Packet Reporting System (APRS)](http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System) position reports. Using this integration, a licensed [Amateur Radio](http://www.arrl.org/what-is-ham-radio) operator can have location check-ins on Foursquare automatically transmitted to the world-wide APRS network. The software and endpoints for this integration are written using Python.
 
 # Background
 Foursquare is a location-based social network that allows check-ins at venues or locations using a mobile device (ie Phone, Tablet, Web). These check-ins note the coordinates of the associated location or venue.
@@ -10,7 +7,7 @@ Foursquare is a location-based social network that allows check-ins at venues or
 APRS is a packet-based reporting system used by Amateur Radio operators world-wide. Typically report packets are transmitted over Amateur Radio frequencies (such as 144.39MHz in North America). However, the APRS Internet System (APRS-IS) allows packets to be transmitted and received over the internet, creating a gateway between radio and the internet.
 
 # Requirements
-1. A [Amateur Radio License](http://www.arrl.org/licensing-preparation-exams)
+1. A [Amateur Radio License](http://www.arrl.org/licensing-preparation-exams).
 2. A [Zapier](http://zapier.com) account.
 3. A [Foursquare](http://foursquare.com) account.
 
