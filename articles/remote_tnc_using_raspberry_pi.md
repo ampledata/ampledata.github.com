@@ -1,3 +1,6 @@
+# DRAFT
+gba@20130507 This article is a **DRAFT**.
+
 # Abstract
 This article describes a method for using a super-small single-board computer ([Raspberry Pi](http://en.wikipedia.org/wiki/Raspberry_Pi)) as a remote Amateur Radio Terminal Node Controller ([TNC](http://en.wikipedia.org/wiki/Terminal_node_controller)) for use with Amateur Radio Packet services like Automatic Packet Reporting System ([APRS](http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System)), [Packet Radio](http://en.wikipedia.org/wiki/Packet_radio), et al.
 

@@ -1,8 +1,5 @@
-Inspirational quote:
-
-	A career is never complete. It's a journey of education. If you give up trying to educate yourself, you've given up your journey.
-	
-That said, there's many ways you can expand your knowledge of emergency & disaster services. Below I've listed some of the ways you can increase your understanding of these skills.
+# DRAFT
+gba@20130507 This article is a **DRAFT**.
 
 # Emergency Response
 

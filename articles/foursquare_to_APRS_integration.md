@@ -1,3 +1,6 @@
+# DRAFT
+gba@20130507 This article is a **DRAFT**.
+
 # Abstract
 This article describes a method for integrating [Foursquare](http://foursquare.com) check-ins with (Automatic Packet Reporting System)[http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System] (APRS) position reports. Using this integration, a licensed [Amateur Radio](http://www.arrl.org/what-is-ham-radio) operator can have location check-ins on Foursquare automatically transmitted to the world-wide APRS network. The software and endpoints for this integration are written using Python.
 
