@@ -68,19 +68,74 @@ The following chart shows the 10 Busiest Teams, with the transports having the h
 ![10 Busiest Teams](https://dl.dropboxusercontent.com/u/4036736/Screenshots/8753%7Exxdsgv2.png)
 
 
+<table>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
 
-|Team|Number of Calls|Percent of Calls|
-|::|::|::|
-|TP3|15|11%|
-|TP2|10|8%|
-|TP1|10|8%|
-|T13|10|8%|
-|T1|10|8%|
-|S2|10|8%|
-|S1|10|8%|
-|T8|7|5%|
-|T5|7|5%|
-|T4|7|5%|
+<thead>
+<tr>
+  <th style="text-align:center;">Team</th>
+  <th style="text-align:center;">Number of Calls</th>
+  <th style="text-align:center;">Percent of Calls</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+  <td style="text-align:center;">TP3</td>
+  <td style="text-align:center;">15</td>
+  <td style="text-align:center;">11%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">TP2</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">TP1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T13</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">S2</>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">S1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T8</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T5</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T4</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+</tbody>
+</table>
 
 
 The following chart shows call-load by all teams:
@@ -88,28 +143,130 @@ The following chart shows call-load by all teams:
 
 ![All Teams](https://dl.dropboxusercontent.com/u/4036736/Screenshots/t32a7v37gd4r.png)
 
-|Team|Number of Calls|Percent of Calls|
-|::|::|::|
-|TP3|15|11%|
-|TP2|10|8%|
-|TP1|10|8%|
-|T13|10|8%|
-|T1|10|8%|
-|S2|10|8%|
-|S1|10|8%|
-|T8|7|5%|
-|T5|7|5%|
-|T4|7|5%|
-|T2|6|5%|
-|T10|6|5%|
-|T9|4|3%|
-|T3|4|3%|
-|T12|4|3%|
-|T7|3|2%|
-|T6|3|2%|
-|T14|3|2%|
-|T15|1|1%|
-|C1|1|1%|
+
+<table>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+  <th style="text-align:center;">Team</th>
+  <th style="text-align:center;">Number of Calls</th>
+  <th style="text-align:center;">Percent of Calls</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+  <td style="text-align:center;">TP3</td>
+  <td style="text-align:center;">15</td>
+  <td style="text-align:center;">11%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">TP2</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">TP1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T13</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">S2</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">S1</td>
+  <td style="text-align:center;">10</td>
+  <td style="text-align:center;">8%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T8</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T5</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T4</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T2</td>
+  <td style="text-align:center;">6</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T10</td>
+  <td style="text-align:center;">6</td>
+  <td style="text-align:center;">5%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T9</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T9</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T3</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T12</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T7</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T6</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T14</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">T15</td>
+  <td style="text-align:center;">1</td>
+  <td style="text-align:center;">1%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">C1</td>
+  <td style="text-align:center;">1</td>
+  <td style="text-align:center;">1%</td>
+</tr>
+</tbody>
+</table>
 
 ## By Location
 
@@ -122,29 +279,130 @@ The following chart shows call-load by location:
 ![Calls by Location](https://dl.dropboxusercontent.com/u/4036736/Screenshots/67ksh7n9-lwi.png)
 
 
-|Location|Calls|Percent of Calls|
-|::|::|::|
-|Civic Center|17|15%|
-|McAllister & Polk|8|7%|
-|McAllister & Larkin|7|6%|
-|Golden Gate & Larkin|7|6%|
-|Fulton & Larkin|7|6%|
-|Grove & Larkin|5|4%|
-|Fulton & Hyde|5|4%|
-|McAllister & Leavenworth|4|3%|
-|McAllister & Hyde|4|3%|
-|Market & 8th|4|3%|
-|Market & 2nd|4|3%|
-|Grove & Polk|4|3%|
-|Mission & Spear|3|3%|
-|McAllister & Van Ness|3|3%|
-|Golden Gate & Hyde|3|3%|
-|Market & Taylor|2|2%|
-|Market & Larkin|2|2%|
-|Market & 7th|2|2%|
-|Market & 3rd|2|2%|
-|Grove & Van Ness|2|2%|
-|Fulton & Leavenworth|2|2%|
+
+<table>
+<colgroup>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+<col style="text-align:center;"/>
+</colgroup>
+
+<thead>
+<tr>
+  <th style="text-align:center;">Location</th>
+  <th style="text-align:center;">Calls</th>
+  <th style="text-align:center;">Percent of Calls</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+  <td style="text-align:center;">Civic Center</td>
+  <td style="text-align:center;">17</td>
+  <td style="text-align:center;">15%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">McAllister &amp; Polk</td>
+  <td style="text-align:center;">8</td>
+  <td style="text-align:center;">7%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">McAllister &amp; Larkin</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">6%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Golden Gate &amp; Larkin</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">6%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Fulton &amp; Larkin</td>
+  <td style="text-align:center;">7</td>
+  <td style="text-align:center;">6%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Grove &amp; Larkin</td>
+  <td style="text-align:center;">5</td>
+  <td style="text-align:center;">4%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Fulton &amp; Hyde</td>
+  <td style="text-align:center;">5</td>
+  <td style="text-align:center;">4%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">McAllister &amp; Leavenworth</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">McAllister &amp; Hyde</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; 8th</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; 2nd</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Grove &amp; Polk</td>
+  <td style="text-align:center;">4</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Mission &amp; Spear</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">McAllister &amp; Van Ness</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Golden Gate &amp; Hyde</td>
+  <td style="text-align:center;">3</td>
+  <td style="text-align:center;">3%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; Taylor</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; Larkin</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; 7th</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Market &amp; 3rd</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Grove &amp; Van Ness</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+<tr>
+  <td style="text-align:center;">Fulton &amp; Leavenworth</td>
+  <td style="text-align:center;">2</td>
+  <td style="text-align:center;">2%</td>
+</tr>
+</tbody>
+</table>
 
 # Recommended Solutions
 
