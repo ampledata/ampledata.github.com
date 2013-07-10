@@ -404,62 +404,6 @@ The following chart shows call-load by location:
 </tbody>
 </table>
 
-# Recommended Solutions
-
-The following recommendations are based on analysis of the event based on Dispatch Supervisor Notes, interviews with Dispatch Staff, and interviews with Field supervisors. These recommendations are broken down into sections based on their scope.
-
-## Communications Plan
-
-* Develop & socialize the Event Communications Plan prior to the Event.
-
-This recommendation stems from the fact that the event radios were programmed with 3 Medical Channels, the purpose and configuration of each was unknown to Dispatch Staff.
-
-* Involve Dispatch Supervisor in Event Communications Coordination.
-
-The Dispatch Supervisor should assist and advise in the development of the Event Communications Plan.
-
-* Use standardized forms for the Event Communications Plan.
-
-Use ICS' Incident Radio Communications Plan (ICS 205).
-
-## Staffing
-
-* Recruit and select Dispatch Staff prior to event.
-
-This ensures that dispatch is properly staffed, compensated & relieved.
-
-* Staff Dispatch in shifts.
-
-Dispatch should be relieved in the same manner as Field and Clinic Staff.
-
-## Radio Protocol
-
-* Socialize radio protocols.
-
-Radio usage, terminology and effective communication should be emphasized to all users.
-
-* Socialize 'ring down' protocols.
-
-Field Hospitals should be alerted of Inbound Patient Reports.
-
-## Call Tracking
-
-* Implement Call Tracking system.
-
-Create a means of accepting & tracking calls, team status, and dispatch status.
-
-## Team Tracking
-
-* Implement Geo-tracking System for Field Teams.
-
-Create a means of tracking the goe-spacial location of Field Teams.
-
-## Area of Responsibility
-
-* Socialize the Area of Responsibility for Field Team Response.
-
-Ensure Dispatch Staff is aware of the area of responsibility for Field Teams.
-
 # Author
 
 This report was compiled on Monday, July 9th, 2013 by Greg Albrecht, Dispatch Supervisor, Rock Medicine Pride 2013.
