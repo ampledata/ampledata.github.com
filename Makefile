@@ -23,6 +23,7 @@ build:
 
 publish:
 	git commit -m 'publishing articles' articles/*.md *.html *.xml
+	git commit -m 'publishing stories' stories/*.md *.html *.xml
 	git push origin
 
 lint:
