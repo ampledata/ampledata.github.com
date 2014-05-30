@@ -13,7 +13,7 @@
 all: install_requirements create_css build
 
 install_requirements:
-	pip install -r requirements.txt --use-mirrors
+	pip install -r requirements.txt
 
 create_css:
 	pygmentize -S default -f html -a html -a 'div.codehilite' > syntax.css
@@ -25,23 +25,3 @@ publish:
 	git commit -m 'publishing articles' articles/*.md *.html *.xml
 	git commit -m 'publishing stories' stories/*.md *.html *.xml
 	git push origin
-
-lint:
-	pylint -f parseable -i y -r y bin/*.py | tee pylint.log
-
-flake8:
-	flake8 --exit-zero  --max-complexity 12 bin/*.py | \
-		awk -F\: '{printf "%s:%s: [E]%s\n", $$1, $$2, $$3}' | tee flake8.log
-
-pep8: flake8
-
-clonedigger:
-	clonedigger --cpd-output .
-
-nosetests:
-	nosetests -c nosetests.cfg bin/*.py
-
-test: init lint flake8 clonedigger nosetests
-
-clean:
-	rm *.pyc nohup.out nosetests.xml output.xml flake8.log pylint.log

@@ -6,38 +6,91 @@
 
 {% block content %}
 <div class="row">
-	
+
   <span class="span6">
-	
+
     <h2>Articles</h2>
+
+		<h3>General</h3>
     <ul>
       {% for article in articles %}
+			{% if not 'splunk' in article.name %}
       <li><a href="{{ article.html_file }}">{{ article.friendly_name|title }}</a></li>
+			{% endif %}
       {% endfor %}
     </ul>
 
+		<h3>Splunk</h3>
+		<ul>
+			{% for article in articles %}
+			{% if 'splunk' in article.name %}
+			<li><a href="{{ article.html_file }}">{{ article.friendly_name|title }}</a></li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+<!--
 	<h2>Stories</h2>
 	<ul>
 	  {% for story in stories %}
       <li><a href="{{ story.html_file }}">{{ story.friendly_name|title }}</a></li>
-      {% endfor %}	
+      {% endfor %}
 	</ul>
-	
+-->
   </span>
 
 
   <span class="span6">
-	
+
     <h2>Projects</h2>
-	
+
 	<h3>OnBeep</h3>
 	<dl>
-		<dt><a href="https://angel.co/onbeep">OnBeep on AngelList</a></dt>
-		<dd>Still Stealthy. Currently Hiring!</dd>
+		<dt><a href="https://angel.co/onbeep">OnBeep on AngelList</a> (Python, Node.JS, Ruby, et al)</dt>
+		<dd>Wearables! Come change the world with us (now hiring!)</dd>
 	</dl>
-	
-    <h3>Amateur Radio</h3>
-    <dl>
+
+	<h3>Chef</h3>
+	<dl>
+		<dt><a href="https://github.com/onbeep-cookbooks/ssl-vault">ssl-vault Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook to manage SSL keys, certificates &amp; chains.</dd>
+
+		<dt><a href="https://github.com/onbeep-cookbooks/graphite_reporting_handler">graphite_reporting_handler Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook to push Run Report metrics to Graphite.</dd>
+
+		<dt><a href="https://github.com/onbeep-cookbooks/monkey">monkey Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook for monkey-patching Chef itself.</dd>
+
+		<dt><a href="https://github.com/onbeep-cookbooks/sftp">sftp Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook for installing &amp configuring a chroot SFTP server.</dd>
+
+		<dt><a href="https://github.com/onbeep-cookbooks/pygster">pygster Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook &amp; LWRP for installing and configuring Pygster, a pure-python Logster alternative.</dd>
+
+		<dt><a href="https://github.com/onbeep-cookbooks/ngrok">ngrok Cookbook</a> (Ruby)</dt>
+		<dd>Chef Cookbook for configuring &amp; installing an ngrok tunnel client.</dd>
+
+	</dl>
+
+	<h3>Metrics</h3>
+	<dl>
+		<dt><a href="https://github.com/OnBeep/pygster">Pygster</a> (Python)</dt>
+		<dd>Stripped down pure-Python logster using pygtail, derived from ec_logster and logster.</dd>
+
+		<dd><a href="https://github.com/OnBeep/pygster_parsers">Pygster Parsers</a> (Python)</dt>
+		<dd>Additional Pygster parsers for various log formats.</dd>
+
+		<dt><a href="https://github.com/OnBeep/hubot-hostedgraphite">Hubot HostedGraphite</a> (CoffeeScript)</dt>
+		<dd>Hubot package for displaying Graphite graphs from HostedGraphite.com</dd>
+
+		<dt><a href="https://github.com/ampledata/splunk_app_pagerduty">PagerDuty Alert for Splunk</a> (Python)</dt>
+		<dd>Splunk App for triggering PagerDuty Incidents from Searches, Events and Alerts.</dd>
+
+		<dt><a href="https://github.com/OnBeep/splunk_graphite">Graphite Output for Splunk App</a> (Python)</dt>
+		<dd>Splunk App that enables Graphite Output for Searches, Events and Alerts.</dd>
+	</dl>
+
+	<h3>Amateur Radio</h3>
+	<dl>
 		<dt><a href="https://github.com/ampledata/aprs">aprs</a> (Python)</dt>
 		<dd>APRS Python Module, a pure-Python interface to APRS-IS and APRS-KISS.</dd>
 
@@ -49,7 +102,7 @@
 	<dl>
 		<dt><a href="https://github.com/ampledata/jeb">jeb</a> (Python)</dt>
 		<dd>JEB: Just Enough Blog, the engine behind this site.</dd>
-		
+
 		<dt><a href="https://github.com/ampledata/pydstat">pydstat</a> (Python)</dt>
 		<dd>Pythonic pidstat.</dd>
 
@@ -58,9 +111,13 @@
 
 		<dt><a href="https://github.com/ampledata/pygitflow">pygitflow</a> (Python)</dt>
 		<dd>Install Git Flow as a Python Distribution Package.</dd>
-    </dl>
 
-    <a href="https://github.com/ampledata">...more.</a>
+		<dt><a href="https://github.com/OnBeep/hubot-netatmo">Hubot Netatmo</a> (CoffeeScript)</dt>
+		<dd>Hubot package for querying the Netatmo Urban Weather Station.</dd>
+
+  </dl>
+
+	<a href="https://github.com/ampledata">...more projects.</a>
 
   </span>
 

@@ -7,12 +7,9 @@
 #
 
 
-jeb
-pygments
-pylint
-pep8
-mock
-nose
-flake8
-coverage
-clonedigger
+Jinja2==2.7.2
+Markdown==2.4.1
+MarkupSafe==0.23
+PyRSS2Gen==1.1
+Pygments==1.6
+jeb==1.1.1
