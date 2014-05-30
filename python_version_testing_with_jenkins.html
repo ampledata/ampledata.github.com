@@ -59,7 +59,10 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="https://github.com/ampledata/resume">Resume</a></li>
+              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
               <!-- <li><a href="#contact">Contact</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
@@ -69,12 +72,13 @@
 
     <div class="container">
       
-<p><a href="http://jenkins-ci.org/">Jenkins CI's</a> <a href="https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin">ShiningPanda plugin</a> 
-makes testing Python extremely easy. It even includes support for testing 
-against multiple Python versions within the same Job. Unfortunately 
-ShiningPanda, and Jenkins itself, do not automatically install these 
+<p><strong>UPDATE 20140530</strong>: This article is DEPRECATED. I recommend using the <a href="https://wiki.jenkins-ci.org/display/JENKINS/pyenv+plugin">pyenv plugin</a> instead.</p>
+<p><a href="http://jenkins-ci.org/">Jenkins CI's</a> <a href="https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin">ShiningPanda plugin</a>
+makes testing Python extremely easy. It even includes support for testing
+against multiple Python versions within the same Job. Unfortunately
+ShiningPanda, and Jenkins itself, do not automatically install these
 dependent Python versions.</p>
-<p>Using <a href="https://github.com/utahta/pythonbrew">Pythonbrew</a> we can configure 
+<p>Using <a href="https://github.com/utahta/pythonbrew">Pythonbrew</a> we can configure
 Jenkins to automatically download and install our dependent versions of Python.</p>
 <h1>Overview</h1>
 <ol>
@@ -119,7 +123,7 @@ Jenkins to automatically download and install our dependent versions of Python.<
 <li>
 <p>From the Jenkins console, browse to <strong>Manage Jenkins &gt; Configure System</strong>.</p>
 </li>
-<li>Under <strong>Python</strong> click <strong>Add Python</strong>. </li>
+<li>Under <strong>Python</strong> click <strong>Add Python</strong>.</li>
 <li>
 <p>For each Python version to install, enter a <strong>Name</strong> and click <strong>Install Automatically &gt; Add Installer &gt; Run Command</strong>.</p>
 <p><img alt="'Add Installer' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/9b~1.png" /></p>
@@ -185,7 +189,7 @@ job configuration:</p>
           href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
           href="http://twitter.com/ampledata">@ampledata</a> Github <a
           href="https://github.com/ampledata">ampledata</a>.
-        
+
         <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
       </footer>
       

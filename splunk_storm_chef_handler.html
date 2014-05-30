@@ -59,7 +59,10 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="https://github.com/ampledata/resume">Resume</a></li>
+              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
               <!-- <li><a href="#contact">Contact</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
@@ -78,10 +81,8 @@ you can easily search for and report on your chef-client runs.</p>
 <li>Retrieve your Splunk Storm <a href="http://docs.splunk.com/Documentation/Storm/Beta/User/UseStormsRESTAPI">REST API Credentials</a>.</li>
 <li>Download the <a href="http://community.opscode.com/cookbooks/chef_handler">chef_handler</a>
 Cookbook.</li>
-<li>
-<p>Given you've retrieved your Access Token as <strong>ACCESS_TOKEN</strong> and Project ID
-as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:</p>
-<div class="codehilite"><pre><span class="n">include_recipe</span> <span class="s1">&#39;chef_handler&#39;</span>
+<li>Given you've retrieved your Access Token as <strong>ACCESS_TOKEN</strong> and Project ID
+as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:<div class="codehilite"><pre><span class="n">include_recipe</span> <span class="s1">&#39;chef_handler&#39;</span>
 
 <span class="n">gem_package</span><span class="p">(</span><span class="s1">&#39;chef-handler-splunkstorm&#39;</span><span class="p">){</span><span class="n">action</span> <span class="ss">:nothing</span><span class="p">}</span><span class="o">.</span><span class="n">run_action</span><span class="p">(</span><span class="ss">:install</span><span class="p">)</span>
 
@@ -133,7 +134,7 @@ as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:</p>
           href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
           href="http://twitter.com/ampledata">@ampledata</a> Github <a
           href="https://github.com/ampledata">ampledata</a>.
-        
+
         <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
       </footer>
       

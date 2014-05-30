@@ -1,10 +1,12 @@
-[Jenkins CI's](http://jenkins-ci.org/) [ShiningPanda plugin](https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin) 
-makes testing Python extremely easy. It even includes support for testing 
-against multiple Python versions within the same Job. Unfortunately 
-ShiningPanda, and Jenkins itself, do not automatically install these 
+**UPDATE 20140530**: This article is DEPRECATED. I recommend using the [pyenv plugin](https://wiki.jenkins-ci.org/display/JENKINS/pyenv+plugin) instead.
+
+[Jenkins CI's](http://jenkins-ci.org/) [ShiningPanda plugin](https://wiki.jenkins-ci.org/display/JENKINS/ShiningPanda+Plugin)
+makes testing Python extremely easy. It even includes support for testing
+against multiple Python versions within the same Job. Unfortunately
+ShiningPanda, and Jenkins itself, do not automatically install these
 dependent Python versions.
 
-Using [Pythonbrew](https://github.com/utahta/pythonbrew) we can configure 
+Using [Pythonbrew](https://github.com/utahta/pythonbrew) we can configure
 Jenkins to automatically download and install our dependent versions of Python.
 
 
@@ -37,21 +39,21 @@ Phase I: Configure Jenkins
 	    def download_proc = download.execute()
 	    def install = """bash pythonbrewinstall"""
 	    def install_proc = install.execute()
-       	
+
 	    download_proc.waitFor()
-        
+
 	    println "return code: ${download_proc.exitValue()}"
 	    println "stderr: ${download_proc.err.text}"
 	    println "stdout: ${download_proc.in.text}"
-        
+
 	    install_proc.waitFor()
-        
+
 	    println "return code: ${install_proc.exitValue()}"
 	    println "stderr: ${install_proc.err.text}"
 	    println "stdout: ${install_proc.in.text}"
 
 5. From the Jenkins console, browse to **Manage Jenkins > Configure System**.
-6. Under **Python** click **Add Python**. 
+6. Under **Python** click **Add Python**.
 7. For each Python version to install, enter a **Name** and click **Install Automatically > Add Installer > Run Command**.
 
 	!['Add Installer' dialog](http://dl.dropbox.com/u/4036736/Screenshots/9b~1.png)
