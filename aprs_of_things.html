@@ -74,33 +74,64 @@
       
 <h1>Oro Net</h1>
 <p>Oro Net is still under development. For more information please contact:</p>
-<p>Greg Albrecht W2GMD
- gba@gregalbrecht.com
- 310-621-9598</p>
-<h1>Oro Net Concept</h1>
-<p>This article outlines a proposal to build an Amateur Radio-based telemetry
-system using commercial-off-the-shelf (COTS) equipment. The basis for this
-system is the existing APRS network, thus creating an 'APRS of Things'
-(see also: 'Internet of Things'). The name for this system is "Oro Net", named
-after the motto on San Francisco's flag "Oro en paz. Fierro en guerra.".</p>
-<p>This system should allow transmitting stations ("things") to broadcast any
-type of message or telemetry from any location at any time and have it
-received and delivered to the APRS-IS network. This is accomplished using
-numerous receiver stations dispersed in an urban geographic area.</p>
-<p>Similar projects:</p>
 <ul>
-<li>ADS-B Receiver Networks.</li>
-<li>AIS Receiver Networks.</li>
+<li>Greg Albrecht W2GMD</li>
+<li>Email: <a href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a></li>
+<li>Phone: 310-621-9598</li>
 </ul>
-<p>Q: Why not use the existing APRS network?
-A: The existing APRS network:
-<em> Does not penetrate dense urban environments well.
-</em> Is over subscribed with powerful (5w+) Mobile stations.</p>
-<p>Q: Why not build digipeaters instead?
-A: Digipeaters would only add to the existing network congestion and would
-require an Amateur Radio Operating License, where-as the Oro Net is a
-receive-only network, thus requiring no Amateur license.</p>
-<p>The basic cost for each Oro Net Node is $88, with a variable range of $74-$120.</p>
+<h2>Concept: An 'APRS of Things'</h2>
+<p>Oro Net is an Amateur Radio-based telemetry &amp; messaging system for dense urban environments. It is build using Commercial-off-the-Shelf (COTS) equipment and uses the Automatic Packet Reporting System (APRS) network and protocols.</p>
+<p>Oro Net should allow transmitting stations ("things") to broadcast any type of message or telemetry from any location at any time and have it received and delivered to the APRS-IS network. This is accomplished using numerous receiver stations dispersed in an urban geographic area.</p>
+<p>Current generations of Oro Net Receiver Nodes are built using the Raspberry Pi single-board computer and the RTL-based Software Defined Radio (SDR). A bill-of-materials is forthcoming.</p>
+<p>Oro Net is named for the motto on San Francisco's flag: "Oro en paz. Fierro en guerra.".</p>
+<h3>Frequently Asked Questions (FAQ)</h3>
+<ul>
+<li>Q: Why not use the existing APRS network?</li>
+<li>A: The existing APRS network:</li>
+<li>Does not penetrate dense urban environments well.</li>
+<li>
+<p>Is over subscribed with powerful (5w+) Mobile stations.</p>
+</li>
+<li>
+<p>Q: Why not build digipeaters instead?</p>
+</li>
+<li>
+<p>A: Digipeaters would only add to the existing network congestion and would require an Amateur Radio Operating License, where-as the Oro Net is a receive-only network, thus requiring no Amateur license.</p>
+</li>
+<li>
+<p>Q: Why not OTHER_SINGLE_BOARD_COMPUTER (Odroid, Beagle, etc.)?</p>
+</li>
+<li>
+<p>A: The RPi is the reference design for this project. Any internet-connected computer should work. For the interest of power, heat and size, consider any ARM single-board computer.</p>
+</li>
+<li>
+<p>Q: Do I need an Amateur Radio License to participate?</p>
+</li>
+<li>A: Yes and No. To transmit on Amateur Radio frequencies you need a license. To receive Amateur Radio frequencies you do not need a license.</li>
+</ul>
+<h3>Diagram</h3>
+<p><code>[APRS Transmitter] &gt;~~~RF~~~&gt; [RTL_SDR]-&gt;[RPi]-&gt;[APRS-IS]</code></p>
+<h3>Cost &amp; Bill-of-Materials (BOM)</h3>
+<p>BOM:
+- Raspberry Pi: $35
+- RTL SDR: $15 ($5~$20)
+- VHF Antenna: $9 ($9~$20)
+- SMA-MCX Adaptor: $6 ($6~$10)
+- USB WiFi Adaptor: $3 ($3~$8)
+- 8GB Micro SD: $4 ($4~$6)
+- 5V 2A Power Supply: $6 ($2~$6)
+- Pelican 1010 Case: $10 ($10~$14)</p>
+<p>Total Cost: $88</p>
+<p>Range: $74-$120</p>
+<h3>Similar projects:</h3>
+<ul>
+<li>ADS-B Receiver Networks (e.g. <a href="http://flightaware.com/adsb/piaware/build">PiAware</a>).</li>
+<li>AIS Receiver Networks (e.g. <a href="http://www.satsignal.eu/raspberry-pi/AIS-receiver.html">AIS Receiver for RPi</a> and <a href="http://www.stripydog.com/kplex/examples/marinetraffic.html">RPi Marine Traffic Server</a>).</li>
+</ul>
+<h3>Current Oro Net Nodes:</h3>
+<ul>
+<li><a href="http://aprs.fi/info/a/ORO01">ORO01</a>: Initial Proof-of-Concept Node in San Francisco's Mission District.</li>
+</ul>
 
       <hr>
       
