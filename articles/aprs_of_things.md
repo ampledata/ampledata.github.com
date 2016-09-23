@@ -3,7 +3,7 @@
 Oro Net is still under development. For more information please contact:
 
 - Greg Albrecht W2GMD
-- Email: <a href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>
+- Email: <a href="mailto:oro-net@undef.net">oro-net@undef.net</a>
 - Phone: 310-621-9598
 
 
@@ -48,6 +48,7 @@ Oro Net is named for the motto on San Francisco's flag: "Oro en paz. Fierro en g
 ### Cost & Bill-of-Materials (BOM)
 
 BOM:
+
 - Raspberry Pi: $35
 - RTL SDR: $15 ($5~$20)
 - VHF Antenna: $9 ($9~$20)
