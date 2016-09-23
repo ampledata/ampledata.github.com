@@ -71,4 +71,4 @@ Range: $74-$120
 
 ### Current Oro Net Nodes:
 
-- <a href="http://aprs.fi/info/a/ORO01">ORO01</a>: Initial Proof-of-Concept Node in San Francisco's Mission District.
+- <a href="http://aprs.fi/info/a/TACO">TACO</a>: Initial Proof-of-Concept Node in San Francisco's Mission District.
