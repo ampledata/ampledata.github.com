@@ -20,6 +20,7 @@ create_css:
 
 build:
 	jeb
+	python stories.py
 
 publish:
 	git commit -m 'publishing articles' articles/*.md *.html *.xml
