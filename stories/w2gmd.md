@@ -11,7 +11,17 @@ My contact information is as follows:
 * [Facebook](https://facebook.com/ampledata): @ampledata
 
 # APRS Stations
-I operate the following APRS stations:
+
+I operate several APRS stations, some personal and some experimental.
+
+<!-- http://aprs.fi/page/embed -->
+<p>
+<script type="text/javascript">
+he_track = "a/SUNSET,SUNSET-6,a/TACO,W2GMD-A,W2GMD-1,W2GMD-2,W2GMD-9,W2GMD-10"; // track this callsign
+</script>
+<script type="text/javascript" src="http://aprs.fi/js/embed.js">
+</script>
+</p>
 
 ## [SUNSET](http://aprs.fi/#!call=a/SUNSET)
 
