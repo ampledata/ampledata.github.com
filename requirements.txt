@@ -1,15 +1,15 @@
 # Python Module requirements for generating articles.
 #
 # Author: Greg Albrecht <mailo:gba@gregalbrecht.com>
-# Copyright: Copyright 2012 Greg Albrecht
+# Copyright: Copyright 2020 Greg Albrecht
 # License: Creative Commons Attribution 3.0 Unported License.
 # URL: http://ampledata.org/
 #
 
 
-Jinja2==2.7.2
-Markdown==2.4.1
-MarkupSafe==0.23
-PyRSS2Gen==1.1
-Pygments==1.6
-jeb>=2.0.0b1
+Jinja2
+Markdown
+MarkupSafe
+PyRSS2Gen
+Pygments
+jeb

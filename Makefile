@@ -1,7 +1,7 @@
 # Makefile for http://ampledata.org/ blog.
 #
 # @author: Greg Albrecht <gba@gregalbrecht.com>
-# @copyright: Copyright 2012 Greg Albrecht
+# @copyright: Copyright 2020 Greg Albrecht
 # @license: Creative Commons Attribution 3.0 Unported License.
 # @url: http://ampledata.org/
 #

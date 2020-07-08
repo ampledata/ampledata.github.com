@@ -99,42 +99,42 @@
 <h1>Example Usage</h1>
 <p>In this example the default gateway for our network is <strong>10.10.1.1</strong> - this is the device who's ARP cache we're going to clear. The IP address of the new host is <strong>10.10.1.2</strong>. The MAC address of the old host was <strong>00:1a</strong>, and the MAC address of the new host is <strong>00:1b</strong> (neither MAC is important, they're just here for reference).</p>
 <p>First, let's examine our routing table:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">netstat</span> <span class="o">-</span><span class="n">rn</span>
-<span class="n">Routing</span> <span class="n">tables</span>
-<span class="nl">Internet:</span>
-<span class="n">Destination</span>  <span class="n">Gateway</span>               <span class="n">Flags</span>     <span class="n">Refs</span>      <span class="n">Use</span>  <span class="n">Netif</span> <span class="n">Expire</span>
-<span class="k">default</span>      <span class="mf">10.10.1.1</span>             <span class="n">UGS</span>       <span class="mi">0</span>         <span class="mi">0</span>    <span class="n">fxp0</span>
-<span class="mf">10.10.1.0</span>    <span class="n">ff</span><span class="o">:</span><span class="n">ff</span><span class="o">:</span><span class="n">ff</span><span class="o">:</span><span class="n">ff</span><span class="o">:</span><span class="n">ff</span><span class="o">:</span><span class="n">ff</span>     <span class="n">UHLWb</span>     <span class="mi">0</span>         <span class="mi">3</span>    <span class="n">fxp0</span> <span class="o">=&gt;</span>
-<span class="mf">10.10.1</span><span class="o">/</span><span class="mi">24</span>   <span class="n">link</span><span class="err">#</span><span class="mi">1</span>                <span class="n">UC</span>        <span class="mi">0</span>         <span class="mi">0</span>    <span class="n">fxp0</span>
-<span class="mf">10.10.1.1</span>    <span class="mo">00</span><span class="o">:</span><span class="mi">13</span><span class="o">:</span><span class="mi">60</span><span class="o">:</span><span class="n">b8</span><span class="o">:</span><span class="n">f3</span><span class="o">:</span><span class="mf">7f</span>     <span class="n">UHLW</span>      <span class="mi">0</span>         <span class="mi">3</span>    <span class="n">fxp0</span>   <span class="mi">1164</span>
-<span class="mf">10.10.1.2</span>    <span class="mo">00</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">54</span><span class="o">:</span><span class="mo">00</span><span class="o">:</span><span class="mi">1</span><span class="n">b</span>     <span class="n">UHLW</span>      <span class="mi">0</span>         <span class="mi">3</span>    <span class="n">lo0</span>
+<div class="codehilite"><pre><span></span>$ netstat -rn
+Routing tables
+Internet:
+Destination  Gateway               Flags     Refs      Use  Netif Expire
+default      <span class="m">10</span>.10.1.1             UGS       <span class="m">0</span>         <span class="m">0</span>    fxp0
+<span class="m">10</span>.10.1.0    ff:ff:ff:ff:ff:ff     UHLWb     <span class="m">0</span>         <span class="m">3</span>    <span class="nv">fxp0</span> <span class="o">=</span>&gt;
+<span class="m">10</span>.10.1/24   link#1                UC        <span class="m">0</span>         <span class="m">0</span>    fxp0
+<span class="m">10</span>.10.1.1    <span class="m">00</span>:13:60:b8:f3:7f     UHLW      <span class="m">0</span>         <span class="m">3</span>    fxp0   <span class="m">1164</span>
+<span class="m">10</span>.10.1.2    <span class="m">00</span>:02:55:54:00:1b     UHLW      <span class="m">0</span>         <span class="m">3</span>    lo0
 </pre></div>
 
 
 <p>Here's our first failed attempt at reaching the Internet from the new host:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
-<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span><span class="mf">216.109.112.135</span><span class="p">)</span><span class="o">:</span> <span class="mi">56</span> <span class="n">data</span> <span class="n">bytes</span>
-<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
-<span class="mi">1</span> <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> <span class="mi">100</span><span class="o">%</span> <span class="n">packet</span> <span class="n">loss</span>
+<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> yahoo.com
+PING yahoo.com <span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>: <span class="m">56</span> data bytes
+--- yahoo.com ping statistics ---
+<span class="m">1</span> packets transmitted, <span class="m">0</span> packets received, <span class="m">100</span>% packet loss
 </pre></div>
 
 
 <p>Now we'll <em>arping</em> our default gateway. This will cause the gateway to flush the ARP cache for the new host's IP address. The flags we'll use for this operation are: "<strong>-c 1</strong>" to send one arping, and "<strong>-S 10.10.1.2</strong>" to set my source IP to 10.10.1.2 (this is optional but could be useful for a host with multiple <a href="http://www.freebsd.org/cgi/man.cgi?query=ifconfig">aliased</a> IPs, such as eth0:1, eth0:2, etc.).</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">arping</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span> <span class="o">-</span><span class="n">S</span> <span class="mf">10.10.1.2</span> <span class="mf">10.10.1.1</span>
-<span class="n">ARPING</span> <span class="mf">10.10.1.1</span>
-<span class="mi">60</span> <span class="n">bytes</span> <span class="n">from</span> <span class="mo">00</span><span class="o">:</span><span class="mi">13</span><span class="o">:</span><span class="mi">60</span><span class="o">:</span><span class="n">b8</span><span class="o">:</span><span class="n">f3</span><span class="o">:</span><span class="mf">7f</span> <span class="p">(</span><span class="mf">10.10.1.1</span><span class="p">)</span><span class="o">:</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span> <span class="n">time</span><span class="o">=</span><span class="mf">13.884</span> <span class="n">msec</span>
-<span class="o">---</span> <span class="mf">10.10.1.1</span> <span class="n">statistics</span> <span class="o">---</span>
-<span class="mi">1</span> <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">packets</span> <span class="n">received</span><span class="p">,</span>   <span class="mi">0</span><span class="o">%</span> <span class="n">unanswered</span>
+<div class="codehilite"><pre><span></span>$ arping -c <span class="m">1</span> -S <span class="m">10</span>.10.1.2 <span class="m">10</span>.10.1.1
+ARPING <span class="m">10</span>.10.1.1
+<span class="m">60</span> bytes from <span class="m">00</span>:13:60:b8:f3:7f <span class="o">(</span><span class="m">10</span>.10.1.1<span class="o">)</span>: <span class="nv">index</span><span class="o">=</span><span class="m">0</span> <span class="nv">time</span><span class="o">=</span><span class="m">13</span>.884 msec
+--- <span class="m">10</span>.10.1.1 statistics ---
+<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received,   <span class="m">0</span>% unanswered
 </pre></div>
 
 
 <p>Now we can successfully reach the Internet from the new host:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">ping</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span>
-<span class="n">PING</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span><span class="mf">216.109.112.135</span><span class="p">)</span><span class="o">:</span> <span class="mi">56</span> <span class="n">data</span> <span class="n">bytes</span>
-<span class="mi">64</span> <span class="n">bytes</span> <span class="n">from</span> <span class="mf">216.109.112.135</span><span class="o">:</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">0</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">55</span> <span class="n">time</span><span class="o">=</span><span class="mf">83.822</span> <span class="n">ms</span>
-<span class="o">---</span> <span class="n">yahoo</span><span class="p">.</span><span class="n">com</span> <span class="n">ping</span> <span class="n">statistics</span> <span class="o">---</span>
-<span class="mi">1</span> <span class="n">packets</span> <span class="n">transmitted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">packets</span> <span class="n">received</span><span class="p">,</span> <span class="mi">0</span><span class="o">%</span> <span class="n">packet</span> <span class="n">loss</span>
-<span class="n">round</span><span class="o">-</span><span class="n">trip</span> <span class="n">min</span><span class="o">/</span><span class="n">avg</span><span class="o">/</span><span class="n">max</span><span class="o">/</span><span class="n">stddev</span> <span class="o">=</span> <span class="mf">83.822</span><span class="o">/</span><span class="mf">83.822</span><span class="o">/</span><span class="mf">83.822</span><span class="o">/</span><span class="mf">0.000</span> <span class="n">ms</span>
+<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> yahoo.com
+PING yahoo.com <span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>: <span class="m">56</span> data bytes
+<span class="m">64</span> bytes from <span class="m">216</span>.109.112.135: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">55</span> <span class="nv">time</span><span class="o">=</span><span class="m">83</span>.822 ms
+--- yahoo.com ping statistics ---
+<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received, <span class="m">0</span>% packet loss
+round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">83</span>.822/83.822/83.822/0.000 ms
 </pre></div>
 <!-- endblock templates/article.html content -->
 

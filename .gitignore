@@ -14,3 +14,4 @@ flake8.log
 nohup.out
 pylint.log
 .coverage
+.mypy_cache/
