@@ -69,8 +69,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
               <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
@@ -110,7 +109,7 @@ Jenkins to automatically download and install our dependent versions of Python.<
 <li>After Jenkins restarts, from the console, browse to <strong>Manage Jenkins &gt; Script Console</strong>.</li>
 <li>
 <p>Paste in the following Groovy script and click <strong>Run</strong>:</p>
-<div class="codehilite"><pre><span class="kt">def</span> <span class="n">download</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;curl -skLO http://xrl.us/pythonbrewinstall&quot;&quot;&quot;</span>
+<div class="codehilite"><pre><span></span><span class="kt">def</span> <span class="n">download</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;curl -skLO http://xrl.us/pythonbrewinstall&quot;&quot;&quot;</span>
 <span class="kt">def</span> <span class="n">download_proc</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
 <span class="kt">def</span> <span class="n">install</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;bash pythonbrewinstall&quot;&quot;&quot;</span>
 <span class="kt">def</span> <span class="n">install_proc</span> <span class="o">=</span> <span class="n">install</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
@@ -163,7 +162,7 @@ Jenkins to automatically download and install our dependent versions of Python.<
 </ol>
 <h1>Usage</h1>
 <p>I prefer using the <strong>Virtualenv Builder</strong> for my project, with the following <strong>Command</strong>s:</p>
-<div class="codehilite"><pre><span class="nv">$PYTHON_EXE</span> setup.py install
+<div class="codehilite"><pre><span></span><span class="nv">$PYTHON_EXE</span> setup.py install
 <span class="nv">$PYTHON_EXE</span> setup.py nosetests
 </pre></div>
 

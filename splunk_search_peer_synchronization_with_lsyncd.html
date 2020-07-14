@@ -69,8 +69,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
               <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
@@ -108,33 +107,33 @@
 <ol>
 <li>
 <p>Disable Bundle Replication on the Search Head, where SEARCH_PEER is the IP or Hostname of the Search Peer from your distributed search setup:</p>
-<div class="codehilite"><pre><span class="cp"># $SPLUNK_HOME/etc/system/local/distsearch.conf</span>
-<span class="p">[</span><span class="n">distributedSearch</span><span class="p">]</span>
-<span class="n">shareBundles</span> <span class="o">=</span> <span class="nb">false</span>
-<span class="n">servers</span> <span class="o">=</span> <span class="n">SEARCH_PEER</span><span class="o">:</span><span class="mi">8089</span>
+<div class="codehilite"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">distsearch</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
+<span class="o">[</span><span class="n">distributedSearch</span><span class="o">]</span><span class="w"></span>
+<span class="n">shareBundles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
+<span class="n">servers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nl">SEARCH_PEER</span><span class="p">:</span><span class="mi">8089</span><span class="w"></span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Configure lsyncd to monitor the $SPLUNK_HOME/etc/ directory for changes, where SEARCH_PEER is the IP or Hostname of the Search peer from your distributed search setup:</p>
-<div class="codehilite"><pre><span class="cp"># /etc/lsyncd.conf.lua</span>
-<span class="n">sync</span><span class="p">{</span>
-  <span class="n">rsyncssh</span><span class="p">,</span>
-  <span class="n">source</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">splunk</span><span class="o">/</span><span class="n">etc</span><span class="err">&#39;</span><span class="p">,</span>
-  <span class="n">host</span><span class="o">=</span><span class="err">&#39;</span><span class="n">spsync</span><span class="err">@</span><span class="n">SEARCH_PEER</span><span class="err">&#39;</span><span class="p">,</span>
-  <span class="n">targetdir</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">searchpeer</span><span class="err">&#39;</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="err"># /etc/lsyncd.conf.lua</span>
+<span class="err">sync{</span>
+<span class="err">  rsyncssh,</span>
+<span class="err">  source=&#39;/opt/splunk/etc&#39;,</span>
+<span class="err">  host=&#39;spsync@SEARCH_PEER&#39;,</span>
+<span class="err">  targetdir=&#39;/opt/searchpeer&#39;</span>
+<span class="err">}</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Enable Mounted Bundles on the Search Peer, where SEARCH_HEAD is the IP or Hostname of the Search Head from your distributed search steup:</p>
-<div class="codehilite"><pre><span class="cp"># $SPLUNK_HOME/etc/system/local/distsearch.conf</span>
-<span class="p">[</span><span class="n">searchhead</span><span class="o">:</span><span class="n">SEARCH_HEAD</span><span class="p">]</span>
-<span class="n">mounted_bundles</span><span class="o">=</span><span class="nb">true</span>
-<span class="n">bundles_location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">searchpeer</span>
+<div class="codehilite"><pre><span></span><span class="err"># $SPLUNK_HOME/etc/system/local/distsearch.conf</span>
+<span class="err">[searchhead:SEARCH_HEAD]</span>
+<span class="err">mounted_bundles=true</span>
+<span class="err">bundles_location=/opt/searchpeer</span>
 </pre></div>
 
 

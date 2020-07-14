@@ -69,8 +69,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
               <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
@@ -92,7 +91,7 @@ you can easily search for and report on your chef-client runs.</p>
 <li>Download the <a href="http://community.opscode.com/cookbooks/chef_handler">chef_handler</a>
 Cookbook.</li>
 <li>Given you've retrieved your Access Token as <strong>ACCESS_TOKEN</strong> and Project ID
-as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:<div class="codehilite"><pre><span class="n">include_recipe</span> <span class="s1">&#39;chef_handler&#39;</span>
+as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:<div class="codehilite"><pre><span></span><span class="n">include_recipe</span> <span class="s1">&#39;chef_handler&#39;</span>
 
 <span class="n">gem_package</span><span class="p">(</span><span class="s1">&#39;chef-handler-splunkstorm&#39;</span><span class="p">){</span><span class="n">action</span> <span class="ss">:nothing</span><span class="p">}</span><span class="o">.</span><span class="n">run_action</span><span class="p">(</span><span class="ss">:install</span><span class="p">)</span>
 
@@ -115,7 +114,7 @@ as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:<div c
 <p>The following dashboard shows the <strong>Average chef-client Elapsed Time by Host</strong>:</p>
 <p><img alt="Average chef-client Elapsed Time by Host" src="http://dl.dropbox.com/u/4036736/Screenshots/qx9j.png" /></p>
 <p>Here's the assocaited search:</p>
-<div class="codehilite"><pre><span class="o">*</span> <span class="o">|</span> <span class="n">spath</span> <span class="n">path</span><span class="o">=</span><span class="n">elapsed_time</span> <span class="n">output</span><span class="o">=</span><span class="n">elapsed_time</span> <span class="o">|</span> <span class="n">timechart</span> <span class="n">span</span><span class="o">=</span><span class="s">&quot;15m&quot;</span> <span class="n">avg</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">)</span> <span class="n">by</span> <span class="n">host</span>
+<div class="codehilite"><pre><span></span><span class="err">* | spath path=elapsed_time output=elapsed_time | timechart span=&quot;15m&quot; avg(elapsed_time) by host</span>
 </pre></div>
 <!-- endblock templates/article.html content -->
 

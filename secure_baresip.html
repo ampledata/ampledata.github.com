@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- block templates/base.html head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <title>Secure Baresip</title>
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <!-- endblock templates/base.html head -->
+    
+  </head>
+
+  <body>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Secure Baresip</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+
+<div class="container">
+<!-- block templates/base.html content -->
+
+<!-- block templates/article.html content -->
+<p>TL;DR: You can implement FIPS 140-2 compliant VoIP with RFC 3711 media
+ and RFC 4568 signaling using <a href="http://www.creytiv.com/baresip.html">baresip</a>.</p>
+<p>This article describes implementing (and testing!) secure VoIP using the <a href="http://www.creytiv.com/baresip.html">baresip</a> library. 
+Verification steps avoid intercepting or decrypting transport media, and instead 
+rely on the protocol negotiation parameters of TLS and SIP to ensure compliance.</p>
+<p>The intention is to configure a baresip User Agent to comply with the following 
+standards for signaling &amp; media:</p>
+<p>Signaling
+- <a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, 
+<a href="https://csrc.nist.gov/publications/detail/fips/197/final">FIPS 197</a> Advanced 
+Encryption Standard (AES) with a 256 bit key (AES256).
+- <a href="https://csrc.nist.gov/publications/detail/sp/800-38d/final">SP 800-38D</a> Galois Counter Mode (GCM).
+- <a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, <a href="https://csrc.nist.gov/publications/detail/fips/180/4/final">FIPS 180-4</a> Secure Hash Algorithm (SHA) with a Message Digest Size of 384 bits (SHA384).
+- <a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4 Appendix D</a> Elliptic Curve P-384.
+- <a href="https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final">NIST SP 800-56A</a> Elliptic-curve Diffie–Hellman Key Agreement Protocol (ECDHE)
+- <a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4</a> Elliptic-curve Digital Signature Algorithm (ECDSA)</p>
+<p>Our Signaling Cipher Suite is: <code>ECDHE-ECDSA-AES256-GCM-SHA384</code>  </p>
+<p>Media
+- <a href="https://tools.ietf.org/html/rfc3711">RFC 3711</a> The Secure Real-time Transport Protocol (SRTP)
+- <a href="https://tools.ietf.org/html/rfc4568">RFC 4568</a> Session Description Protocol (SDP) Security Descriptions for Media Streams (SDES)
+- <a href="https://tools.ietf.org/html/rfc4568">RFC 4568</a> SDES-SRTP Crypto-Suites</p>
+<p>Our Media "Crypto-Suite" is: <code>AES_CM_128_HMAC_SHA1_80</code></p>
+<p>Many of these standards are also applicable to the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=399&amp;id=399">National Information 
+Assurance Program (NIAP) Protection Profile (PP) for Voice over IP (VoIP)</a>.</p>
+<h1>Overview</h1>
+<p>Voice over IP (VoIP) is a broad term that can refer to any method of transmitting 
+voice communications over an IP network. When implemented out-of-the-box, the 
+most common VoIP protocol, SIP, lacks any security provisions for this these 
+voice communcations. Fortunately the flexibility of SIP allows for enhancements 
+that provide a level of security, and when configured correctly, allows the 
+protocol to meet certain standards of security as selected by the US Government, 
+et al.</p>
+<p>We'll work through the following steps to build an environment that applies 
+these enhancements to a Baresip UA, and verify the environment meets certain 
+security standards:</p>
+<ol>
+<li>Generate a compliant client &amp; server security certificate.</li>
+<li>Compile &amp; Run the baresip UA with the security parameters set.</li>
+<li>Simulate a remote SIP endpoint using OpenSSL's <code>s_client</code> &amp; <code>s_server</code>.</li>
+<li>Verify the exchange between OpenSSL &amp; Baresip.</li>
+</ol>
+<h1>Terms</h1>
+<ul>
+<li>Elliptic Curve Private Key (ECPK)</li>
+<li>P-384 Elliptic Curve (P-384)</li>
+<li>X.509 Public Key Certificate (Cert)</li>
+<li>SIP User Agent (UA)</li>
+<li>Session Description Key Exchange (SDES)</li>
+<li>Secure RTP (SRTP)</li>
+<li>Session Initiation Protocol (SIP)</li>
+<li>Test Workstation (TW)</li>
+</ul>
+<h1>Steps</h1>
+<p>SIP, by default, passes traffic unencrypted over UDP on port 5060. When used 
+RTP transport, the media is also passed in unencrypted UDP (typically on a 
+random port). We're going to encrypt our media using SDES-SRTP, and wrap our 
+SIP signaling in TLS over TCP on port 5061. This ensures that bout our voice 
+traffic, as well as the keys used to encrypt that voice traffic, is secure.</p>
+<p>To enable SIP over TLS with baresip, we'll need to configure the baresip UA 
+with an X.509 Public Key Certificate. Once configured, baresip will be capable 
+of sending and receiving calls over SIP TLS on port 5061.</p>
+<p>All of these steps can take place on a single TW running both baresip &amp; the 
+OpenSSL Simulated SIP End-points.</p>
+<p>These steps are broken down as follows:</p>
+<ul>
+<li><a href="#certificate-generation">Generate a Private Key &amp; Certificate</a></li>
+<li><a href="#build--run-baresip-ua">Build &amp; Run Baresip</a></li>
+<li><a href="#create-simulated-sip-endpoints">Create Simulated SIP End-points</a></li>
+<li><a href="">Test &amp; Verify Configuration</a></li>
+</ul>
+<h1>Certificate Generation</h1>
+<p>An end-user would be expected to generate (or provide) their own Cert for use by 
+their UA, but for this example we'll generate our own self-signed Cert. </p>
+<p>We're also going to generate our own ECPK using P-384.</p>
+<h2>Generate an ECPK using P-384</h2>
+<p>This section describes the process of generating an ECPK using P-384 on the TW. 
+Additional prerequisite steps are provided to ensure the TW is capable of 
+generating ECPKs using P-384.</p>
+<p>All of the commands in this section must be executed on the same TW.</p>
+<h3>Prerequisites</h3>
+<p>The following steps verify the OpenSSL library on the TW is (1) installed and (2)
+capable of generating an ECPK using P-384:</p>
+<ol>
+<li>Ensure OpenSSL's command-line tool 'openssl' is installed:<br />
+<em>The command:</em><br />
+<code>$ openssl version &amp;&amp; echo ''openssl' installed!'</code><br />
+<em>Should return:</em><br />
+<code>openssl installed!</code></li>
+<li>Ensure OpenSSL includes support for the P-384:<br />
+<em>The command:</em><br />
+<code>$ openssl ecparam -list_curves|grep 384</code><br />
+<em>Should return at least:</em><br />
+<code>secp384r1 : NIST/SECG curve over a 384 bit prime field</code></li>
+</ol>
+<h3>Steps</h3>
+<ol>
+<li>Generate an ECPK using P-384.<br />
+<em>The command:</em><br />
+<code>$ openssl ecparam -genkey -name secp384r1 -param_enc explicit -out example.key -param_enc named_curve</code><br />
+<em>Should create the file ‘<em>example.key</em>’, as verified with:</em><br />
+<code>$ ls example.key</code><br />
+<em>Should return:</em><br />
+<code>example.key</code></li>
+</ol>
+<h3>Verification</h3>
+<ol>
+<li>Display the curve used to create the ECPK.<br />
+<em>The command:</em><br />
+<code>$ openssl ecparam -in example.key -text -noout</code><br />
+<em>Should return:</em><br />
+<code>ASN1 OID: secp384r1</code><br />
+<code>NIST CURVE: P-384</code></li>
+</ol>
+<h2>Create a Self-Signed Cert using an ECPK with P-384</h2>
+<h3>Steps</h3>
+<ol>
+<li>Create the Cert using the OpenSSL command-line tool 'openssl':<br />
+<em>The command:</em><br />
+<code>$ openssl req -x509 -new -sha384 -days 30 -nodes -key example.key -out example.cert -subj "/C=US/ST=California/L=San Francisco/O=Example Co./OU=IT/CN=example.com"</code><br />
+<em>Should create the file ‘example.cert', as verified with:</em><br />
+<code>$ ls example.cert</code><br />
+<em>Should return:</em><br />
+<code>example.cert</code></li>
+</ol>
+<h2>Create a combined PEM file</h2>
+<p>Baresip requires the Cert be provided in PEM format, with the Cert &amp; ECPK 
+concatenated together into a single file:<br />
+<em>The command:</em><br />
+<code>$ cat example.key example.cert &gt; example.pem</code><br />
+<em>Should create the file ‘example.pem’, as verified with:</em><br />
+<code>$ ls example.pem</code><br />
+<em>Should return:</em><br />
+<code>example.pem</code></p>
+<h1>Build &amp; Run Baresip UA</h1>
+<p>Baresip requires the libre and librem libraries as well as a complete build 
+environment. For simplicy, we're going to use a Docker container to build and 
+run the UA.</p>
+<ol>
+<li>
+<p>Create a Dockerfile with the following content:<br />
+    ```dockerfile
+    FROM python:3-buster</p>
+<p>WORKDIR /baresip-docker</p>
+<p>RUN git clone https://github.com/creytiv/re.git &amp;&amp; \
+  cd re &amp;&amp; \
+  make RELEASE=yes install</p>
+<p>RUN git clone https://github.com/creytiv/rem.git &amp;&amp; \
+  cd rem &amp;&amp; \
+  make install</p>
+<p>RUN git clone https://github.com/baresip/baresip.git &amp;&amp; \
+  cd baresip &amp;&amp; \
+  make USE_TLS=yes USE_SRTP=yes install</p>
+<p>RUN ldconfig</p>
+<p>CMD ["baresip", "-f", "/dev_volume"]
+<code>2. Build the container: `$ docker build -t baresip-docker .`
+3. Run the container: `$ docker run -itv $(pwd):/dev_volume baresip-docker:latest baresip -f /dev_volume`
+4. With the Baresip UA running, you should see the following output:</code>shell script
+baresip v1.0.0 Copyright (C) 2010 - 2020 Alfred E. Heggestad et al.
+Local network address:  IPv4=eth0|192.168.1.1
+SIP Certificate: /dev_volume/example.pem
+Populated 0 accounts
+account: No SIP accounts found
+ -- check your config or add an account using 'uanew' command
+Populated 0 contacts
+aucodec: PCMU/8000/1
+aucodec: PCMA/8000/1
+mediaenc: srtp
+mediaenc: srtp-mand
+mediaenc: srtp-mandf
+Populated 2 audio codecs
+Populated 0 audio filters
+Populated 0 video codecs
+Populated 0 video filters
+baresip is ready.
+<code>``
+   Notice that the UA has enabled SRTP:</code>mediaenc: srtp`</p>
+</li>
+</ol>
+<h1>Create Simulated SIP Endpoints</h1>
+<h2>Call Receiver</h2>
+<p>Using the same Cert &amp; ECPK we generated for the Baresip UA, we're going to use 
+OpenSSL's <code>s_server</code> to simulate a SIP Endpoint. This will allow the Baresip UA 
+to create a TLS connection and send an initial SDP with SDES.</p>
+<p><code>$ openssl s_server -accept 5071 -cert example.cert -key example.key -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe</code></p>
+<p>This command should provide the following output:
+<code>Using default temp ECDH parameters
+ACCEPT</code></p>
+<h2>Call Sender</h2>
+<p>Using the same Cert &amp; ECPK we generated for the Baresip UA, we're going to use 
+OpenSSL's <code>s_client</code> to simulate a SIP Endpoint. This will allow the Baresip UA 
+to receive a TLS connection.</p>
+<p>TK</p>
+<h1>Test &amp; Verify Configuration</h1>
+<h2>Sending (originating) a Call from the Baresip UA</h2>
+<ol>
+<li>On the Baresip UA, dial our Simulated SIP Endpoint: <code>/dial sip:b@192.168.1.2:5071;transport=tls;mediaenc=srtp-mand</code><br />
+  (Where <code>192.168.1.1</code> is the IP of the TW)</li>
+<li>
+<p>On the Simulated SIP Receive Endpoint you should see the following output:<br />
+    ```
+    -----BEGIN SSL SESSION PARAMETERS-----
+    MFUCAQECAgMDBALALAQABDCRfmQvTRw1xZZ0MJKtS2Vf7FG9J0/TVZnF+YNzGx/H
+    xRuNTXrsClwHITWaTDQEB0yhBgIEXw0JLqIEAgIcIKQGBAQBAAAA
+    -----END SSL SESSION PARAMETERS-----
+    Shared ciphers:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA
+    CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384
+    Secure Renegotiation IS supported
+    INVITE sip:xb192.168.1.2:5071;transport=tls;mediaenc=srtp-mand SIP/2.0
+    Via: SIP/2.0/TLS 192.168.1.1:5061;branch=z9hG4bKc141b65f66cd0e02;rport
+    Contact: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#112;&#58;&#117;&#115;&#101;&#114;&#45;&#48;&#120;&#53;&#53;&#100;&#99;&#48;&#57;&#48;&#50;&#55;&#49;&#53;&#48;&#64;&#49;&#57;&#50;&#46;&#49;&#54;&#56;&#46;&#49;&#46;&#49;&#58;&#53;&#48;&#54;&#49;&#59;&#116;&#114;&#97;&#110;&#115;&#112;&#111;&#114;&#116;&#61;&#116;&#108;&#115;">&#115;&#105;&#112;&#58;&#117;&#115;&#101;&#114;&#45;&#48;&#120;&#53;&#53;&#100;&#99;&#48;&#57;&#48;&#50;&#55;&#49;&#53;&#48;&#64;&#49;&#57;&#50;&#46;&#49;&#54;&#56;&#46;&#49;&#46;&#49;&#58;&#53;&#48;&#54;&#49;&#59;&#116;&#114;&#97;&#110;&#115;&#112;&#111;&#114;&#116;&#61;&#116;&#108;&#115;</a>
+    Max-Forwards: 70
+    To: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#112;&#58;&#98;&#64;&#49;&#57;&#50;&#46;&#49;&#54;&#56;&#46;&#49;&#46;&#50;&#58;&#53;&#48;&#55;&#49;&#59;&#116;&#114;&#97;&#110;&#115;&#112;&#111;&#114;&#116;&#61;&#116;&#108;&#115;&#59;&#109;&#101;&#100;&#105;&#97;&#101;&#110;&#99;&#61;&#115;&#114;&#116;&#112;&#45;&#109;&#97;&#110;&#100;">&#115;&#105;&#112;&#58;&#98;&#64;&#49;&#57;&#50;&#46;&#49;&#54;&#56;&#46;&#49;&#46;&#50;&#58;&#53;&#48;&#55;&#49;&#59;&#116;&#114;&#97;&#110;&#115;&#112;&#111;&#114;&#116;&#61;&#116;&#108;&#115;&#59;&#109;&#101;&#100;&#105;&#97;&#101;&#110;&#99;&#61;&#115;&#114;&#116;&#112;&#45;&#109;&#97;&#110;&#100;</a>
+    From: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#112;&#58;&#97;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;">&#115;&#105;&#112;&#58;&#97;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</a>;tag=0a94555cd2c228dd
+    Call-ID: f9595791e9191927
+    CSeq: 59280 INVITE
+    User-Agent: baresip v1.0.0 (x86_64/linux)
+    Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,NOTIFY,SUBSCRIBE,INFO,MESSAGE,REFER
+    Supported:
+    Content-Type: application/sdp
+    Content-Length: 429</p>
+<p>v=0
+o=- 1975181172 1106161735 IN IP4 192.168.1.1
+s=-
+c=IN IP4 192.168.1.1
+t=0 0
+a=tool:baresip 1.0.0
+m=audio 16796 RTP/SAVP 0 8 101
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:101 telephone-event/8000
+a=fmtp:101 0-15
+a=sendrecv
+a=label:1
+a=rtcp-rsize
+a=ssrc:2736692082 cname:sip:b@example.com
+a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:vXMep/SIW4iMD21StWgrmy024dJZfOAM7qFFJfsJ
+a=minptime:20
+a=ptime:20
+```</p>
+</li>
+</ol>
+<p>This output provides the following verifications:</p>
+<p>Signaling
+- <a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, 
+<a href="https://csrc.nist.gov/publications/detail/fips/197/final">FIPS 197</a> Advanced 
+Encryption Standard (AES) with a 256 bit key (AES256): <code>CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384</code>
+- <a href="https://csrc.nist.gov/publications/detail/sp/800-38d/final">SP 800-38D</a> Galois Counter Mode (GCM): <code>CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384</code>
+- <a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, <a href="https://csrc.nist.gov/publications/detail/fips/180/4/final">FIPS 180-4</a> Secure Hash Algorithm (SHA) with a Message Digest Size of 384 bits (SHA384): <code>CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384</code>
+- <a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4 Appendix D</a> Elliptic Curve P-384: <code>Server Temp Key: ECDH, P-384, 384 bits</code>
+- <a href="https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final">NIST SP 800-56A</a> Elliptic-curve Diffie–Hellman Key Agreement Protocol (ECDHE): <code>CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384</code>
+- <a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4</a> Elliptic-curve Digital Signature Algorithm (ECDSA): <code>CIPHER is ECDHE-ECDSA-AES256-GCM-SHA384</code></p>
+<p>Media
+- <a href="https://tools.ietf.org/html/rfc3711">RFC 3711</a> The Secure Real-time Transport Protocol (SRTP): <code>m=audio 33334 RTP/SAVP 0 8 101</code>
+- <a href="https://tools.ietf.org/html/rfc4568">RFC 4568</a> Session Description Protocol (SDP) Security Descriptions for Media Streams (SDES): <code>a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:gm+5A2moV/ylsWsC8GP1pg7BAbNrGQ8sKDr5HlFi</code>
+- <a href="https://tools.ietf.org/html/rfc4568">RFC 4568</a> SDES-SRTP Crypto-Suites: <code>a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:EFkFgnEbQwJrLhDKyMgzuJl2SLYDI1uW45CKyr6X</code>, specifically: <code>AES_CM_128_HMAC_SHA1_80</code></p>
+<h2>Receiving a Call in Baresip UA</h2>
+<ol>
+<li>On the Simulated SIP Sending Endpoint, enter the following command:<br />
+<code>$ openssl s_client -connect localhost:5061 -cert example.cert -key example.key -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -groups P-384</code></li>
+<li>This will provide the following output:<br />
+    ```shell script
+    CONNECTED(00000005)
+    depth=0 C = US, ST = California, L = San Francisco, O = Example Co., OU = IT, CN = example.com
+    verify error:num=18:self signed certificate
+    verify return:1
+    depth=0 C = US, ST = California, L = San Francisco, O = Example Co., OU = IT, CN = example.com
+    verify return:1
+    ---
+    Certificate chain
+     0 s:/C=US/ST=California/L=San Francisco/O=Example Co./OU=IT/CN=example.com
+       i:/C=US/ST=California/L=San Francisco/O=Example Co./OU=IT/CN=example.com
+    ---
+    Server certificate
+    -----BEGIN CERTIFICATE-----
+    MIICEjCCAZkCCQDyk1urbYgWmTAKBggqhkjOPQQDAzBzMQswCQYDVQQGEwJVUzET
+    MBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzEUMBIG
+    A1UECgwLRXhhbXBsZSBDby4xCzAJBgNVBAsMAklUMRQwEgYDVQQDDAtleGFtcGxl
+    LmNvbTAeFw0yMDA3MTAyMzE1MDlaFw0yMDA4MDkyMzE1MDlaMHMxCzAJBgNVBAYT
+    AlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2Nv
+    MRQwEgYDVQQKDAtFeGFtcGxlIENvLjELMAkGA1UECwwCSVQxFDASBgNVBAMMC2V4
+    YW1wbGUuY29tMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEk7CKiDcMIzgGvuCk15dL
+    ehSuyRNfx/1qafjmAd0abH7NEMEgPITFd9oSK01kf2pfYRhIBWK1sWYd06dp9Ts5
+    i5l4Mk1UOgaz+TzKEjM3yTg43LzzzZoQq23O2CzvWEe7MAoGCCqGSM49BAMDA2cA
+    MGQCMAcL3m+Snelzz8uOrLRt1eZHbMRZc3C4hL05M7FC7DL+jxCokyfWnPU5KhyL
+    RWov7wIweWQPr9Uvtovsov+39eGU42Fitqqfv70o2SoXvRQ/9XgDBKcHiKsQImPH
+    Opagnxks
+    -----END CERTIFICATE-----
+    subject=/C=US/ST=California/L=San Francisco/O=Example Co./OU=IT/CN=example.com
+    issuer=/C=US/ST=California/L=San Francisco/O=Example Co./OU=IT/CN=example.com
+    ---
+    No client certificate CA names sent
+    Server Temp Key: ECDH, P-384, 384 bits
+    ---
+    SSL handshake has read 1068 bytes and written 262 bytes
+    ---
+    New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384
+    Server public key is 384 bit
+    Secure Renegotiation IS supported
+    Compression: NONE
+    Expansion: NONE
+    No ALPN negotiated
+    SSL-Session:
+        Protocol  : TLSv1.2
+        Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384
+        Session-ID: 0966C0600004F9A7DF9F67EF90FAAF412191E5239F38929CE80F495FEDD78352
+        Session-ID-ctx:
+        Master-Key: AF01D67E554CF8B8BED9732CE8DEFD02C97FFBA9F7B1DF36E7E37163F3E1633250BD9E96FEBB35217BF3FC0ACB1668F8
+        TLS session ticket lifetime hint: 7200 (seconds)
+        TLS session ticket:
+        0000 - 39 65 eb dd 81 b8 07 1f-2b 0e a3 52 c1 c2 3e f1   9e......+..R..&gt;.
+        0010 - ba 41 2a 58 6e b0 16 28-56 e5 a4 81 c3 7c a3 ee   .A*Xn..(V....|..
+        0020 - 8d ba 7f 4e ff 65 53 ef-be 80 c8 98 ca 12 0a 8c   ...N.eS.........
+        0030 - c9 e1 f8 c7 cc d7 f5 6c-8d bc f1 3e 53 09 43 2f   .......l...&gt;S.C/
+        0040 - b9 7c 3f 0a 9e 39 30 cf-f2 eb 72 fd f3 51 08 25   .|?..90...r..Q.%
+        0050 - f1 4a 58 49 f0 11 c1 75-03 ef 79 93 9f 20 85 ba   .JXI...u..y.. ..
+        0060 - d2 80 73 2d 9e 6a 03 7e-a6 38 2c 75 f4 d1 c5 67   ..s-.j.~.8,u...g
+        0070 - 44 09 ae f0 7d ad 0e b5-6c b2 3c b0 ca 28 4d 1c   D...}...l.&lt;..(M.
+        0080 - e0 04 c9 5e 6b dd 8d e1-a6 81 19 03 c4 b9 77 4b   ...^k.........wK
+        0090 - 2f 61 5f 72 2d d7 f9 c0-65 18 30 72 85 10 99 55   /a_r-...e.0r...U<div class="codehilite"><pre><span></span><span class="err">Start Time: 1594689170</span>
+<span class="err">Timeout   : 7200 (sec)</span>
+<span class="err">Verify return code: 18 (self signed certificate)</span>
+</pre></div>
+
+
+<hr />
+<p>```</p>
+</li>
+</ol>
+<p>This output provides the following verification:</p>
+<ul>
+<li><a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, 
+<a href="https://csrc.nist.gov/publications/detail/fips/197/final">FIPS 197</a> Advanced 
+Encryption Standard (AES) with a 256 bit key (AES256): <code>Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</code></li>
+<li><a href="https://csrc.nist.gov/publications/detail/sp/800-38d/final">SP 800-38D</a> Galois Counter Mode (GCM): <code>Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</code></li>
+<li><a href="https://csrc.nist.gov/publications/detail/fips/140/2/final">FIPS 140-2 Annex A</a>, <a href="https://csrc.nist.gov/publications/detail/fips/180/4/final">FIPS 180-4</a> Secure Hash Algorithm (SHA) with a Message Digest Size of 384 bits (SHA384): <code>Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</code></li>
+<li><a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4 Appendix D</a> Elliptic Curve P-384: <code>Server Temp Key: ECDH, P-384, 384 bits</code></li>
+<li><a href="https://csrc.nist.gov/publications/detail/sp/800-56a/rev-3/final">NIST SP 800-56A</a> Elliptic-curve Diffie–Hellman Key Agreement Protocol (ECDHE): <code>Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</code></li>
+<li><a href="https://csrc.nist.gov/publications/detail/fips/186/4/final">FIPS 186-4</a> Elliptic-curve Digital Signature Algorithm (ECDSA): <code>Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</code></li>
+</ul>
+<!-- endblock templates/article.html content -->
+
+<!-- endblock templates/base.html content -->
+</div>
+
+
+<!-- block templates/article.html footer -->
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!-- block templates/base.html footer -->
+<footer class="footer">
+  <div class="container">
+      Contact Greg Albrecht: Email <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
+        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="https://github.com/ampledata">ampledata</a>.
+
+      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  </div>
+</footer>
+<!-- endblock templates/base.html footer -->
+
+<!-- endblock templates/article.html footer -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

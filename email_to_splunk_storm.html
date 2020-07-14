@@ -69,8 +69,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
               <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
@@ -101,7 +100,7 @@ Storm</a>.</p>
 <h3>Bonus</h3>
 <p>Here's another useful search that extracts the message body and displays it
 as a table:</p>
-<div class="codehilite"><pre><span class="o">*</span><span class="n">simpleyak</span><span class="o">*</span> <span class="o">|</span> <span class="n">spath</span> <span class="n">output</span><span class="o">=</span><span class="n">TextBody</span> <span class="n">TextBody</span> <span class="o">|</span> <span class="n">table</span> <span class="n">TextBody</span>
+<div class="codehilite"><pre><span></span><span class="err">*simpleyak* | spath output=TextBody TextBody | table TextBody</span>
 </pre></div>
 
 
@@ -115,10 +114,10 @@ where as mailgun POSTs messages in their original RFC2822 format.</p>
 <p>It is possible to index both of these formats with Splunk Storm given one
 change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype</code> from
 <code>generic_single_line</code> to <strong>storm_multi_line</strong>:</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">storm</span><span class="p">():</span>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">storm</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Endpoint handler for POST requests.&quot;&quot;&quot;</span>
-    <span class="n">sourcetype</span> <span class="o">=</span> <span class="s">&#39;storm_multi_line&#39;</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="s">&#39;webhook&#39;</span>
+    <span class="n">sourcetype</span> <span class="o">=</span> <span class="s1">&#39;storm_multi_line&#39;</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;webhook&#39;</span>
 </pre></div>
 <!-- endblock templates/article.html content -->
 

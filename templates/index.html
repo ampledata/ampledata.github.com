@@ -6,117 +6,57 @@
 
 {% block content %}
 <!-- block templates/index.html content -->
-<div class="row">
-    <div class="col-md-6">
-    <h2>Articles</h2>
-    <h3>General</h3>
-    <ul>
-      {% for article in articles %}
-            {% if not 'splunk' in article.name %}
-      <li><a href="{{ article.html_file }}">{{ article.friendly_name|title }}</a></li>
-            {% endif %}
-      {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Articles</h2>
+            <h3>General</h3>
+            <ul>
+                <li><a href="secure_baresip.html">Secure VoIP with Baresip</a></li>
+                <li><a href="aprs_of_things.html">APRS Of Things</a></li>
+                <li><a href="blue_angels_flyover_detection_using_sound.html">Blue Angels Flyover Detection Using Sound</a></li>
+                <li><a href="drone_aprs.html">Drone APRS</a></li>
+                <li><a href="enough_ruby_to_be_dangerous.html">Enough Ruby To Be Dangerous</a></li>
+                <li><a href="force_a_remote_host_to_clear_its_arp_cache.html">Force A Remote Host To Clear Its ARP Cache</a></li>
+                <li><a href="manually_detecting_maximum_transmission_unit.html">Manually Detecting Maximum Transmission Unit (MTU)</a></li>
+                <li><a href="media_veganism.html">Media Veganism</a></li>
+                <li><a href="python_version_testing_with_jenkins.html">Python Version Testing With Jenkins</a></li>
+                <li><a href="remote_tnc_using_raspberry_pi.html">Remote TNC Using Raspberry Pi</a></li>
+                <li><a href="san_francisco_pride_2013.html">San Francisco Pride 2013 Emergency Medical Response Statistics</a></li>
+                <li><a href="san_francisco_public_safety_answering_point.html">San Francisco Public Safety Answering Point (PSAP)</a></li>
+                <li><a href="so_you_want_to_be_a_superhero.html">So You Want To Be A Superhero?</a></li>
+            </ul>
+        </div>
 
-    <h3>Splunk Related</h3>
-    <ul>
-        {% for article in articles %}
-        {% if 'splunk' in article.name %}
-        <li><a href="{{ article.html_file }}">{{ article.friendly_name|title }}</a></li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-<!--
-    <h2>Stories</h2>
-    <ul>
-      {% for story in stories %}
-      <li><a href="{{ story.html_file }}">{{ story.friendly_name|title }}</a></li>
-      {% endfor %}
-    </ul>
--->
+        <div class="col-md-6">
+            <h2>Projects</h2>
+
+            <h3>Orion Labs</h3>
+            <dl>
+            <dt><a href="https://www.orionlabs.io">Orion Labs</a> (Python, Node.JS, Ruby, Go, et al)</dt>
+                <dd>
+                  I am Cofounder &amp; CTO of <a href="http://www.orionlabs.io">Orion Labs</a>, an advance communication
+                    platform for mobile workers.
+                </dd>
+            </dl>
+
+
+            <h3>San Francisco Wireless Emergency Mesh (SFWEM)</h3>
+            <dl>
+
+            </dl>
+
+            <h3>Amateur Radio</h3>
+            <dl>
+                <dt><a href="https://github.com/ampledata/aprs">aprs</a> (Python)</dt>
+                <dd>APRS Python Module, a pure-Python interface to APRS-IS and APRS-KISS.</dd>
+
+                <dt><a href="https://github.com/ampledata/kiss">kiss</a> (Python)</dt>
+                <dd>KISS Python Module, a pure-Python KISS interface library.</dd>
+            </dl>
+
+            <a href="https://github.com/ampledata">...more projects on GitHub.</a>
+
+        </div>
     </div>
-    <div class="col-md-6">
-    <h2>Projects</h2>
-    <h3>Orion Labs</h3>
-    <dl>
-    <dt><a href="http://www.orionlabs.io">Orion Labs</a> (Python, Node.JS, Ruby, Go, et al)</dt>
-    <dd>
-      I am Cofounder &amp; CTO of <a href="http://www.orionlabs.io">Orion Labs</a> and
-      we're making <strong>AWESOME</strong> communications wearables that will change the world.
-      <a href="http://angel.co/onbeep/jobs">Join us, won't you?</a>
-    </dd>
-    </dl>
-
-    <h3>Chef</h3>
-    <dl>
-        <dt><a href="https://github.com/onbeep-cookbooks/ssl-vault">ssl-vault Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook to manage SSL keys, certificates &amp; chains.</dd>
-
-        <dt><a href="https://github.com/onbeep-cookbooks/graphite_reporting_handler">graphite_reporting_handler Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook to push Run Report metrics to Graphite.</dd>
-
-        <dt><a href="https://github.com/onbeep-cookbooks/monkey">monkey Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook for monkey-patching Chef itself.</dd>
-
-        <dt><a href="https://github.com/onbeep-cookbooks/sftp">sftp Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook for installing &amp configuring a chroot SFTP server.</dd>
-
-        <dt><a href="https://github.com/onbeep-cookbooks/pygster">pygster Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook &amp; LWRP for installing and configuring Pygster, a pure-python Logster alternative.</dd>
-
-        <dt><a href="https://github.com/onbeep-cookbooks/ngrok">ngrok Cookbook</a> (Ruby)</dt>
-        <dd>Chef Cookbook for configuring &amp; installing an ngrok tunnel client.</dd>
-
-    </dl>
-
-    <h3>Metrics</h3>
-    <dl>
-        <dt><a href="https://github.com/OnBeep/pygster">Pygster</a> (Python)</dt>
-        <dd>Stripped down pure-Python logster using pygtail, derived from ec_logster and logster.</dd>
-
-        <dd><a href="https://github.com/OnBeep/pygster_parsers">Pygster Parsers</a> (Python)</dt>
-        <dd>Additional Pygster parsers for various log formats.</dd>
-
-        <dt><a href="https://github.com/OnBeep/hubot-hostedgraphite">Hubot HostedGraphite</a> (CoffeeScript)</dt>
-        <dd>Hubot package for displaying Graphite graphs from HostedGraphite.com</dd>
-
-        <dt><a href="https://github.com/ampledata/splunk_app_pagerduty">PagerDuty Alert for Splunk</a> (Python)</dt>
-        <dd>Splunk App for triggering PagerDuty Incidents from Searches, Events and Alerts.</dd>
-
-        <dt><a href="https://github.com/OnBeep/splunk_graphite">Graphite Output for Splunk App</a> (Python)</dt>
-        <dd>Splunk App that enables Graphite Output for Searches, Events and Alerts.</dd>
-    </dl>
-
-    <h3>Amateur Radio</h3>
-    <dl>
-        <dt><a href="https://github.com/ampledata/aprs">aprs</a> (Python)</dt>
-        <dd>APRS Python Module, a pure-Python interface to APRS-IS and APRS-KISS.</dd>
-
-        <dt><a href="https://github.com/ampledata/kiss">kiss</a> (Python)</dt>
-        <dd>KISS Python Module, a pure-Python KISS interface library.</dd>
-    </dl>
-
-    <h3>Other</h3>
-    <dl>
-        <dt><a href="https://github.com/ampledata/jeb">jeb</a> (Python)</dt>
-        <dd>JEB: Just Enough Blog, the engine behind this site.</dd>
-
-        <dt><a href="https://github.com/ampledata/pydstat">pydstat</a> (Python)</dt>
-        <dd>Pythonic pidstat.</dd>
-
-        <dt><a href="https://github.com/ampledata/pypirc">pypirc</a> (Python)</dt>
-        <dd>.pypirc Management Client.</dd>
-
-        <dt><a href="https://github.com/ampledata/pygitflow">pygitflow</a> (Python)</dt>
-        <dd>Install Git Flow as a Python Distribution Package.</dd>
-
-        <dt><a href="https://github.com/OnBeep/hubot-netatmo">Hubot Netatmo</a> (CoffeeScript)</dt>
-        <dd>Hubot package for querying the Netatmo Urban Weather Station.</dd>
-
-    </dl>
-    <a href="https://github.com/ampledata">...more projects.</a>
-
-    </div>
-</div>
 <!-- endblock templates/index.html content -->
 {% endblock %}

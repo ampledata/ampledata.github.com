@@ -69,8 +69,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="http://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://www.facebook.com/ampledata">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
               <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
@@ -86,12 +85,12 @@
 returned by splunkd's
 <a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
 to double check daemon health. (excuse my awk ignorance)</p>
-<div class="codehilite"><pre><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;
-<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;
-<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;
-<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login|egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span>|awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span>|awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>;
-curl --max-time 60 -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span>;
-<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span>;
+<div class="codehilite"><pre><span></span><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span>
+<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">;</span>
+<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">;</span>
+<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time <span class="m">60</span> -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login<span class="p">|</span>egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span><span class="p">|</span>awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span><span class="p">|</span>awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span>
+curl --max-time <span class="m">60</span> -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span><span class="p">;</span>
+<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span><span class="p">;</span>
 logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
 </pre></div>
 
@@ -99,12 +98,12 @@ logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
 <p>I've intentionally left the semicolon at the end of each line for one
 reason: This entire script can be concatinated into a single line and
 executed via crontab:</p>
-<div class="codehilite"><pre>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span>;<span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>;<span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span>;<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
+<div class="codehilite"><pre><span></span>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span><span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">;</span><span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">;</span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
 </pre></div>
 
 
 <p>This command will print a line similar to this when there's an error:</p>
-<div class="codehilite"><pre><span class="n">Apr</span>  <span class="mi">4</span> <span class="mo">05</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mo">01</span> <span class="n">domU</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="mi">39</span><span class="o">-</span><span class="mo">00</span><span class="o">-</span><span class="n">E5</span><span class="o">-</span><span class="mi">32</span> <span class="n">splunkd_auth_status</span><span class="o">:</span> <span class="n">err</span>
+<div class="codehilite"><pre><span></span><span class="err">Apr  4 05:55:01 domU-12-31-39-00-E5-32 splunkd_auth_status: err</span>
 </pre></div>
 
 
@@ -112,7 +111,7 @@ executed via crontab:</p>
 and trigger and alert.</p>
 <p>Alternatively, if you're using Cloudkick you could change the logger
 call at the end of this command to a simple echo:</p>
-<div class="codehilite"><pre><span class="nb">echo</span> <span class="s2">&quot;status $STATUS&quot;</span>
+<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;status </span><span class="nv">$STATUS</span><span class="s2">&quot;</span>
 </pre></div>
 <!-- endblock templates/article.html content -->
 
