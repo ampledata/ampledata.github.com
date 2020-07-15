@@ -1,4 +1,4 @@
-TL;DR: You can implement FIPS 140-2 compliant VoIP with RFC 3711 media
+TL;DR: You can implement FIPS 140-2 VoIP with RFC 3711 media
  and RFC 4568 signaling using [baresip](http://www.creytiv.com/baresip.html).
 
 This article describes implementing & verifying secure VoIP using the [Baresip](http://www.creytiv.com/baresip.html) library. 
@@ -43,7 +43,7 @@ protocol to meet certain standards of security as selected by the US Government,
 et al.
 
 We'll work through the following steps to build an environment that applies 
-these enhancements to a Baresip UA, and verify the environment meets certain 
+these enhancements to a Baresip UA, and ensure the environment meets certain 
 security standards:
 
 1. Generate a compliant client & server security certificate.
@@ -298,7 +298,7 @@ Simulated Receiver is running on host `192.168.1.2`.
         a=ptime:20
         
 
-This output provides the following verifications:
+This output ensures the system meets the following standards:
 
 **Signaling**  
 
@@ -393,7 +393,7 @@ output the connection parameters in a manner viewable by the tester.
             Verify return code: 18 (self signed certificate)
         ---
 
-This output provides the following verification:
+This output ensures the system meets the following standards:
 
 - [FIPS 140-2 Annex A](https://csrc.nist.gov/publications/detail/fips/140/2/final), 
 [FIPS 197](https://csrc.nist.gov/publications/detail/fips/197/final) Advanced 
