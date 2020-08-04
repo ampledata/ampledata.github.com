@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- block templates/base.html head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <title>Radio Security</title>
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <!-- endblock templates/base.html head -->
+    
+  </head>
+
+  <body>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Radio Security</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+
+<div class="container">
+<!-- block templates/base.html content -->
+
+<!-- block templates/article.html content -->
+<p>This article is a review of the security features of various Land Mobile 
+Radio Systems available presently. There are many communications products that 
+offer features labeled as 'secure', and there are just as many folk ideas of 
+what 'secure' means. An attempt has been made to develop a rubric through which 
+and a user of a Land Mobile System can select the features of a System
+ that make it 'secure' to them.</p>
+<p>One of the primary uses of LMR systems is for Push-to-Talk voice communication, 
+where human voice is the medium. Most LMR systems do not protect this medium in 
+any way, sending messages in the clear for anyone to intercept &amp; hear. For users 
+who need to protect their messages from interception, they may choose a security 
+feature that offers some privacy guarantee. Many of the same users also need to 
+ensure the identity of other users on the System, so will choose a security 
+feature that authenticates users of the system.</p>
+<p>Potential threats to LMR systems include the ability to intercept any user's 
+transmissions, which is easily achieved with commercial-off-the-shelf equipment. 
+Often secondary market devices are available that can be configured to act as 
+users of a System, giving the operator the ability to intercept and send messages.
+Finally, edge devices like hand-held walkie-talkies can be easily misplaced, lost, 
+or stolen, allowing an attacker to have direct access to the System.</p>
+<p>Almost every LMR system is susceptible to interference, both deliberate and 
+accidental. This can vary in range from a hobby kit for kids, to some nearby
+electronic noise source.</p>
+<p>Assumptions</p>
+<ul>
+<li>Systems are installed and configured per the manufacturers specifications.</li>
+<li>Systems adhere to the regulatory specifications ruling the region in which they 
+operate (emission types, license, power, etc)</li>
+</ul>
+<p>Assets</p>
+<ol>
+<li>The 'message' in the human voice PTT</li>
+<li>The authoritative &amp; presented identity of the Speaker</li>
+</ol>
+<p>Threats</p>
+<ol>
+<li>Interception of PTT 'message'</li>
+<li>Impersonating a User</li>
+</ol>
+<h6>Terms</h6>
+<ul>
+<li><strong>CTCSS</strong>: Continuous Tone-Coded Squelch System</li>
+<li><strong>PL</strong>: Privacy Line</li>
+<li><strong>DCS</strong>: Digital-Coded Squelch</li>
+<li><strong>LMR</strong>: Land Mobile Radio </li>
+<li>AES: A</li>
+<li>DES:</li>
+<li>NXDN:</li>
+<li>DMR:</li>
+<li>dPMR:</li>
+<li>Part 97:</li>
+<li>Part 15:</li>
+<li>GMRS:</li>
+<li>FRS:</li>
+<li>P25:</li>
+</ul>
+<h1>Analog Radio Systems</h1>
+<p>This section under development, currently under review:
+<em> DES ADP
+</em> Tone-access &amp; control systems (2TONE, etc)</p>
+<h1>Digtial Radio Systems</h1>
+<h2>Kenwood NEXEDGE</h2>
+<blockquote>
+<p>This section adopted from the following specififications:
+* NXDN Technical Specifications, TS 1-D Version 1.3. JVC KENWOOD Corporation and Icom Incorporated.</p>
+</blockquote>
+<p>Kenwood NEXEDGE is a commercial implementation of the NXDN open standard for LMR.
+Many Kenwood NXDN-compatible radios offer compatibility with other LMR systems, 
+such as DMR, dPMR, P25, and conventional analog. For the purpose of this 
+evaluation we're focusing on the NXDN portion of these devices. </p>
+<p>The NXDN specification describes three levels of 'encryption algorithm' security:</p>
+<ol>
+<li>No Guard Level: No Encryption.</li>
+<li>"Low Guard Level": Voice Scrambling/"Scramble Encryption"</li>
+<li>"High Guard Level": (this level is further split into:)<ol>
+<li>"DES Encryption" <a href="https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf">FIPS 46-3</a></li>
+<li>"AES Encryption" <a href="https://csrc.nist.gov/publications/detail/fips/197/final">FIPS 197</a> in OFB Mode <a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf">NIST 800-38A</a></li>
+</ol>
+</li>
+</ol>
+<p>"Low Guard" &amp; "High Guard" encryption happen immediately after the Vocoder 
+stage on the transmitting side, or immediately before the Vocoder stage on the 
+receiving side. With encryption &amp; decryption happening so early in the voice 
+processing stage, this ensures that lower layers of the NXDN CAI lack access to 
+the 'plaintext' voice.</p>
+<p><img alt="NXDN Encryption Layers" src="img/nxdn_encryption_layers.png" /></p>
+<h3>NXDN DES Encryption</h3>
+<p>NXDN DES uses a 56-bit key length. Keys must be pre-loaded onto devices before 
+use, and are identified by a pre-shared Key ID. The 64-bit Initialization Vector 
+within the DES OFB is seeded with random data, with the generation method left 
+up to the party implementing the protocol. Initialization Vector values are 
+synchronized within the same frame as the shared Key ID.</p>
+<p><code>VCALL_IV</code> message content:</p>
+<div class="codehilite"><pre><span></span><span class="err"> 2 bits      6 bits 64 bits</span>
+<span class="err">+-----------+------+---------------------+</span>
+<span class="err">|Cipher Type|Key ID|Initialization Vector|</span>
+<span class="err">+-----------+------+---------------------+</span>
+</pre></div>
+
+
+<p>Shared IV</p>
+<p>Encryption frame</p>
+<p>v_calliv
+https://www.qsl.net/kb9mwr/projects/dv/nxdn/NXDN-TS-1-B_v0103.pdf</p>
+<p>https://www.dropbox.com/s/zt0vxv6k2xprowc/Screenshot%202020-07-24%2013.45.51.png?dl=0</p>
+<p>https://www.dropbox.com/s/v5bpc2w7kdlam06/Screenshot%202020-07-24%2013.46.14.png?dl=0</p>
+<p>NXDN Technical Specifications, TS 1-D Version 1.3. JVC KENWOOD Corporation and Icom Incorporated.</p>
+<h3>NXDN Voice Scrambling</h3>
+<p>https://kenwoodcommunications.co.uk/acc/modules/KWD-AE31%20AES/DES%20Encryption%20Module/</p>
+<p>NX-5400: 
+<em> Built-in 56-bit DES &amp; Optional 256-bit AES Encryption (NXDN &amp; P25)
+</em> "NXDN Digital Scrambler"
+<em> Encryption Key Zeroize &amp; Retention 
+</em> • P25 Over-the-Air Re-keying
+<em> • Built-in Voice Inversion Scrambler
+</em> KWD-AE31 Secure Cryptographic Module (AES&amp;DES)</p>
+<h1>https://comms.kenwood.com/en/common/pdf/products/accessories.pdf#zoom=170</h1>
+<p>KPG-94
+https://rfguys.com/products/keyloader-kvl-cable-kenwood-tk5710-tk5810-etc-kpg-94
+Motorola KVL-3000
+KWD-AE31K
+https://www.ameradio.com/product/101094/description.html
+AES/DES Encryption Software Key Loader for KWD-AE31K</p>
+<p>Authentication by KPT-300LMC is required</p>
+<p>Note: KPG-AE1 is a U.S. DOC/BIS Export Controlled Item (ECCN 5D002A)
+https://github.com/KFDtool/KFDtool</p>
+<p>https://d3cz7oi6fhv94u.cloudfront.net/adbc-27815757-FSB-0417-VK5000-02.pdf?versionId=ex9vRe4ognJlSnfz0KoZi4h4VcdCTGMa</p>
+<p>https://www.dropbox.com/s/qpsy2hz6dv9gdqt/Screenshot%202020-07-24%2013.17.02.png?dl=0
+https://comms.kenwood.com/common/pdf/download/1000_NEXEDGE_Ability_K.pdf</p>
+<h2>Notes</h2>
+<p>co-channel</p>
+<p>COMSEC
+- Access 
+- Brevity
+- Clarity
+- Speed
+- Flexibility
+- Simplicity</p>
+<p>Confidentiality
+Privacy
+Authenticity</p>
+<!-- endblock templates/article.html content -->
+
+<!-- endblock templates/base.html content -->
+</div>
+
+
+<!-- block templates/article.html footer -->
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!-- block templates/base.html footer -->
+<footer class="footer">
+  <div class="container">
+      Contact Greg Albrecht: Email <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
+        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="https://github.com/ampledata">ampledata</a>.
+
+      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  </div>
+</footer>
+<!-- endblock templates/base.html footer -->
+
+<!-- endblock templates/article.html footer -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
