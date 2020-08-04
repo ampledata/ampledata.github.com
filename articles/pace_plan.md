@@ -7,6 +7,7 @@ elements completely outside of the operators control. In these cases it's import
 to have a backup, or 3, thus the PACE Plan is born.
 
 PACE stands for:
+
 * Primary
 * Alternate
 * Contingency
