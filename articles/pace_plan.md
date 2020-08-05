@@ -31,7 +31,7 @@ at all!) A team providing Emergency Medical Services at an event like this must
 contend with these communications complexities, as well as the risks violence 
 against crowds, emergent crisis, and more.
 
-![PACE Plan Example](img/pace_plan_example.png)
+![PACE Plan Example](img/pace_plan/pace_plan_example.png)
 
 ### Primary
 
@@ -40,7 +40,7 @@ This would be the routine method for EMS teams to communicate, and depending on
 their assignment, which other channel(s) to use. Every team is issued a radio with 
 these zones & channels programmed in.
 
-![PACE Plan Example](img/pace_plan_primary.png)
+![PACE Plan Example](img/pace_plan/pace_plan_primary.png)
 
 ### Alternative
 

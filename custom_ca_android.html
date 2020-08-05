@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- block templates/base.html head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <title>Custom Ca Android</title>
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <!-- endblock templates/base.html head -->
+    
+  </head>
+
+  <body>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Custom Ca Android</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+
+<div class="container">
+<!-- block templates/base.html content -->
+
+<!-- block templates/article.html content -->
+<h1>Using a Custom CA on Android</h1>
+<p>This article describes a procedure for creating, installing &amp; using a Custom CA 
+on an Android device. </p>
+<p>Two assets are required for this procedure:</p>
+<ol>
+<li>A Test Workstation where <code>openssl</code> &amp; <code>adb</code> commands will be run.</li>
+<li>A Test Android Device where Custom CA will be installed and utilized.</li>
+</ol>
+<p>Assumptions</p>
+<ol>
+<li>No Custom CA has been created yet.</li>
+<li>The Test Android Device is in Developer Mode with USB Debugging enabled.<ul>
+<li>N.B. root/su access IS NOT needed for this procedure.</li>
+</ul>
+</li>
+<li>For Testing: You have a DNS resolver that you add entries to and that is 
+shared by the Test Workstation &amp; Test Android Device. For example, with 
+dnsmasq: <code>address=/server.example.com/192.168.1.129</code></li>
+</ol>
+<h2>Create a new Custom CA</h2>
+<p>These steps rely on the OpenSSL command-line tool <code>openssl</code>.</p>
+<h3>Step 1 - Create a Private Key</h3>
+<div class="codehilite"><pre><span></span>$ openssl ecparam -genkey -name secp384r1 <span class="se">\</span>
+    -param_enc explicit -param_enc named_curve <span class="se">\</span>
+    -out custom_ca.pk.pem
+</pre></div>
+
+
+<h3>Step 2 - Create a Public Certificate</h3>
+<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-</span><span class="n">x509</span><span class="w"> </span><span class="o">-</span><span class="k">new</span><span class="w"> </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">nodes</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="k">key</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">subj</span><span class="w"> </span><span class="ss">&quot;/O=Custom CA&quot;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">ext</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">req</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">distinguished_name</span><span class="o">=</span><span class="n">dn</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">dn</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">ext</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">basicConstraints</span><span class="o">=</span><span class="nl">CA</span><span class="p">:</span><span class="k">TRUE</span><span class="p">,</span><span class="nl">pathlen</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<h3>Step 3 - Verify the Public Certificate</h3>
+<div class="codehilite"><pre><span></span>$ openssl x509 -inform PEM -in custom_ca.cert.pem -text -noout
+</pre></div>
+
+
+<h3>Step 4 - Export the Public Certificate in DER format</h3>
+<div class="codehilite"><pre><span></span>$ openssl x509 -inform PEM -outform DER <span class="se">\</span>
+    -in custom_ca.cert.pem -out custom_ca.cert.der
+</pre></div>
+
+
+<h2>Create a Certificate Signing Request (CSR)</h2>
+<h3>Step 1 - Create a Private Key</h3>
+<div class="codehilite"><pre><span></span>$ openssl ecparam -genkey -name secp384r1 <span class="se">\</span>
+    -param_enc explicit -param_enc named_curve <span class="se">\</span>
+    -out server.example.com.pk.pem
+</pre></div>
+
+
+<h3>Step 2 - Generate a CSR with SAN support</h3>
+<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-</span><span class="k">new</span><span class="w"> </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">nodes</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="k">key</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">subj</span><span class="w"> </span><span class="ss">&quot;/CN=server.example.com&quot;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">req</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_distinguished_name</span><span class="w"></span>
+<span class="w">    </span><span class="n">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_ext</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">req_distinguished_name</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">commonName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">req_ext</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">@alt_names</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">alt_names</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">DNS</span><span class="mf">.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<h3>Step 3 - Verify the CSR</h3>
+<div class="codehilite"><pre><span></span>$ openssl req -in server.example.com.csr.pem -text -noout
+</pre></div>
+
+
+<h2>Sign CSR with Custom CA</h2>
+<h3>Step 1 - Sign our server's CSR with our Custom CA</h3>
+<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">x509</span><span class="w"> </span><span class="o">-</span><span class="n">req</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">CAcreateserial</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">CA</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">CAkey</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="ow">in</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w">  </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="s1">&#39;v3_req&#39;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
+<span class="w">    </span><span class="o">-</span><span class="n">extfile</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">v3_req</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">@alt_names</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">alt_names</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">DNS</span><span class="mf">.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<h3>Step 2 - Verify the new server Certificate:</h3>
+<div class="codehilite"><pre><span></span>$ openssl x509 -inform PEM -in server.example.com.cert.pem -text -noout
+</pre></div>
+
+
+<h2>Install Custom CA Certificate on Android Device</h2>
+<h3>Step 1 - Copy Custom CA Certificate in DER format to the Android device</h3>
+<div class="codehilite"><pre><span></span>$ adb push custom_ca.cert.der /sdcard/Download
+</pre></div>
+
+
+<h3>Step 2 - Add the Custom CA's Certificate to Android's Trust Chain</h3>
+<p>This step varies by device manufacturer, and tends to either have the user 
+open Settings, and browse to certificate settings. In my experience, any certificates 
+I copied to my device only showed up in Settings -after- a reboot, but were almost 
+always accessible from a file browser</p>
+<p>From a Samsung Galaxy XCover Pro SM-G715U1 running Android 10:</p>
+<ol>
+<li>Open 'My Files' <img alt="'My Files' icon" src="img/custom_ca_android/my_files_icon.png" /></li>
+<li>Browse to <strong>Internal Storage</strong> &gt; <strong>Download</strong> and select <strong>custom_ca.cert.der</strong>.</li>
+<li>When prompted, enter a name for the certificate: <img alt="Certificate name prompt" src="img/custom_ca_android/open_cert_diag.png" /></li>
+<li>You should now see a notification of 'Custom CA installed': <img alt="Custom CA installed." src="img/custom_ca_android/custom_ca_installed.png" /></li>
+</ol>
+<h2>Test TLS connections from Android Device</h2>
+<p>This test verifies Android's trust of certificates signed by the Custom CA by 
+using Chrome to browse to a Mock Webserver over TLS. The Mock Webserver presents 
+a certificate signed by the Custom CA.</p>
+<h3>Step 1 - Start the Mock Webserver</h3>
+<div class="codehilite"><pre><span></span>$ openssl s_server <span class="se">\</span>
+   -cipher ECDHE-ECDSA-AES256-GCM-SHA384 <span class="se">\</span>
+   -named_curve secp384r1 <span class="se">\</span>
+   -no_dhe <span class="se">\</span>
+   -www <span class="se">\</span>
+   -accept <span class="m">443</span> <span class="se">\</span>
+   -cert server.example.com.cert.pem <span class="se">\</span>
+   -key server.example.com.pk.pem <span class="se">\</span>
+   -servername server.example.com <span class="se">\</span>
+   -cert2 server.example.com.cert.pem <span class="se">\</span>
+   -key2 server.example.com.pk.pem
+</pre></div>
+
+
+<h3>Step 2 - Browse to the Mock Webserver</h3>
+<p>From the Test Android Device, browse to https://server.example.com. You should 
+not receive a prompt to accept a certificate, or a notification that the certificate 
+is invalid. Instead, you should see something similar to:</p>
+<p>```shell script
+s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem 
+Secure Renegotiation IS supported
+Ciphers supported in s_server binary
+TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384</p>
+<hr />
+<p>Ciphers common between both SSL end points:
+ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES256-SHA384 
+ECDHE-ECDSA-AES128-SHA256  ECDHE-ECDSA-AES256-SHA     ECDHE-ECDSA-AES128-SHA  <br />
+ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256
+ECDHE-RSA-AES256-SHA384    ECDHE-RSA-AES128-SHA256    ECDHE-RSA-AES256-SHA    <br />
+ECDHE-RSA-AES128-SHA       ECDHE-RSA-CHACHA20-POLY1305 AES256-GCM-SHA384       <br />
+AES128-GCM-SHA256          AES256-SHA256              AES128-SHA256           <br />
+AES256-SHA                 AES128-SHA                 ECDHE-ECDSA-DES-CBC3-SHA<br />
+ECDHE-RSA-DES-CBC3-SHA     DES-CBC3-SHA</p>
+<hr />
+<p>New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384
+    Session-ID: 3F0CBE77368393CC48C12AFF49D974B3C3F4AFC3E80EDF440D4C7F04CB8D8894
+    Session-ID-ctx: 01000000
+    Master-Key: 7324557574706DB53A7664C2E9E51D51E44E6871388383EA8F4E60EE37BCF4C6419ECC4C20443660DFE551B77382F359
+    Start Time: 1596586218
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)</p>
+<hr />
+<p>0 items in the session cache
+   0 client connects (SSL_connect())
+   0 client renegotiates (SSL_connect())
+   0 client connects that finished
+   0 server accepts (SSL_accept())
+   0 server renegotiates (SSL_accept())
+   1 server accepts that finished
+   0 session cache hits
+   0 session cache misses
+   0 session cache timeouts
+   0 callback cache hits
+   0 cache full overflows (128 allowed)</p>
+<hr />
+<p>no client certificate available
+``` </p>
+<!-- endblock templates/article.html content -->
+
+<!-- endblock templates/base.html content -->
+</div>
+
+
+<!-- block templates/article.html footer -->
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!-- block templates/base.html footer -->
+<footer class="footer">
+  <div class="container">
+      Contact Greg Albrecht: Email <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
+        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="https://github.com/ampledata">ampledata</a>.
+
+      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  </div>
+</footer>
+<!-- endblock templates/base.html footer -->
+
+<!-- endblock templates/article.html footer -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
