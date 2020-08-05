@@ -150,45 +150,43 @@ From the Test Android Device, browse to https://server.example.com. You should
 not receive a prompt to accept a certificate, or a notification that the certificate 
 is invalid. Instead, you should see something similar to:
 
-```shell script
-s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem 
-Secure Renegotiation IS supported
-Ciphers supported in s_server binary
-TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384
----
-Ciphers common between both SSL end points:
-ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES256-SHA384 
-ECDHE-ECDSA-AES128-SHA256  ECDHE-ECDSA-AES256-SHA     ECDHE-ECDSA-AES128-SHA    
-ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256
-ECDHE-RSA-AES256-SHA384    ECDHE-RSA-AES128-SHA256    ECDHE-RSA-AES256-SHA      
-ECDHE-RSA-AES128-SHA       ECDHE-RSA-CHACHA20-POLY1305 AES256-GCM-SHA384         
-AES128-GCM-SHA256          AES256-SHA256              AES128-SHA256             
-AES256-SHA                 AES128-SHA                 ECDHE-ECDSA-DES-CBC3-SHA  
-ECDHE-RSA-DES-CBC3-SHA     DES-CBC3-SHA
----
-New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384
-SSL-Session:
-    Protocol  : TLSv1.2
-    Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384
-    Session-ID: 3F0CBE77368393CC48C12AFF49D974B3C3F4AFC3E80EDF440D4C7F04CB8D8894
-    Session-ID-ctx: 01000000
-    Master-Key: 7324557574706DB53A7664C2E9E51D51E44E6871388383EA8F4E60EE37BCF4C6419ECC4C20443660DFE551B77382F359
-    Start Time: 1596586218
-    Timeout   : 7200 (sec)
-    Verify return code: 0 (ok)
----
-   0 items in the session cache
-   0 client connects (SSL_connect())
-   0 client renegotiates (SSL_connect())
-   0 client connects that finished
-   0 server accepts (SSL_accept())
-   0 server renegotiates (SSL_accept())
-   1 server accepts that finished
-   0 session cache hits
-   0 session cache misses
-   0 session cache timeouts
-   0 callback cache hits
-   0 cache full overflows (128 allowed)
----
-no client certificate available
-``` 
+    s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem 
+    Secure Renegotiation IS supported
+    Ciphers supported in s_server binary
+    TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384
+    ---
+    Ciphers common between both SSL end points:
+    ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES256-SHA384 
+    ECDHE-ECDSA-AES128-SHA256  ECDHE-ECDSA-AES256-SHA     ECDHE-ECDSA-AES128-SHA    
+    ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256
+    ECDHE-RSA-AES256-SHA384    ECDHE-RSA-AES128-SHA256    ECDHE-RSA-AES256-SHA      
+    ECDHE-RSA-AES128-SHA       ECDHE-RSA-CHACHA20-POLY1305 AES256-GCM-SHA384         
+    AES128-GCM-SHA256          AES256-SHA256              AES128-SHA256             
+    AES256-SHA                 AES128-SHA                 ECDHE-ECDSA-DES-CBC3-SHA  
+    ECDHE-RSA-DES-CBC3-SHA     DES-CBC3-SHA
+    ---
+    New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384
+    SSL-Session:
+        Protocol  : TLSv1.2
+        Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384
+        Session-ID: 3F0CBE77368393CC48C12AFF49D974B3C3F4AFC3E80EDF440D4C7F04CB8D8894
+        Session-ID-ctx: 01000000
+        Master-Key: 7324557574706DB53A7664C2E9E51D51E44E6871388383EA8F4E60EE37BCF4C6419ECC4C20443660DFE551B77382F359
+        Start Time: 1596586218
+        Timeout   : 7200 (sec)
+        Verify return code: 0 (ok)
+    ---
+       0 items in the session cache
+       0 client connects (SSL_connect())
+       0 client renegotiates (SSL_connect())
+       0 client connects that finished
+       0 server accepts (SSL_accept())
+       0 server renegotiates (SSL_accept())
+       1 server accepts that finished
+       0 session cache hits
+       0 session cache misses
+       0 session cache timeouts
+       0 callback cache hits
+       0 cache full overflows (128 allowed)
+    ---
+    no client certificate available
