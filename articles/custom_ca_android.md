@@ -1,14 +1,29 @@
 # Using a Custom CA on Android
 
-This article describes a procedure for creating, installing & using a Custom CA 
-on an Android device. 
+This article describes a procedure for adding a Custom Certificate Authority (CA) 
+to the User Trust Anchor on Android. Once added, applications can choose to 
+utilize the User Trust Anchor, allowing TLS connections to systems using 
+certificates signed by the Custom CA.
+
+From the Android Network Security Configuration documentation:
+
+> An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:
+> 
+> * Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.
+> * Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.
+> * Trusting additional CAs not included in the system.
+
+#### Assets
 
 Two assets are required for this procedure:
 
 1. A Test Workstation where `openssl` & `adb` commands will be run.
-2. A Test Android Device where Custom CA will be installed and utilized.
+2. A Test Android Device where the Custom CA will be added.
 
-Assumptions
+#### Assumptions
+
+The following assumptions are made about the environment where this procedure 
+will be executed:
 
 1. No Custom CA has been created yet.
 2. The Test Android Device is in Developer Mode with USB Debugging enabled.
@@ -17,18 +32,37 @@ Assumptions
 shared by the Test Workstation & Test Android Device. For example, with 
 dnsmasq: `address=/server.example.com/192.168.1.129`
 
+#### Please Note
+
+There is at least one special consideration to keep in mind when executing this 
+procedure:
+
+* As of Android 7, User Trust Anchors are not utilized by default. Application 
+developers must choose to use User Trust Anchors. See [this article](https://developer.android.com/training/articles/security-config#base-config) for more 
+details. An example configuration utilizing User Trust Anchors is below:
+
+        :::xml
+        <base-config cleartextTrafficPermitted="true">
+            <trust-anchors>
+                <certificates src="system" />
+                <certificates src="user" />
+            </trust-anchors>
+        </base-config>
+
 ## Create a new Custom CA
 
 These steps rely on the OpenSSL command-line tool `openssl`.
 
 ### Step 1 - Create a Private Key
 
+    :::bash
     $ openssl ecparam -genkey -name secp384r1 \
         -param_enc explicit -param_enc named_curve \
         -out custom_ca.pk.pem
 
 ### Step 2 - Create a Public Certificate
 
+    :::bash
     $ openssl req -x509 -new -sha384 -days 30 -nodes \
         -key custom_ca.pk.pem -out custom_ca.cert.pem \
         -subj "/O=Custom CA" \
@@ -43,10 +77,12 @@ These steps rely on the OpenSSL command-line tool `openssl`.
 
 ### Step 3 - Verify the Public Certificate
 
+    :::bash
     $ openssl x509 -inform PEM -in custom_ca.cert.pem -text -noout
 
 ### Step 4 - Export the Public Certificate in DER format
 
+    :::bash
     $ openssl x509 -inform PEM -outform DER \
         -in custom_ca.cert.pem -out custom_ca.cert.der
 
@@ -54,12 +90,14 @@ These steps rely on the OpenSSL command-line tool `openssl`.
 
 ### Step 1 - Create a Private Key
 
+    :::bash
     $ openssl ecparam -genkey -name secp384r1 \
         -param_enc explicit -param_enc named_curve \
         -out server.example.com.pk.pem
 
 ### Step 2 - Generate a CSR with SAN support
-            
+     
+    :::bash       
     $ openssl req -new -sha384 -days 30 -nodes \
         -key server.example.com.pk.pem \
         -out server.example.com.csr.pem \
@@ -78,12 +116,14 @@ These steps rely on the OpenSSL command-line tool `openssl`.
 
 ### Step 3 - Verify the CSR
 
+    :::bash
     $ openssl req -in server.example.com.csr.pem -text -noout
 
 ## Sign CSR with Custom CA
 
 ### Step 1 - Sign our server's CSR with our Custom CA
 
+    :::bash
     $ openssl x509 -req \
         -CAcreateserial \
         -days 30 \
@@ -102,12 +142,14 @@ These steps rely on the OpenSSL command-line tool `openssl`.
 
 ### Step 2 - Verify the new server Certificate:
 
+    :::bash
     $ openssl x509 -inform PEM -in server.example.com.cert.pem -text -noout
 
 ## Install Custom CA Certificate on Android Device
 
 ### Step 1 - Copy Custom CA Certificate in DER format to the Android device
 
+    :::bash
     $ adb push custom_ca.cert.der /sdcard/Download
 
 ### Step 2 - Add the Custom CA's Certificate to Android's Trust Chain
@@ -132,6 +174,7 @@ a certificate signed by the Custom CA.
 
 ### Step 1 - Start the Mock Webserver
 
+    :::bash
     $ openssl s_server \
        -cipher ECDHE-ECDSA-AES256-GCM-SHA384 \
        -named_curve secp384r1 \
@@ -150,6 +193,7 @@ From the Test Android Device, browse to https://server.example.com. You should
 not receive a prompt to accept a certificate, or a notification that the certificate 
 is invalid. Instead, you should see something similar to:
 
+    :::text
     s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem 
     Secure Renegotiation IS supported
     Ciphers supported in s_server binary

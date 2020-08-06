@@ -82,14 +82,28 @@
 
 <!-- block templates/article.html content -->
 <h1>Using a Custom CA on Android</h1>
-<p>This article describes a procedure for creating, installing &amp; using a Custom CA 
-on an Android device. </p>
+<p>This article describes a procedure for adding a Custom Certificate Authority (CA) 
+to the User Trust Anchor on Android. Once added, applications can choose to 
+utilize the User Trust Anchor, allowing TLS connections to systems using 
+certificates signed by the Custom CA.</p>
+<p>From the Android Network Security Configuration documentation:</p>
+<blockquote>
+<p>An app may want to trust a custom set of CAs instead of the platform default. The most common reasons of this are:</p>
+<ul>
+<li>Connecting to a host with a custom certificate authority, such as a CA that is self-signed or is issued internally within a company.</li>
+<li>Limiting the set of CAs to only the CAs you trust instead of every pre-installed CA.</li>
+<li>Trusting additional CAs not included in the system.</li>
+</ul>
+</blockquote>
+<h4>Assets</h4>
 <p>Two assets are required for this procedure:</p>
 <ol>
 <li>A Test Workstation where <code>openssl</code> &amp; <code>adb</code> commands will be run.</li>
-<li>A Test Android Device where Custom CA will be installed and utilized.</li>
+<li>A Test Android Device where the Custom CA will be added.</li>
 </ol>
-<p>Assumptions</p>
+<h4>Assumptions</h4>
+<p>The following assumptions are made about the environment where this procedure 
+will be executed:</p>
 <ol>
 <li>No Custom CA has been created yet.</li>
 <li>The Test Android Device is in Developer Mode with USB Debugging enabled.<ul>
@@ -100,6 +114,23 @@ on an Android device. </p>
 shared by the Test Workstation &amp; Test Android Device. For example, with 
 dnsmasq: <code>address=/server.example.com/192.168.1.129</code></li>
 </ol>
+<h4>Please Note</h4>
+<p>There is at least one special consideration to keep in mind when executing this 
+procedure:</p>
+<ul>
+<li>As of Android 7, User Trust Anchors are not utilized by default. Application 
+developers must choose to use User Trust Anchors. See <a href="https://developer.android.com/training/articles/security-config#base-config">this article</a> for more 
+details. An example configuration utilizing User Trust Anchors is below:<div class="codehilite"><pre><span></span><span class="nt">&lt;base-config</span> <span class="na">cleartextTrafficPermitted=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;trust-anchors&gt;</span>
+        <span class="nt">&lt;certificates</span> <span class="na">src=</span><span class="s">&quot;system&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;certificates</span> <span class="na">src=</span><span class="s">&quot;user&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/trust-anchors&gt;</span>
+<span class="nt">&lt;/base-config&gt;</span>
+</pre></div>
+
+
+</li>
+</ul>
 <h2>Create a new Custom CA</h2>
 <p>These steps rely on the OpenSSL command-line tool <code>openssl</code>.</p>
 <h3>Step 1 - Create a Private Key</h3>
@@ -110,17 +141,17 @@ dnsmasq: <code>address=/server.example.com/192.168.1.129</code></li>
 
 
 <h3>Step 2 - Create a Public Certificate</h3>
-<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-</span><span class="n">x509</span><span class="w"> </span><span class="o">-</span><span class="k">new</span><span class="w"> </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">nodes</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="k">key</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">subj</span><span class="w"> </span><span class="ss">&quot;/O=Custom CA&quot;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">ext</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">req</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">distinguished_name</span><span class="o">=</span><span class="n">dn</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">dn</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">ext</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">basicConstraints</span><span class="o">=</span><span class="nl">CA</span><span class="p">:</span><span class="k">TRUE</span><span class="p">,</span><span class="nl">pathlen</span><span class="p">:</span><span class="mi">0</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span>$ openssl req -x509 -new -sha384 -days <span class="m">30</span> -nodes <span class="se">\</span>
+    -key custom_ca.pk.pem -out custom_ca.cert.pem <span class="se">\</span>
+    -subj <span class="s2">&quot;/O=Custom CA&quot;</span> <span class="se">\</span>
+    -extensions ext <span class="se">\</span>
+    -config &lt;<span class="o">(</span>cat <span class="s">&lt;&lt;EOF</span>
+<span class="s">    [req]</span>
+<span class="s">    distinguished_name=dn</span>
+<span class="s">    [dn]</span>
+<span class="s">    [ext]</span>
+<span class="s">    basicConstraints=CA:TRUE</span>,pathlen:0
+    <span class="o">)</span>
 </pre></div>
 
 
@@ -144,21 +175,21 @@ dnsmasq: <code>address=/server.example.com/192.168.1.129</code></li>
 
 
 <h3>Step 2 - Generate a CSR with SAN support</h3>
-<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-</span><span class="k">new</span><span class="w"> </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">nodes</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="k">key</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">subj</span><span class="w"> </span><span class="ss">&quot;/CN=server.example.com&quot;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">req</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_distinguished_name</span><span class="w"></span>
-<span class="w">    </span><span class="n">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_ext</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">req_distinguished_name</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">commonName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">req_ext</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">@alt_names</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">alt_names</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">DNS</span><span class="mf">.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span>$ openssl req -new -sha384 -days <span class="m">30</span> -nodes <span class="se">\</span>
+    -key server.example.com.pk.pem <span class="se">\</span>
+    -out server.example.com.csr.pem <span class="se">\</span>
+    -subj <span class="s2">&quot;/CN=server.example.com&quot;</span> <span class="se">\</span>
+    -config &lt;<span class="o">(</span>cat &lt;&lt;EOF
+    <span class="o">[</span>req<span class="o">]</span>
+    <span class="nv">distinguished_name</span> <span class="o">=</span> req_distinguished_name
+    <span class="nv">req_extensions</span> <span class="o">=</span> req_ext
+    <span class="o">[</span>req_distinguished_name<span class="o">]</span>
+    <span class="nv">commonName</span> <span class="o">=</span> server.example.com
+    <span class="o">[</span>req_ext<span class="o">]</span>
+    <span class="nv">subjectAltName</span> <span class="o">=</span> @alt_names
+    <span class="o">[</span>alt_names<span class="o">]</span>
+    DNS.1 <span class="o">=</span> server.example.com
+    <span class="o">)</span>
 </pre></div>
 
 
@@ -169,21 +200,21 @@ dnsmasq: <code>address=/server.example.com/192.168.1.129</code></li>
 
 <h2>Sign CSR with Custom CA</h2>
 <h3>Step 1 - Sign our server's CSR with our Custom CA</h3>
-<div class="codehilite"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">x509</span><span class="w"> </span><span class="o">-</span><span class="n">req</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">CAcreateserial</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">days</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">sha384</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">CA</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">CAkey</span><span class="w"> </span><span class="n">custom_ca</span><span class="p">.</span><span class="n">pk</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="ow">in</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span><span class="p">.</span><span class="n">pem</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="k">out</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">cert</span><span class="p">.</span><span class="n">pem</span><span class="w">  </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="s1">&#39;v3_req&#39;</span><span class="w"> </span><span class="err">\</span><span class="w"></span>
-<span class="w">    </span><span class="o">-</span><span class="n">extfile</span><span class="w"> </span><span class="o">&lt;</span><span class="p">(</span><span class="n">cat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">v3_req</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">@alt_names</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">alt_names</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="n">DNS</span><span class="mf">.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span>$ openssl x509 -req <span class="se">\</span>
+    -CAcreateserial <span class="se">\</span>
+    -days <span class="m">30</span> <span class="se">\</span>
+    -sha384 <span class="se">\</span>
+    -CA custom_ca.cert.pem <span class="se">\</span>
+    -CAkey custom_ca.pk.pem <span class="se">\</span>
+    -in server.example.com.csr.pem <span class="se">\</span>
+    -out server.example.com.cert.pem  <span class="se">\</span>
+    -extensions <span class="s1">&#39;v3_req&#39;</span> <span class="se">\</span>
+    -extfile &lt;<span class="o">(</span>cat &lt;&lt;EOF
+    <span class="o">[</span>v3_req<span class="o">]</span>
+    <span class="nv">subjectAltName</span> <span class="o">=</span> @alt_names
+    <span class="o">[</span>alt_names<span class="o">]</span>
+    DNS.1 <span class="o">=</span> server.example.com
+    <span class="o">)</span>
 </pre></div>
 
 
@@ -233,46 +264,46 @@ a certificate signed by the Custom CA.</p>
 <p>From the Test Android Device, browse to https://server.example.com. You should 
 not receive a prompt to accept a certificate, or a notification that the certificate 
 is invalid. Instead, you should see something similar to:</p>
-<div class="codehilite"><pre><span></span><span class="err">s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem </span>
-<span class="err">Secure Renegotiation IS supported</span>
-<span class="err">Ciphers supported in s_server binary</span>
-<span class="err">TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384</span>
-<span class="err">---</span>
-<span class="err">Ciphers common between both SSL end points:</span>
-<span class="err">ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES256-SHA384 </span>
-<span class="err">ECDHE-ECDSA-AES128-SHA256  ECDHE-ECDSA-AES256-SHA     ECDHE-ECDSA-AES128-SHA    </span>
-<span class="err">ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256</span>
-<span class="err">ECDHE-RSA-AES256-SHA384    ECDHE-RSA-AES128-SHA256    ECDHE-RSA-AES256-SHA      </span>
-<span class="err">ECDHE-RSA-AES128-SHA       ECDHE-RSA-CHACHA20-POLY1305 AES256-GCM-SHA384         </span>
-<span class="err">AES128-GCM-SHA256          AES256-SHA256              AES128-SHA256             </span>
-<span class="err">AES256-SHA                 AES128-SHA                 ECDHE-ECDSA-DES-CBC3-SHA  </span>
-<span class="err">ECDHE-RSA-DES-CBC3-SHA     DES-CBC3-SHA</span>
-<span class="err">---</span>
-<span class="err">New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384</span>
-<span class="c">SSL-Session:</span>
-<span class="c">    Protocol  : TLSv1.2</span>
-<span class="c">    Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384</span>
-<span class="c">    Session-ID: 3F0CBE77368393CC48C12AFF49D974B3C3F4AFC3E80EDF440D4C7F04CB8D8894</span>
-<span class="c">    Session-ID-ctx: 01000000</span>
-<span class="c">    Master-Key: 7324557574706DB53A7664C2E9E51D51E44E6871388383EA8F4E60EE37BCF4C6419ECC4C20443660DFE551B77382F359</span>
-<span class="c">    Start Time: 1596586218</span>
-<span class="c">    Timeout   : 7200 (sec)</span>
-<span class="c">    Verify return code: 0 (ok)</span>
-<span class="err">---</span>
-<span class="err">   0 items in the session cache</span>
-<span class="err">   0 client connects (SSL_connect())</span>
-<span class="err">   0 client renegotiates (SSL_connect())</span>
-<span class="err">   0 client connects that finished</span>
-<span class="err">   0 server accepts (SSL_accept())</span>
-<span class="err">   0 server renegotiates (SSL_accept())</span>
-<span class="err">   1 server accepts that finished</span>
-<span class="err">   0 session cache hits</span>
-<span class="err">   0 session cache misses</span>
-<span class="err">   0 session cache timeouts</span>
-<span class="err">   0 callback cache hits</span>
-<span class="err">   0 cache full overflows (128 allowed)</span>
-<span class="err">---</span>
-<span class="err">no client certificate available</span>
+<div class="codehilite"><pre><span></span>s_server -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe -www -accept 443 -cert server.example.com.cert.pem -key server.example.com.pk.pem -servername server.example.com -cert2 server.example.com.cert.pem -key2 server.example.com.pk.pem 
+Secure Renegotiation IS supported
+Ciphers supported in s_server binary
+TLSv1/SSLv3:ECDHE-ECDSA-AES256-GCM-SHA384
+---
+Ciphers common between both SSL end points:
+ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES256-SHA384 
+ECDHE-ECDSA-AES128-SHA256  ECDHE-ECDSA-AES256-SHA     ECDHE-ECDSA-AES128-SHA    
+ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256
+ECDHE-RSA-AES256-SHA384    ECDHE-RSA-AES128-SHA256    ECDHE-RSA-AES256-SHA      
+ECDHE-RSA-AES128-SHA       ECDHE-RSA-CHACHA20-POLY1305 AES256-GCM-SHA384         
+AES128-GCM-SHA256          AES256-SHA256              AES128-SHA256             
+AES256-SHA                 AES128-SHA                 ECDHE-ECDSA-DES-CBC3-SHA  
+ECDHE-RSA-DES-CBC3-SHA     DES-CBC3-SHA
+---
+New, TLSv1/SSLv3, Cipher is ECDHE-ECDSA-AES256-GCM-SHA384
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-ECDSA-AES256-GCM-SHA384
+    Session-ID: 3F0CBE77368393CC48C12AFF49D974B3C3F4AFC3E80EDF440D4C7F04CB8D8894
+    Session-ID-ctx: 01000000
+    Master-Key: 7324557574706DB53A7664C2E9E51D51E44E6871388383EA8F4E60EE37BCF4C6419ECC4C20443660DFE551B77382F359
+    Start Time: 1596586218
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+---
+   0 items in the session cache
+   0 client connects (SSL_connect())
+   0 client renegotiates (SSL_connect())
+   0 client connects that finished
+   0 server accepts (SSL_accept())
+   0 server renegotiates (SSL_accept())
+   1 server accepts that finished
+   0 session cache hits
+   0 session cache misses
+   0 session cache timeouts
+   0 callback cache hits
+   0 cache full overflows (128 allowed)
+---
+no client certificate available
 </pre></div>
 <!-- endblock templates/article.html content -->
 
