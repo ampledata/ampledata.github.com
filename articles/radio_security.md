@@ -1,9 +1,10 @@
+# Land Mobile Radio Security
+
 This article is a review of the security features of various Land Mobile 
 Radio Systems available presently. There are many communications products that 
-offer features labeled as 'secure', and there are just as many folk ideas of 
-what 'secure' means. An attempt has been made to develop a rubric through which 
-and a user of a Land Mobile System can select the features of a System
- that make it 'secure' to them.
+offer features labeled as 'secure', and there are just as many notions of what 
+'secure' means. I will develop a rubric through which the user of a Land Mobile 
+System can select the features of a System that make it 'secure' to them.
 
 One of the primary uses of LMR systems is for Push-to-Talk voice communication, 
 where human voice is the medium. Most LMR systems do not protect this medium in 
@@ -15,10 +16,11 @@ feature that authenticates users of the system.
 
 Potential threats to LMR systems include the ability to intercept any user's 
 transmissions, which is easily achieved with commercial-off-the-shelf equipment. 
-Often secondary market devices are available that can be configured to act as 
-users of a System, giving the operator the ability to intercept and send messages.
-Finally, edge devices like hand-held walkie-talkies can be easily misplaced, lost, 
-or stolen, allowing an attacker to have direct access to the System.
+Often secondary-market devices are available that can be configured to act as 
+users of a System, giving the operator the ability to intercept and send 
+messages. Finally, edge devices like hand-held walkie-talkies can be easily 
+misplaced, lost, or stolen, allowing an attacker to have direct access to the 
+System.
 
 Almost every LMR system is susceptible to interference, both deliberate and 
 accidental. This can vary in range from a hobby kit for kids, to some nearby
@@ -40,7 +42,30 @@ Threats
 1. Interception of PTT 'message'
 2. Impersonating a User
 
-###### Terms
+## Security vs. Access
+
+A dimension to take into consideration is that, unlike an IP network where 
+the underlying protocol is built around multiple-access, LMR systems can vary 
+in how they implement multiple-access, if at all. What this means is that an 
+IP network can have several devices sharing the same basic transport (IP over 
+Ethernet, or IP over WiFi for example), the Radio Frequencies and systems that 
+operate LMR can be configured to share this transport using different methods.
+
+For example, a single LMR radio frequency can be shared among multiple users 
+by implementing a access-control mechanism like CTCSS or DCS. With these 
+mechanisms, only users sharing the same 'Code' can hear each other. However, 
+this does not inhibit other users from hearing them, nor does it inhibit the 
+channel from being used by other users, sometimes simultaneously. This can 
+lead to both Availability issues, or Confidentiality issues (C-i-A). 
+Additionally, CTCSS & DCS codes are not private, so any other user can re-use 
+the same code, defeating the Integrity property (c-I-a).
+
+## Nomenclature
+
+* **Plaintext**: Clear, unencrypted, plain messages (both Voice & Text).
+* **Ciphertext**: Encrypted messages (Voice & Text).
+
+## Terms
 
 * **CTCSS**: Continuous Tone-Coded Squelch System
 * **PL**: Privacy Line
@@ -56,19 +81,56 @@ Threats
 * GMRS:
 * FRS:
 * P25:
+* C-I-A Triad:
+* UE
+
+## Key Loaders & Fill Devices
+
+A [Key Loader](https://en.wikipedia.org/wiki/Fill_device), also sometimes 
+called a Fill Device, is a device used to load cryptographic keys onto an 
+encryption device. In the case of LMR systems that implement private-key 
+crytography, such as DES & AES, Key Loaders are filled with key material and 
+then physically attached to EU devices to install the private keys. 
+
+Of immediate concern to anyone implementing a system that requires a Key 
+Loading is the security of the private keys themselves. Potential threats to
+these the private key assets start with the physical security of the Key 
+Loader, but also include any other systems or modules in the private key 
+loading pipeline. For example, a computer may be used to generate or transfer 
+the private keys, introducing various computer security vectors into the 
+threat model. Extreme care should be taken.
+
+![Key Loading](img/radio_security/key_loading.png)
 
 # Analog Radio Systems
 
-This section under development, currently under review:
-* DES ADP
-* Tone-access & control systems (2TONE, etc)
+## DES ADP
 
-# Digtial Radio Systems
+TK
 
-## Kenwood NEXEDGE
+## Analog Voice Inversion / Voice Scrambling
 
-> This section adopted from the following specififications:
-> * NXDN Technical Specifications, TS 1-D Version 1.3. JVC KENWOOD Corporation and Icom Incorporated.
+Oona Räisänen has an excellent write-up of Analog Voice Inversion in her 
+[blog](http://www.windytan.com/2013/05/descrambling-voice-inversion.html):
+
+> it inverts the audio spectrum of a signal, making the lowest frequencies the 
+> highest and vice versa. It is not considered encryption;
+
+Voice Inversion is true [security-through-obscurity](https://en.wikipedia.org/wiki/Security_through_obscurity) 
+and offers protection from only passive interception (that is, someone 
+accidentally tuning to your frequency). Under an active attack, the 'key space' 
+for Voice Inversion varies between 8 and 16 'codes', and can easily be 
+descrambled on a receiver with either a matching code programmed in, or with a 
+tool like [deinvert](http://www.windytan.com/2017/09/descrambling-split-band-voice-inversion.html).
+
+# Digital Radio Systems
+
+## Kenwood NEXEDGE / NXDN / ICOM IDAS
+
+> This section adopted from the following specifications:
+>
+> * NXDN Technical Specifications, TS 1-D Version 1.3. JVC KENWOOD Corporation 
+> and Icom Incorporated.
 
 Kenwood NEXEDGE is a commercial implementation of the NXDN open standard for LMR.
 Many Kenwood NXDN-compatible radios offer compatibility with other LMR systems, 
@@ -78,20 +140,24 @@ evaluation we're focusing on the NXDN portion of these devices.
 The NXDN specification describes three levels of 'encryption algorithm' security:
 
 1. No Guard Level: No Encryption.
-2. "Low Guard Level": Voice Scrambling/"Scramble Encryption"
+2. "Low Guard Level": "Scramble Encryption"
 3. "High Guard Level": (this level is further split into:)
     1. "DES Encryption" [FIPS 46-3](https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf)
     2. "AES Encryption" [FIPS 197](https://csrc.nist.gov/publications/detail/fips/197/final) in OFB Mode [NIST 800-38A](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf)
 
-"Low Guard" & "High Guard" encryption happen immediately after the Vocoder 
+Both "Low Guard" & "High Guard" encryption happen immediately after the Vocoder 
 stage on the transmitting side, or immediately before the Vocoder stage on the 
-receiving side. With encryption & decryption happening so early in the voice 
+receiving side. With encryption & decryption happening early in the voice 
 processing stage, this ensures that lower layers of the NXDN CAI lack access to 
-the 'plaintext' voice.
+the Plaintext.
 
-![NXDN Encryption Layers](img/nxdn_encryption_layers.png)
+![NXDN Encryption Layers](img/radio_security/nxdn_encryption_layers.png)
 
-###  NXDN DES Encryption
+### NXDN Low Guard Scramble Encryption
+
+Scramble Encryption offers a 32,767-key key-space for both voice & data. 
+
+### NXDN High Guard DES Encryption
 
 NXDN DES uses a 56-bit key length. Keys must be pre-loaded onto devices before 
 use, and are identified by a pre-shared Key ID. The 64-bit Initialization Vector 
@@ -101,78 +167,10 @@ synchronized within the same frame as the shared Key ID.
 
 `VCALL_IV` message content:
 
+    :::text
      2 bits      6 bits 64 bits
     +-----------+------+---------------------+
     |Cipher Type|Key ID|Initialization Vector|
     +-----------+------+---------------------+
 
-Shared IV
-
-Encryption frame
-
-v_calliv
-https://www.qsl.net/kb9mwr/projects/dv/nxdn/NXDN-TS-1-B_v0103.pdf
-
-
-https://www.dropbox.com/s/zt0vxv6k2xprowc/Screenshot%202020-07-24%2013.45.51.png?dl=0
-
-https://www.dropbox.com/s/v5bpc2w7kdlam06/Screenshot%202020-07-24%2013.46.14.png?dl=0
-  
- NXDN Technical Specifications, TS 1-D Version 1.3. JVC KENWOOD Corporation and Icom Incorporated.
- 
-
-
-### NXDN Voice Scrambling
-
-
-
-
-https://kenwoodcommunications.co.uk/acc/modules/KWD-AE31%20AES/DES%20Encryption%20Module/
-
-
-NX-5400: 
-* Built-in 56-bit DES & Optional 256-bit AES Encryption (NXDN & P25)
-* "NXDN Digital Scrambler"
-* Encryption Key Zeroize & Retention 
-* • P25 Over-the-Air Re-keying
-* • Built-in Voice Inversion Scrambler
-* KWD-AE31 Secure Cryptographic Module (AES&DES)
-# https://comms.kenwood.com/en/common/pdf/products/accessories.pdf#zoom=170
-
-KPG-94
-https://rfguys.com/products/keyloader-kvl-cable-kenwood-tk5710-tk5810-etc-kpg-94
-Motorola KVL-3000
-KWD-AE31K
-https://www.ameradio.com/product/101094/description.html
-AES/DES Encryption Software Key Loader for KWD-AE31K
-
-Authentication by KPT-300LMC is required
-
-Note: KPG-AE1 is a U.S. DOC/BIS Export Controlled Item (ECCN 5D002A)
-https://github.com/KFDtool/KFDtool
-
-https://d3cz7oi6fhv94u.cloudfront.net/adbc-27815757-FSB-0417-VK5000-02.pdf?versionId=ex9vRe4ognJlSnfz0KoZi4h4VcdCTGMa
-
-https://www.dropbox.com/s/qpsy2hz6dv9gdqt/Screenshot%202020-07-24%2013.17.02.png?dl=0
-https://comms.kenwood.com/common/pdf/download/1000_NEXEDGE_Ability_K.pdf
-
-
-
-Notes
------
-
-co-channel
-
-COMSEC
-- Access 
-- Brevity
-- Clarity
-- Speed
-- Flexibility
-- Simplicity
-
-
-Confidentiality
-Privacy
-Authenticity
 
