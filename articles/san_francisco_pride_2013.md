@@ -59,13 +59,13 @@ The following ratios are based on the statistics from the section above and are 
 
 The following chart shows Calls by Team over time, bucketed by the hour. This graph shows call-load peaking around 3PM:
 
-![Calls by Team](https://dl.dropboxusercontent.com/u/4036736/Screenshots/bydx5%7E2w5%7E3k.png)
+![Calls by Team](img/pride2013/calls_by_team.png)
 
 ## By Team
 
 The following chart shows the 10 Busiest Teams, with the transports having the heaviest call load, followed by T13, T1 and S1 & S2:
 
-![10 Busiest Teams](https://dl.dropboxusercontent.com/u/4036736/Screenshots/8753%7Exxdsgv2.png)
+![10 Busiest Teams](img/pride2013/10_busiest_teams.png)
 
 
 <table>
@@ -141,7 +141,7 @@ The following chart shows the 10 Busiest Teams, with the transports having the h
 The following chart shows call-load by all teams:
 
 
-![All Teams](https://dl.dropboxusercontent.com/u/4036736/Screenshots/t32a7v37gd4r.png)
+![All Teams](img/pride2013/all_teams.png)
 
 
 <table>
@@ -272,11 +272,11 @@ The following chart shows call-load by all teams:
 
 The following map shows Call Density by Location:
 
-![Call Density by Location](http://dl.dropbox.com/u/4036736/Screenshots/g3wdk8d56342.png)
+![Call Density by Location](img/pride2013/call_density_by_location.png)
 
 The following chart shows call-load by location:
 
-![Calls by Location](https://dl.dropboxusercontent.com/u/4036736/Screenshots/67ksh7n9-lwi.png)
+![Calls by Location](img/pride2013/calls_by_location.png)
 
 
 
