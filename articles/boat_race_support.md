@@ -38,7 +38,7 @@ information:
 Boats that were transmitting accurate & timely AIS Data were not polled in the 
 hourly roll-call. If a boat's AIS signal degraded, they would be polled by 
 Marine VHF Radio. At the end of each roll-call period Race Command would 
-provide updated Situational Awareness (SA) to the [United States Coast Guard (USCG)](https://www.uscg.gov).
+provide updated Situational Awareness (SA) to the [United States Coast Guard (USCG)](https://www.uscg.mil).
 
 ![Routes of AIS enabled Boats competing in the race](img/boat_race/race_paths-25.png)
 
