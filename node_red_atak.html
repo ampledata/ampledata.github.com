@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- block templates/base.html head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <title>Node Red Atak</title>
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <!-- endblock templates/base.html head -->
+    
+  </head>
+
+  <body>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Node Red Atak</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+
+<div class="container">
+<!-- block templates/base.html content -->
+
+<!-- block templates/article.html content -->
+<p><img alt="Screenshot of CoT Events appearing in Node-RED Worldmap" src="img/node_red_atak/screenshot_simple.png" /></p>
+<p>This article describes a method for integrating Node-RED into an operating 
+environment utilizing TAK and/or Cursor on Target (CoT). This results in a
+web-browser-based map display of Position Location Information (PLI).</p>
+<h2>Terms Used</h2>
+<ul>
+<li>CoT: Cursor on Target</li>
+<li>EUD: End User Device</li>
+<li>IP: Internet Protocol</li>
+<li>Multicast:</li>
+<li>NATO: North Atlantic Treaty Organization</li>
+<li>PLI: Position Location Information</li>
+<li>SA: Situational Awareness</li>
+<li>SIDC: Symbol IDentification Code</li>
+<li>TAK: Team Awareness Kit</li>
+<li>TCP: Transmission Control Protocol (aka TCP/IP)</li>
+<li>UDP: U Datagram Protocol (aka UDP/IP)</li>
+<li>XML: eXtensible Markup Language</li>
+</ul>
+<h2>Background</h2>
+<p>CoT Events can define a PLI, and TAK-capable EUD can send these Events over 
+an IP network using TCP, UDP or Multicast. EUDs can send and receive these 
+Events directly, or through an intermediary Server. The integration described 
+in this method utilizses an intermediary Server between the EUD (or CoT sources)
+and Node-RED.</p>
+<p><img alt="Supported Node-RED CoT Sources: EUD to Node-RED &amp; Server to Node-RED" src="img/node_red_atak/supported_cot_sources/supported_cot_sources-x50.png" /></p>
+<p>CoT was originally built as a plain-text XML-based transport for 
+situational awareness (SA) Events. Software and devices that send and received 
+these events are agnostic to the transport protocol, but tended to favor either 
+TCP/IP Unicast or UDP/IP Broadcast (as well as UDP/IP Multicast). The format 
+of these CoT Events is documented in MITRE xxx, and has evolved over time to 
+match changes in the End-User Devices (EUD), including the ability to now utilize 
+Protobufs. </p>
+<p>The iconography and other display characeristics for CoT Events is defined in 
+MIL STD 2525, which is based off of NATO Joint Military Symbology, SIDC Symbol 
+identification coding. Of benefit to this integration 
+is the fact that NATO SIDR support was added to the Node-RED Worldmap Node. This 
+greatly simplifies integrating CoT into Node-RED.</p>
+<h2>Requirements</h2>
+<p>The following are pre-requisite requirements for integrating Node-RED and TAK. 
+You must have:</p>
+<ol>
+<li>
+<p>A running Node-RED server instance connected to an accessible IP network. 
+There are several methods of installing and  running Node-RED documented on the 
+official website: <a href="https://nodered.org/">Node-RED</a>.</p>
+</li>
+<li>
+<p>Node-RED's <a href="https://flows.nodered.org/node/node-red-contrib-web-worldmap">Worldmap</a> Node.</p>
+</li>
+<li>
+<p>A source of CoT Events. This can be any TAK EUD, or other device capable of 
+transmitting CoT Events over an IP network. See the CivTAK Website: 
+<a href="https://www.civtak.org/">CivTAK</a></p>
+</li>
+<li>
+<p>A Web-browser. Chrome was used for testing, others should work as well.</p>
+</li>
+</ol>
+<h1>The Flow</h1>
+<p>The Node-Red Flow for this integration is relatively simple at 4 total nodes:</p>
+<p><img alt="Connect to Server portion of the Flow" src="img/node_red_atak/connect_to_server.png" /></p>
+<h2>Flow Download</h2>
+<p>You can download an example of this integration at: <a href="https://gist.github.com/ampledata/b550d60d98f641690190b62578954dd4">https://gist.github.com/ampledata/b550d60d98f641690190b62578954dd4</a></p>
+<p>Please note that you will need to change the Server name from the one given 
+in the example (that is, change <code>fts.example.com</code> to the IP or hostname of your 
+Server).</p>
+<h2>Flow Walk-through</h2>
+<p>An explanation of each step of the Flow, as well as a walk-through, is given 
+this section.</p>
+<p>At a high-level, the steps are:</p>
+<ol>
+<li>Receive CoT Events from the Server.</li>
+<li>Deserialize the XML CoT Event into native JavaScript Object Notion (JSON).</li>
+<li>Serialize the JSON CoT Event as a Worldmap JSON Payload.</li>
+<li>Display the Worldmap JSON Payload in the browser.</li>
+</ol>
+<h3>Step 1: Receive CoT Events</h3>
+<p><img alt="tcp-in Network Node" src="img/node_red_atak/tcp_in.png" /></p>
+<p>In this step, the <code>tcp-in</code> Node is used to connect to the Server 
+<code>fts.example.com</code>. The Node is also configured to stream any data it receives 
+from the Server as <code>String</code> output messages: </p>
+<p><img alt="tcp-in Node Settings" src="img/node_red_atak/tcp_in_settings.png" /></p>
+<h3>Step 2: Deserialize XML</h3>
+<p><img alt="xml Parser Node" src="img/node_red_atak/xml_parser.png" /></p>
+<p>The XML Parser Node is used to convert the XML CoT Event to JSON.</p>
+<h3>Step 3: Convert CoT to Worldmap Payload</h3>
+<p><img alt="Function Node" src="img/node_red_atak/function.png" /></p>
+<p>This step uses Node-RED's built-in <code>function</code> Node to run Node.js JavaScript 
+code. This code creates a Worldmap formatted JSON Payload for display in the 
+browser.</p>
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm">The following block of code transforms a JSONified CoT Event into a Worldmap </span>
+<span class="cm">Point Payload.</span>
+<span class="cm">*/</span>
+
+<span class="kd">let</span> <span class="nx">icon</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">invalid</span> <span class="o">=</span> <span class="s2">&quot;9999999.0&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">event</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">];</span>
+
+<span class="cm">/* </span>
+<span class="cm">If the CoT Event contains Detail Elements, extract the first one.</span>
+<span class="cm">If there are no Detail Elements, break.</span>
+<span class="cm">*/</span>
+<span class="kd">let</span> <span class="nx">_detail</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;detail&quot;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">_detail</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">detail</span> <span class="o">=</span> <span class="nx">_detail</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="cm">/*</span>
+<span class="cm">If the CoT Event contains a Point element, use it. If not, break.</span>
+<span class="cm">*/</span>
+<span class="kd">let</span> <span class="nx">point</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">point</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* We&#39;ll use UID a couple of times, so lets set it as a variable here. */</span>
+<span class="kd">let</span> <span class="nx">uid</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;uid&quot;</span><span class="p">];</span>
+
+<span class="cm">/* Extract the Event Type and Affiliation. */</span>
+<span class="kd">let</span> <span class="nx">eventType</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">];</span>
+<span class="nx">et</span> <span class="o">=</span> <span class="nx">eventType</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">affil</span> <span class="o">=</span> <span class="nx">et</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+<span class="cm">/* There is no &#39;.&#39; notation in SDR, so mark Neutral. */</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">affil</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">affil</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Ram the CoT Event Type portions into a SIDR Type */</span>
+<span class="kd">let</span> <span class="nx">SIDC</span> <span class="o">=</span> <span class="sb">`s</span><span class="si">${</span><span class="nx">affil</span><span class="si">}${</span><span class="nx">et</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="sb">p</span><span class="si">${</span><span class="nx">et</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">||</span> <span class="s2">&quot;-&quot;</span> <span class="si">}${</span><span class="nx">et</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">||</span> <span class="s2">&quot;-&quot;</span> <span class="si">}${</span><span class="nx">et</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">||</span> <span class="s2">&quot;-&quot;</span> <span class="si">}</span><span class="sb">--------`</span><span class="p">;</span>
+
+<span class="cm">/* </span>
+<span class="cm">Points on the Worldmap can only have one uniquite identifier, which is also</span>
+<span class="cm">that Points display name. If possible, use a Callsign, otherwise use UID.</span>
+<span class="cm">*/</span>
+<span class="kd">let</span> <span class="nx">callsign</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">_contact</span> <span class="o">=</span> <span class="nx">detail</span><span class="p">[</span><span class="s2">&quot;contact&quot;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">_contact</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">callsign</span> <span class="o">=</span> <span class="nx">uid</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">callsign</span> <span class="o">=</span> <span class="nx">_contact</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;callsign&quot;</span><span class="p">];</span> 
+<span class="p">}</span>
+
+<span class="cm">/* Mouse-over Label */</span>
+<span class="kd">let</span> <span class="nx">label</span> <span class="o">=</span> <span class="sb">`Callsign: </span><span class="si">${</span><span class="nx">callsign</span><span class="si">}</span><span class="sb"> UID: </span><span class="si">${</span><span class="nx">uid</span><span class="si">}</span><span class="sb">&lt;br/&gt;Type: </span><span class="si">${</span><span class="nx">eventType</span><span class="si">}</span><span class="sb"> SIDC: </span><span class="si">${</span><span class="nx">SIDC</span><span class="si">}</span><span class="sb">`</span>
+
+<span class="kd">let</span> <span class="nx">remarks</span> <span class="o">=</span> <span class="nx">detail</span><span class="p">[</span><span class="s2">&quot;remarks&quot;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">remarks</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">remark</span> <span class="o">=</span> <span class="nx">remarks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">];</span>
+  <span class="nx">label</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">label</span><span class="si">}</span><span class="sb">&lt;br/&gt;</span><span class="si">${</span><span class="nx">remarks</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">track</span> <span class="o">=</span> <span class="nx">detail</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">]</span>
+
+<span class="nx">bearing</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="nx">speed</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">track</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">course</span> <span class="o">=</span> <span class="nx">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;course&quot;</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">course</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">course</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">!==</span> <span class="nx">invalid</span> <span class="o">&amp;&amp;</span> <span class="nx">course</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">bearing</span> <span class="o">=</span> <span class="nx">course</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">_speed</span> <span class="o">=</span> <span class="nx">track</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">_speed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">_speed</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">!==</span> <span class="nx">invalid</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">speed</span> <span class="o">=</span> <span class="nx">_speed</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* </span>
+<span class="cm">If CoT Point CE is set and is not invalid, use that as Worldmap Point Accuracy. </span>
+<span class="cm">*/</span>
+<span class="nx">accuracy</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="nx">ce</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;ce&quot;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">ce</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">!==</span> <span class="nx">invalid</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">accuracy</span> <span class="o">=</span> <span class="nx">ce</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Add a helpful weblink to Worldmap Points. */</span>
+<span class="nx">weblink</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">uid</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;ICAO&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">weblink</span> <span class="o">=</span> <span class="sb">`https://globe.adsbexchange.com/?icao=</span><span class="si">${</span><span class="nx">uid</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;ICAO-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">uid</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;APRS&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">weblink</span> <span class="o">=</span> <span class="sb">`https://qrz.com/db/</span><span class="si">${</span><span class="nx">uid</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;APRS.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Serialize as a Worldmap compatible Payload. */</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">callsign</span><span class="p">,</span>
+  <span class="nx">tooltip</span><span class="o">:</span> <span class="nx">label</span><span class="p">,</span>
+  <span class="nx">lat</span><span class="o">:</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;lat&quot;</span><span class="p">],</span>
+  <span class="nx">lon</span><span class="o">:</span> <span class="nx">event</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;$&quot;</span><span class="p">][</span><span class="s2">&quot;lon&quot;</span><span class="p">],</span>
+  <span class="nx">speed</span><span class="o">:</span> <span class="nx">speed</span><span class="p">,</span>
+  <span class="nx">bearing</span><span class="o">:</span> <span class="nx">bearing</span><span class="p">,</span>
+  <span class="nx">accuracy</span><span class="o">:</span> <span class="nx">accuracy</span><span class="p">,</span>
+  <span class="nx">SIDC</span><span class="o">:</span> <span class="nx">SIDC</span><span class="p">,</span>
+  <span class="nx">icon</span><span class="o">:</span> <span class="nx">icon</span><span class="p">,</span>
+  <span class="nx">ttl</span><span class="o">:</span> <span class="mi">3600</span><span class="p">,</span>
+  <span class="nx">weblink</span><span class="o">:</span> <span class="nx">weblink</span><span class="p">,</span>
+  <span class="nx">layer</span><span class="o">:</span> <span class="nx">eventType</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</pre></div>
+
+
+<h3>Step 4: Display Worldmap</h3>
+<p><img alt="Worldmap Node" src="img/node_red_atak/worldmap.png" /></p>
+<p>The <code>worldmap</code> Node renders a webpage with map tiles and PLI markers.</p>
+<p>Once added, it should work out-of-the-box. An example of a customized map follows:</p>
+<p><img alt="Worldmap Node Settings" src="img/node_red_atak/worldmap_settings.png" /></p>
+<!-- endblock templates/article.html content -->
+
+<!-- endblock templates/base.html content -->
+</div>
+
+
+<!-- block templates/article.html footer -->
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!-- block templates/base.html footer -->
+<footer class="footer">
+  <div class="container">
+      Contact Greg Albrecht: Email <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
+        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="https://github.com/ampledata">ampledata</a>.
+
+      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  </div>
+</footer>
+<!-- endblock templates/base.html footer -->
+
+<!-- endblock templates/article.html footer -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
