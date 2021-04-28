@@ -1,3 +1,5 @@
+# Adding a Network GPS to WinTAK & ATAK for GPS Denied Environments
+
 ![Screenshot of ATAK using External GPS](img/network_gps/screenshot_31016_x50.png)
 
 This article describes a method for integrating an External / Network GPS 
