@@ -96,7 +96,7 @@ CoT Precision Location Serialization Javascript code follows:
     Create a CoT XML serializable JSON payload from NMEA JSON input.
     
     Author:: Greg Albrecht W2GMD <oss@undef.net>
-    Source:: https://ampledata.org/atak_external_gps.html
+    Source:: https://ampledata.org/network_gps.html
     */
     
     // Geenrate a timestamp for the CoT Event
