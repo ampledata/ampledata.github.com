@@ -10,7 +10,7 @@ Every October San Francisco hosts [Fleet Week](http://www.fleetweek.us/), a cele
 # Inspiration
 Inspired by Stanford's [Quake Catcher Network](http://qcn.stanford.edu/) and UC Berkeley's [SETI@Home](http://setiathome.berkeley.edu/) citizen-science programs, we decided to see if we could build a system to detect noise pollution in the city, namely the noise pollution created by F-18's flying over our houses. Using distributed monitors to detect aircraft noise is nothing new, as San Francisco's very own airport was the first to institute an [Aircraft Noise Abatement Program](http://www.flyquietsfo.com/). SFO's system detects, predicts and models aircraft noise - specifically it's effect on local communities. If a system exists to detect commercial aircraft noise, surely we could build a system to detect unabated fighter jet noise.
 
-![SFO Noise Abatement Dashboard](https://dl.dropbox.com/u/4036736/Screenshots/SFO_Noise.jpg)
+![SFO Noise Abatement Dashboard](img/blue_angels/SFO_Noise.jpg)
 
 # Philosophy
 Similar to the QCN and SETI@Home projects, this project would need to be built using resources found in a typical household, using Commercial Off-The-Shelf (COTS) equipment. Additionally, the engineers working on this project were all working for Splunk at the time, so we would utilize our own data analytics service [Splunk Storm](https://www.splunkstorm.com) for data collection and representation.
