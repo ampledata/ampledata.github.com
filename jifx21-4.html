@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- block templates/base.html head -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Greg Albrecht's ampledata.org">
+    <meta name="author" content="Greg Albrecht">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+
+      _gaq.push(['_setAccount', 'UA-30633417-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <title>Jifx21-4</title>
+    <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="syntax.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <!-- endblock templates/base.html head -->
+    
+  </head>
+
+  <body>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Jifx21-4</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
+              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
+              <li><a href="https://github.com/ampledata">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      </nav>
+
+<div class="container">
+<!-- block templates/base.html content -->
+
+<!-- block templates/article.html content -->
+<h1>The Smart Wireless Mesh</h1>
+<p><strong>An off-the-shelf mobile ad-hoc network with edge compute and IoT capabilities.</strong></p>
+<p><img alt="JIFX 21-4 Systems Overview" src="file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_systems_overview-25%.png" /></p>
+<h2>Background</h2>
+<p>In August 2021 the <a href="http://www.sfwem.net">Bay Area Mesh (BAM)</a> (née San 
+Francisco Wireless Emergency Mesh/SFWEM) participated in the week-long 
+<a href="https://www.nps.edu">Naval Postgraduate School (NPS)</a> Joint Inter-agency Field 
+Experiment 21-4 (JIFX). This event, held quarterly at two facilities in 
+California, provides numerous environments for experimentation, including 
+freshwater &amp; saltwater tanks, an airfield, simulated cities and villages, and 
+natural California hills &amp; terrain. Every JIFX incorporates stakeholders from 
+multiple different organizations across disciplines within the federal 
+government, including defense, homeland security, and others.</p>
+<p>BAM conducted several experiments in collaboration with the Fab Lab at 
+California State University Bakersfield, Splunk &amp; Orion Labs. Every experiment 
+explored the capabilities of the Smart Wireless Mesh across a variety of 
+different missions:</p>
+<ul>
+<li>Disaster Response (DR/DRO)</li>
+<li>Situational Awareness (SA) &amp; Common Operating Picture (COP)</li>
+<li>Unmanned Systems (UxS) Command &amp; Control (C2)</li>
+<li>Sensor Data Collection (ISR) &amp; IoT</li>
+<li>Real-time multimedia communications &amp; collaboration</li>
+</ul>
+<p>For each of these missions the Smart Wireless Mesh was tested both for 
+feasibility of conducting this type of mission, and the ability for the 
+network to be field expedient or rapidly deployed within an austere 
+environment.</p>
+<p>Several novel capabilities were also uncovered over the course of the 
+experiment week.</p>
+<h3>Collaborators</h3>
+<ul>
+<li>Bobby Hartsock KJ6YOA, Fab Lab at California State University Bakersfield</li>
+<li>Vivian Richards, Splunk</li>
+<li>Greg Albrecht W2GMD, SFWEM &amp; Orion Labs</li>
+</ul>
+<h2>Motivation</h2>
+<p>BAM utilizes commercial off-the-shelf (COTS) wireless networking equipment 
+typically running the 
+<a href="http://www.arednmesh.org">Amateur Radio Emergency Data Network (AREDN)</a> 
+firmware. </p>
+<p>The AREDN firmware transforms COTS equipment into resilient auto-configuring 
+mobile ad-hoc network (MANET) "Nodes" that provide high-speed wireless IP 
+connectivity - including across multiple hops, support being hastily assembled 
+(HFN) &amp; dynamically redeployed. Regional AREDN networks have been deployed 
+around the continental United States as well as abroad and represent both 
+steady-state/always-on infrastructure &amp; field-deployable systems.</p>
+<h3>AREDN for UGS</h3>
+<p>Piloting of an Unmanned Ground System (UGS) typically requires an IP based 
+connection to a Ground Control Station (GCS). Similarly, UGS sub-systems like 
+the video feed from an on-board camera or ISR systems require IP connectivity 
+to a display or collection device. The reliance on wireless line-of-site radio 
+signals can constrain the range of a UGS. Similarly, the reliance on static or 
+point-to-point IP routing between a UGS &amp; GCS can constrain the ability of the 
+IP network to recover from a routing fault.</p>
+<p>AREDN can provide a UGS with IP networking and back-haul on-the-move, 
+allowing both remote piloting and video streaming between the UGS &amp; GCS. 
+Additionally, because each UGS was also itself a AREDN node, every UGS is also 
+able to extend the range of the existing network. Combined with another UGS 
+this allows a multi-hop ‘swarm’ like system were multiple different UGS can 
+extend or augment the existing network in real-time.</p>
+<h3>AREDN for SA</h3>
+<p>Situational Awareness (SA) platforms like ATAK &amp; WinTAK can be configured to 
+share data via a local-only IP network, or pass data out to another network 
+segment or to a TAK Server. AREDN allows ATAK users on-the-move to be 
+continuously connected to other ATAK users, or can be configured to backhaul SA 
+traffic to forward-deployed or centralized TAK Servers.</p>
+<p>The RedTAK “Tactical Data Switchboard” or “Tactical ETL” was developed using 
+Node-RED. RedTAK allows SA data like Cursor on Target (CoT), as well as 
+operational data from Mesh nodes, and piloting data from the UGS, to be 
+streamed into Splunk for collection &amp; processing through machine learning.</p>
+<p>The ability to collect both SA and operational data from participants in the 
+Smart Wireless Mesh lends itself to the use of machine learning (ML) to make 
+predictions about changing network and end-user (or end-device) conditions. For 
+example, a signal strength reading from a mesh radio can indicate an upcoming 
+Loss of Signal (LoS) event, which is critical information to the pilot of a 
+GS. Splunk and Splunk ML allow for the collection of and learning from all of 
+this data. Splunk also allows for the input and processing of novel data, which 
+can be used to measure user inputs, for example a Damage Assessment (DA) report 
+sent via smartphone application, or spoken aloud through a PTT platform like 
+Orion.</p>
+<h2>Conclusion</h2>
+<p>Using commercial off-the-shelf hardware and open source software it is possible
+to establish a field expedient Smart Wireless Mesh within a near-austere 
+environment. With minimal up-front planning, a Smart Wireless Mesh can be used 
+for unmanned system command &amp; control, real-time multimedia communication, and 
+internet of things or ISR applications.</p>
+<h2>Details</h2>
+<h3>Proof-of-Concepts Demonstrations</h3>
+<p>Several Smart Wireless MANET proof-of-concepts were fielded at JIFX, with 
+several novel designs coming from collaboration with other JIFX participants &amp; 
+stakeholders. Concepts addressed mobile on-the-go connectivity, edge compute, 
+body worn networks, sensor deployment, and unmammed systems:</p>
+<ol>
+<li>Unmanned Ground System (UGS) Command, Control (C2) &amp; Communication (C3) using Smart Wireless Mesh</li>
+<li>Situational Awareness (SA), ISR &amp; operational data collection / analysis using Smart Wireless Mesh</li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vRyGsw-RGppwFkW2Hl2Mvyr_1tCyZlY9DcAW-5aExY2DaQULdS9K9BDHQ4m5f6-9IjNANNyMiEzPkIA/pub">FEM: Field Expedient Mesh</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vRsWwi4gBy-NCs_FsAWaDarw47tnnkCH6G_KbVR0FGomYfGuYnqUFXOasQs39jSxpdhP9fFxvHjTTc3/pub">MoW: Mesh on Wheels</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQ3Ifm22DDEpWOroPbiniyFwpm9VnEg6Mle1H32S-YZcqxm_PcNKZcz8nVdV4PXIDQGBh4dp-R1Hb_E/pub">MOHO: Mesh On, Head Out</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQ-CQPKQoxwUs22BxCVVWEgoi6T5WjK5gj4A6dTuFdoL3xQOzWndhEsBhI49IOAK_8EMrfJ6XgIs75I/pub">HAMPR: Human Attached Mesh Portable Radio</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQ9hizd-hBS7pmzbBaGV4_r0oLnm_-1yrTiFp2eHsgGJ4Frk10f46fv1rpx3IOwkm6VV1A-eb-SKC8C/pub">CRUMB: Compact Rugged Unattended MANET Box</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vRoeGoHn6uTSmykPAltiWmhUnpA2jpKAya5xn4vYNiq9gM6AiZNzb9Sbct45mnOUoxpDXrIFpgNTFAW/pub">RedTAK: Tactical ETL</a></li>
+<li>BLoS using COTS</li>
+</ol>
+<h3>Data</h3>
+<p>Operational data was collected from UGS C2, mesh radios and ATAK clients. 
+During experimentation several data collection sources (or destinations) were 
+reconfigured in-the-field using using RedTAK. RedTAK was configured to forward 
+data to both Splunk &amp; InfluxDB, with SA data mirored to COPERS.</p>
+<p>Several remote systems that were capable of full-duplex data transfer were also 
+integrated into RedTAK, allowing the RedTAK system to transform any real-time 
+SA data into a format compatible with another remote system - allowing each to 
+render a COP in their native representation.</p>
+<p>Systems like Orion &amp; Twilio that were capable of sending, receiving and 
+understanding human voice, typing and multimedia messaging were able to 
+interact through either their own, or a native CoT channels.</p>
+<p><a href="img/jifx21-4/jifx21-4_data_flow_diagram.png"><img alt="JIFX 21-4 Data Flow Diagram" src="img/jifx21-4/jifx21-4_data_flow_diagram_25%.png" /></a></p>
+<h4>Splunk</h4>
+<p>Splunk collected all operational &amp; SA data originating from and passing through 
+the experiments at JIFX. Early operational questions could be quickly answered 
+with Splunk. All data passing through RedTAK could be transformed and indexed 
+by Splunk. This data pipeline allow a wireless RF anomoly enountered early in 
+experimentation with our UGS to be quickly isolated. Using a Splunk Alert with 
+RedTAK allowed us to delivery an instant LoS condition alert to the GCS.</p>
+<p>Of interest to our collaboration with Splunk was to test the ability to act as 
+a data force multiplier for DSCA operations, particular within the disaster 
+response and evaucation planning missions.</p>
+<p>Using ATAK with the WASP Plugin, rescuers were able to populate a damage 
+assessment dashboard within Splunk in real-time. For users operating in a 
+heads-up mode, Orion was used to understand PTT conversations between rescuers. 
+Finally, for users with limited message capability within LTE denied 
+environments, SMS text messages with damage assessment reports &amp; locations 
+could be sent &amp; received by Twilio.</p>
+<p><a href="img/jifx21-4/jifx21-4_damage_assessment.png"><img alt="JIFX 21-4 Damage Assessment statistics displayed on a map" src="img/jifx21-4/jifx21-4_damage_assessment_25%.png" /></a></p>
+<p>A procedure was developed on-site to transform ArduPilot Mission Planner UGS 
+location positioning data into Cursor on Target, a format used by Splunk, ATAK 
+and others. In this procedure, WinTAK running on the GCS computer was used as a 
+NMEA to CoT gateway. Effort was made to analyze real-time UGS operational data 
+in Splunk by utilizing a Mavlink decoder with limited success.</p>
+<p><a href="img/jifx21-4/jifx21-4_ugs_tak.png"><img alt="JIFX 21-4 UGS PLI displayed within a TAK client" src="img/jifx21-4/jifx21-4_ugs_tak_25%.png" /></a></p>
+<h3>Hardware &amp; Software</h3>
+<p>Ubiquiti Rocket M5 5 GHz radios were used universally in this experiment, all 
+of which had been updated to use the AREDN mesh firmware. Radios operated in 
+the Part TK portion of the 5 GHz band.</p>
+<p>More information on ATAK, WinTAK &amp; TAK Server can be found at www.tak.gov</p>
+<h4>Portable UGS ground control station (GCS)</h4>
+<p><a href="img/jifx21-4/jifx21-4_ugs_gcs.jpg"><img alt="JIFX 21-4 UGS GCS" src="img/jifx21-4/jifx21-4_ugs_gcs_25%.jpg" /></a></p>
+<p>The Portable GCS comprised the computer, software and hardware required to 
+control the UGS. Piloting and Mission Planning utilized ArduPilot, “an open 
+source, unmanned vehicle Autopilot Software Suite”. Manual UGS piloting 
+utilizing a Logitech F310 Gamepad USB controller attached to the GCS computer, 
+a Dell Latitude 12 Rugged Tablet (7202) running Windows 10. On-screen UGV video 
+was transcoded &amp; displayed using ffmpeg, VLC &amp; gstreamer.</p>
+<p>Additionally, WinTAK was used to transform UGS positioning data into a format 
+compatible with other TAK systems, see note under Data &gt; Splunk.</p>
+<h4>Other Software Used</h4>
+<ul>
+<li>Debian</li>
+<li>Node-RED</li>
+<li>TAK Server</li>
+<li>ATAK</li>
+<li>Orion</li>
+<li>ArduPilot</li>
+<li>pycot</li>
+<li>Proxmox</li>
+<li>CentOS</li>
+<li>gstreamer</li>
+<li>ffmpeg</li>
+<li>Splunk</li>
+<li>tileserver-gl</li>
+<li>Docker</li>
+</ul>
+<h3>Ad-Hoc Experimentation</h3>
+<p>NPS encouraged and promoted ad-hoc and collaborative experimentation between 
+participants at every JIFX. Several novel concepts were fielded, many of which 
+were developed on-site and in the field.</p>
+<h4>UGS mounted LIDAR &amp; Underground Mesh</h4>
+<p><a href="img/jifx21-4/jifx21-4_ugs_lidar.jpg"><img alt="JIFX 21-4 UGS-mounted LIDAR" src="img/jifx21-4/jifx21-4_ugs_lidar_25%.jpg" /></a></p>
+<p>Working with Exyn, CSUB reconfigured a UGS to support carrying a LIDAR scanner 
+payload. Once the payload was mounted, UGS were tasked by Mission Plan to 
+traverse an underground tunnel. An unexpected but recoverable failure 
+encountered during this mission was the navigation and IMU fail safes built 
+into the UGS Mission Planning software. This fail safe was encountered due to 
+the GPS denied nature of an underground tunnel, and its curved walls causing a 
+significant delta in vehicle pitch. Once bypassed the mission could succeed. </p>
+<p>Piloting the UGS into a tunnel also required extending the mesh network into an 
+underground, network-denied environment. This was accomplished using several 
+CRUMBs placed strategically around the tunnel complex, each extending the mesh 
+into the tunnel and allowing continuous C2 while underground. </p>
+<h4>Other Ad-Hoc Experimentation</h4>
+<ul>
+<li>Collecting Mavlink data with Splunk [incomplete].</li>
+<li>Transforming Mavlink data with Node-RED [incomplete].</li>
+</ul>
+<h3>Novel Capabilities</h3>
+<p>Several novel capabilities were developed during experimentation.</p>
+<ol>
+<li><strong>Sending SA data to COPERS.</strong> This was the first time we've intereacted with 
+   this system. Using RedTAK we were able to establish a bidirectional data 
+   connection with COPERS, allowing us to send SA data to, as well as receive 
+   SA data from all other users of COPERS (including other experimenters).</li>
+<li><strong>Collecting &amp; learning AREDN sysinfo.json telemetry data.</strong> Early 
+   experimentation showed an emerging wireless RF anomoly. A RedTAK flow was 
+   created to search for &amp; collect AREDN sysinfo.json data from all MANET 
+   nodes - forwarding all collected data to Splunk. A hastily constructed 
+   discovery method allowed new MANET participants to be queried, or old ones 
+   pruned.</li>
+<li><strong>Sending SA data to Splunk.</strong> The n-dimensional nature of SA data, relying 
+on both time and 3D space, allow index, search and machine learning across all 
+   dimensions using Splunk. Indexed geographical data can be displayed using a 
+   Splunk map dashboard, and temporal data can be analyized in real-time by 
+   a human or using a Splunk ML process.</li>
+</ol>
+<p>An attempt was made to integrate Mavlink data into both Node-RED &amp; Splunk with 
+limited success. Further research is recommended in this area.</p>
+<!-- endblock templates/article.html content -->
+
+<!-- endblock templates/base.html content -->
+</div>
+
+
+<!-- block templates/article.html footer -->
+<h2>Share</h2>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ampledata';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!-- block templates/base.html footer -->
+<footer class="footer">
+  <div class="container">
+      Contact Greg Albrecht: Email <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
+        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="https://github.com/ampledata">ampledata</a>.
+
+      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+  </div>
+</footer>
+<!-- endblock templates/base.html footer -->
+
+<!-- endblock templates/article.html footer -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

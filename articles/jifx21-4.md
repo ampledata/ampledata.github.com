@@ -1,29 +1,40 @@
-# The Smart Wireless MANET
-**An off-the-shelf network with edge compute and IoT capabilities.**
+# The Smart Wireless Mesh
+**An off-the-shelf mobile ad-hoc network with edge compute and IoT capabilities.**
 
-![JIFX 21-4 Systems Overview](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_systems_overview.png)
+![JIFX 21-4 Systems Overview](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_systems_overview-25%.png)
 
 ## Background
 
-In August 2021 the San Francisco Wireless Emergency Mesh (SFWEM) participated 
-in the week-long Naval Postgraduate School (NPS) Joint Inter-agency Field 
-Experiment 21-4 (JIFX). Held quarterly at two facilities in California, JIFX 
-provides several environments for experimentation, including fresh and 
-saltwater tanks, an airfield, simulated cities and villages, and natural 
-California hills & terrain. Every JIFX incorporates stakeholders from multiple 
-different agencies across different disciplines within the federal government, 
-defense department and other groups.
+In August 2021 the [Bay Area Mesh (BAM)](http://www.sfwem.net) (née San 
+Francisco Wireless Emergency Mesh/SFWEM) participated in the week-long 
+[Naval Postgraduate School (NPS)](https://www.nps.edu) Joint Inter-agency Field 
+Experiment 21-4 (JIFX). This event, held quarterly at two facilities in 
+California, provides numerous environments for experimentation, including 
+freshwater & saltwater tanks, an airfield, simulated cities and villages, and 
+natural California hills & terrain. Every JIFX incorporates stakeholders from 
+multiple different organizations across disciplines within the federal 
+government, including defense, homeland security, and others.
 
-SFWEM conducted several experiments in collaboration with California State 
-University Bakersfield’s Fab Lab, Splunk & Orion Labs. Each experiment explored 
-the capabilities of a Smart Wireless Mesh across a variety of different 
-missions: disaster response, situational awareness/common operating picture 
-(SA/COP), unmanned vehicle command & control (C2), sensor data collection, 
-real-time communication & collaboration, field experience & rapid deployment. 
+BAM conducted several experiments in collaboration with the Fab Lab at 
+California State University Bakersfield, Splunk & Orion Labs. Every experiment 
+explored the capabilities of the Smart Wireless Mesh across a variety of 
+different missions:
+
+- Disaster Response (DR/DRO)
+- Situational Awareness (SA) & Common Operating Picture (COP)
+- Unmanned Systems (UxS) Command & Control (C2)
+- Sensor Data Collection (ISR) & IoT
+- Real-time multimedia communications & collaboration
+
+For each of these missions the Smart Wireless Mesh was tested both for 
+feasibility of conducting this type of mission, and the ability for the 
+network to be field expedient or rapidly deployed within an austere 
+environment.
+
 Several novel capabilities were also uncovered over the course of the 
 experiment week.
 
-### Project Collaborators
+### Collaborators
 
 - Bobby Hartsock KJ6YOA, Fab Lab at California State University Bakersfield
 - Vivian Richards, Splunk
@@ -31,26 +42,36 @@ experiment week.
 
 ## Motivation
 
-SFWEM utilizes commercial off-the-shelf (COTS) wireless networking equipment 
-typically running the Amateur Radio Emergency Data Network (AREDN) firmware. 
-AREDN transforms COTS equipment into resilient auto-configuring mobile ad-hoc 
-network (MANET) nodes that can provide high-speed wireless IP connectivity 
-across multiple hops, supports being hastily assembled (HFN) and dynamically 
-reconfigured. Regional AREDN networks have been deployed around the work, and 
-represent both steady-state/always-on infrastructure and field-deployable 
-systems.
+BAM utilizes commercial off-the-shelf (COTS) wireless networking equipment 
+typically running the 
+[Amateur Radio Emergency Data Network (AREDN)](http://www.arednmesh.org) 
+firmware. 
 
-Piloting of a Unmanned Ground System (UGS) typically requires an IP based 
-connection to a Ground Control Station (GCS). Similarly UGS sub-systems like 
+The AREDN firmware transforms COTS equipment into resilient auto-configuring 
+mobile ad-hoc network (MANET) "Nodes" that provide high-speed wireless IP 
+connectivity - including across multiple hops, support being hastily assembled 
+(HFN) & dynamically redeployed. Regional AREDN networks have been deployed 
+around the continental United States as well as abroad and represent both 
+steady-state/always-on infrastructure & field-deployable systems.
+
+### AREDN for UGS
+
+Piloting of an Unmanned Ground System (UGS) typically requires an IP based 
+connection to a Ground Control Station (GCS). Similarly, UGS sub-systems like 
 the video feed from an on-board camera or ISR systems require IP connectivity 
-to a display or collection device. This reliance on IP networking can limit the 
-range of a UGS as it is constrained by the ability to establish a route between 
-a UGS & GCS. AREDN can provide a UGS with IP networking & backhaul on-the-move, 
+to a display or collection device. The reliance on wireless line-of-site radio 
+signals can constrain the range of a UGS. Similarly, the reliance on static or 
+point-to-point IP routing between a UGS & GCS can constrain the ability of the 
+IP network to recover from a routing fault.
+
+AREDN can provide a UGS with IP networking and back-haul on-the-move, 
 allowing both remote piloting and video streaming between the UGS & GCS. 
 Additionally, because each UGS was also itself a AREDN node, every UGS is also 
-able to extend the range of the existing network; combined with another UGS 
-this allow a multi-hop ‘swarm’ like system were multiple different UGS could 
-be augmenting each others IP network connectivity on-the-move.
+able to extend the range of the existing network. Combined with another UGS 
+this allows a multi-hop ‘swarm’ like system were multiple different UGS can 
+extend or augment the existing network in real-time.
+
+### AREDN for SA
 
 Situational Awareness (SA) platforms like ATAK & WinTAK can be configured to 
 share data via a local-only IP network, or pass data out to another network 
@@ -74,57 +95,73 @@ can be used to measure user inputs, for example a Damage Assessment (DA) report
 sent via smartphone application, or spoken aloud through a PTT platform like 
 Orion.
 
-## Conclusions
+## Conclusion
 
 Using commercial off-the-shelf hardware and open source software it is possible
-to establish a field expedient Smart Wireless MANET within a near-austere 
-environment. With minimal up-front planning, this network can be used for 
-unmanned system command & control, real-time multimedia communication, and 
+to establish a field expedient Smart Wireless Mesh within a near-austere 
+environment. With minimal up-front planning, a Smart Wireless Mesh can be used 
+for unmanned system command & control, real-time multimedia communication, and 
 internet of things or ISR applications.
 
 ## Details
 
-### Proof-of-Concepts
+### Proof-of-Concepts Demonstrations
 
-Several Smart Wireless Mesh proof-of-concepts were fielded at JIFX, with 
+Several Smart Wireless MANET proof-of-concepts were fielded at JIFX, with 
 several novel designs coming from collaboration with other JIFX participants & 
-stakeholders. Some of these concepts addressed the areas of mobile on-the-go 
-connectivity, edge compute, body worn networks, et al.
+stakeholders. Concepts addressed mobile on-the-go connectivity, edge compute, 
+body worn networks, sensor deployment, and unmammed systems:
 
-1. Unmanned Ground System Command, Control (C2) & Communication (C3) using mesh
-2. Situational Awareness (SA), ISR & operational data collection & analysis using mesh
-3. Field Expedient Mesh (“FEM”)
-4. Mesh on Wheels (“MoW”)
-5. Mesh On, Head Out (“MOHO”)
-6. Human Attached Mesh Portable Radio (“HAMPR”)
-7. Compact Rugged Unattended Mesh Box (“CRUMB”)
-8. Tactical ETL
+1. Unmanned Ground System (UGS) Command, Control (C2) & Communication (C3) using Smart Wireless Mesh
+2. Situational Awareness (SA), ISR & operational data collection / analysis using Smart Wireless Mesh
+3. [FEM: Field Expedient Mesh](https://docs.google.com/document/d/e/2PACX-1vRyGsw-RGppwFkW2Hl2Mvyr_1tCyZlY9DcAW-5aExY2DaQULdS9K9BDHQ4m5f6-9IjNANNyMiEzPkIA/pub)
+4. [MoW: Mesh on Wheels](https://docs.google.com/document/d/e/2PACX-1vRsWwi4gBy-NCs_FsAWaDarw47tnnkCH6G_KbVR0FGomYfGuYnqUFXOasQs39jSxpdhP9fFxvHjTTc3/pub)
+5. [MOHO: Mesh On, Head Out](https://docs.google.com/document/d/e/2PACX-1vQ3Ifm22DDEpWOroPbiniyFwpm9VnEg6Mle1H32S-YZcqxm_PcNKZcz8nVdV4PXIDQGBh4dp-R1Hb_E/pub)
+6. [HAMPR: Human Attached Mesh Portable Radio](https://docs.google.com/document/d/e/2PACX-1vQ-CQPKQoxwUs22BxCVVWEgoi6T5WjK5gj4A6dTuFdoL3xQOzWndhEsBhI49IOAK_8EMrfJ6XgIs75I/pub)
+7. [CRUMB: Compact Rugged Unattended MANET Box](https://docs.google.com/document/d/e/2PACX-1vQ9hizd-hBS7pmzbBaGV4_r0oLnm_-1yrTiFp2eHsgGJ4Frk10f46fv1rpx3IOwkm6VV1A-eb-SKC8C/pub)
+8. [RedTAK: Tactical ETL](https://docs.google.com/document/d/e/2PACX-1vRoeGoHn6uTSmykPAltiWmhUnpA2jpKAya5xn4vYNiq9gM6AiZNzb9Sbct45mnOUoxpDXrIFpgNTFAW/pub)
+9. BLoS using COTS
 
 ### Data
 
-Operational data was collected from UGS’, mesh radios and ATAK clients. During 
-experimentation several sources and sinks for data collection lead to 
-in-the-field data transformation changes using our Node-RED based data 
-pipeline. From there data was sent two one of two primary data sinks: Splunk & 
-InfluxDB, with data being mirrored to COPERS. Systems that were capable of 
-full-duplex data transfer were integrated so that every system could share the 
-common operating picture in their native representation. Systems that were 
-capable of intelligent message understanding were also able to interact through 
-data or multimedia channels.
+Operational data was collected from UGS C2, mesh radios and ATAK clients. 
+During experimentation several data collection sources (or destinations) were 
+reconfigured in-the-field using using RedTAK. RedTAK was configured to forward 
+data to both Splunk & InfluxDB, with SA data mirored to COPERS.
 
-![JIFX 21-4 Data Flow Diagram](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_data_flow_diagram.png)
+Several remote systems that were capable of full-duplex data transfer were also 
+integrated into RedTAK, allowing the RedTAK system to transform any real-time 
+SA data into a format compatible with another remote system - allowing each to 
+render a COP in their native representation.
+
+Systems like Orion & Twilio that were capable of sending, receiving and 
+understanding human voice, typing and multimedia messaging were able to 
+interact through either their own, or a native CoT channels.
+
+[![JIFX 21-4 Data Flow Diagram](img/jifx21-4/jifx21-4_data_flow_diagram_25%.png)](img/jifx21-4/jifx21-4_data_flow_diagram.png)
 
 
 #### Splunk
 
 Splunk collected all operational & SA data originating from and passing through 
-the concepts fielded at JIFX 21-4. Early operational questions could be quickly 
-answered with the data collected by Splunk, including tracking wireless signal 
-anomalies and alerting operators to potential Loss of Signal (LoS) conditions. 
-Damage Assessment reports were submitted using the ATAK WASP Plugin, which were 
-then displayed on a map in real-time using a Splunk dashboard.
+the experiments at JIFX. Early operational questions could be quickly answered 
+with Splunk. All data passing through RedTAK could be transformed and indexed 
+by Splunk. This data pipeline allow a wireless RF anomoly enountered early in 
+experimentation with our UGS to be quickly isolated. Using a Splunk Alert with 
+RedTAK allowed us to delivery an instant LoS condition alert to the GCS.
 
-![JIFX 21-4 Damage Assessment statistics displayed on a map](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_damage_assessment.png)
+Of interest to our collaboration with Splunk was to test the ability to act as 
+a data force multiplier for DSCA operations, particular within the disaster 
+response and evaucation planning missions.
+
+Using ATAK with the WASP Plugin, rescuers were able to populate a damage 
+assessment dashboard within Splunk in real-time. For users operating in a 
+heads-up mode, Orion was used to understand PTT conversations between rescuers. 
+Finally, for users with limited message capability within LTE denied 
+environments, SMS text messages with damage assessment reports & locations 
+could be sent & received by Twilio.
+
+[![JIFX 21-4 Damage Assessment statistics displayed on a map](img/jifx21-4/jifx21-4_damage_assessment_25%.png)](img/jifx21-4/jifx21-4_damage_assessment.png)
 
 A procedure was developed on-site to transform ArduPilot Mission Planner UGS 
 location positioning data into Cursor on Target, a format used by Splunk, ATAK 
@@ -132,7 +169,7 @@ and others. In this procedure, WinTAK running on the GCS computer was used as a
 NMEA to CoT gateway. Effort was made to analyze real-time UGS operational data 
 in Splunk by utilizing a Mavlink decoder with limited success.
 
-![JIFX 21-4 UGS PLI displayed within a TAK client](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_ugs_tak.png)
+[![JIFX 21-4 UGS PLI displayed within a TAK client](img/jifx21-4/jifx21-4_ugs_tak_25%.png)](img/jifx21-4/jifx21-4_ugs_tak.png)
 
 ### Hardware & Software
 
@@ -144,7 +181,7 @@ More information on ATAK, WinTAK & TAK Server can be found at www.tak.gov
 
 #### Portable UGS ground control station (GCS)
 
-![JIFX 21-4 UGS GCS](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_ugs_gcs.jpg)
+[![JIFX 21-4 UGS GCS](img/jifx21-4/jifx21-4_ugs_gcs_25%.jpg)](img/jifx21-4/jifx21-4_ugs_gcs.jpg)
 
 The Portable GCS comprised the computer, software and hardware required to 
 control the UGS. Piloting and Mission Planning utilized ArduPilot, “an open 
@@ -156,6 +193,23 @@ was transcoded & displayed using ffmpeg, VLC & gstreamer.
 Additionally, WinTAK was used to transform UGS positioning data into a format 
 compatible with other TAK systems, see note under Data > Splunk.
 
+#### Other Software Used
+
+* Debian
+* Node-RED
+* TAK Server
+* ATAK
+* Orion
+* ArduPilot
+* pycot
+* Proxmox
+* CentOS
+* gstreamer
+* ffmpeg
+* Splunk
+* tileserver-gl
+* Docker
+
 ### Ad-Hoc Experimentation
 
 NPS encouraged and promoted ad-hoc and collaborative experimentation between 
@@ -164,66 +218,49 @@ were developed on-site and in the field.
 
 #### UGS mounted LIDAR & Underground Mesh
 
-![JIFX 21-4 UGS-mounted LIDAR](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_ugs_lidar.jpg)
+[![JIFX 21-4 UGS-mounted LIDAR](img/jifx21-4/jifx21-4_ugs_lidar_25%.jpg)](img/jifx21-4/jifx21-4_ugs_lidar.jpg)
 
-Working with Exyn, another JIFX participant, CSUB reconfigured a UGS to support 
-carrying a LIDAR scanner payload. Once the payload was mounted, UGS were loaded 
-with a Mission Plan to traverse an underground tunnel. An unexpected but 
-recoverable failure encountered during this mission was the navigation and IMU 
-fail safes built into the UGS Mission Planning software. This fail safe was 
-encountered due to the GPS denied nature of an underground tunnel, and its 
-curved walls causing a significant delta in vehicle pitch. Once bypassed the 
-mission could succeed. 
+Working with Exyn, CSUB reconfigured a UGS to support carrying a LIDAR scanner 
+payload. Once the payload was mounted, UGS were tasked by Mission Plan to 
+traverse an underground tunnel. An unexpected but recoverable failure 
+encountered during this mission was the navigation and IMU fail safes built 
+into the UGS Mission Planning software. This fail safe was encountered due to 
+the GPS denied nature of an underground tunnel, and its curved walls causing a 
+significant delta in vehicle pitch. Once bypassed the mission could succeed. 
 
 Piloting the UGS into a tunnel also required extending the mesh network into an 
 underground, network-denied environment. This was accomplished using several 
-Compact Rugged Unattended Mesh Box (CRUMBs) placed strategically around the 
-tunnel complex, each extending the mesh into the tunnel and allowing continuous 
-3 while underground. 
+CRUMBs placed strategically around the tunnel complex, each extending the mesh 
+into the tunnel and allowing continuous C2 while underground. 
 
-## TK
+#### Other Ad-Hoc Experimentation
 
-Node-RED Flows Developed
+* Collecting Mavlink data with Splunk [incomplete].
+* Transforming Mavlink data with Node-RED [incomplete].
 
-tileserver-ns usage?
-Splunk usage.
-Orion use
-Twilio use
-RedTAK Use
+### Novel Capabilities
 
-JS8Call use
-	Used REST API to feed into Node-RED. Node-RED transformed Maidenhead and callsign into CoT, which it then sent out to TAK Server. (Actually FT8)
+Several novel capabilities were developed during experimentation.
 
-InfluxDB usage
-Collected & displayed local sensor data from AQI sensors.
+1. **Sending SA data to COPERS.** This was the first time we've intereacted with 
+   this system. Using RedTAK we were able to establish a bidirectional data 
+   connection with COPERS, allowing us to send SA data to, as well as receive 
+   SA data from all other users of COPERS (including other experimenters).
+2. **Collecting & learning AREDN sysinfo.json telemetry data.** Early 
+   experimentation showed an emerging wireless RF anomoly. A RedTAK flow was 
+   created to search for & collect AREDN sysinfo.json data from all MANET 
+   nodes - forwarding all collected data to Splunk. A hastily constructed 
+   discovery method allowed new MANET participants to be queried, or old ones 
+   pruned.
+3. **Sending SA data to Splunk.** The n-dimensional nature of SA data, relying 
+on both time and 3D space, allow index, search and machine learning across all 
+   dimensions using Splunk. Indexed geographical data can be displayed using a 
+   Splunk map dashboard, and temporal data can be analyized in real-time by 
+   a human or using a Splunk ML process.
+
+An attempt was made to integrate Mavlink data into both Node-RED & Splunk with 
+limited success. Further research is recommended in this area.
 
 
 
-RedTAK
-Node-RED
-node-red-contrib-worldmap
-node-red-contrib-tcp-tls (developed for TAK)
-Misc other code
-RedTAK is an installation of Node-RED with Flows adapted for interoperability with other applications in the ‘TAK’ ecosystem, including ATAK, TAK Server, WinTAK, TAK Tracker, iTAK, et al. Specifically RedTAK provides a web-based map displaying CoT PLI, methods for connecting securely to TAK clients & servers, and the ability to represent CoT as native JSON.
 
-RedTAK can run on any system capable of running Node-RED, such as small board computers like the Raspberry Pi, higher-end small form factor computers like the Intel NUC, even Android smartphones can run Node-RED.
-
-
-
-Ad Hoc Experimentation
-Send SA data to COPRS.
-Send SA data to Splunk.
-Send Mavlink data to Splunk [incomplete].
-Read Mavlink data in Node-RED [incomplete].
-Send Mission Planner control data to TAK Server via WinTAK.
-Send AREDN sysinfo.json data to Splunk.
-Read AREDN sysinfo.json data in Node-RED.
-Scan AREDN networks in Node-RED.
-Resolve AREDN specific DNS in Node-RED.
-Add APRS Icons to Node-RED.
-Add APRS Icons to ATAK.
-Data Package into TAK Tracker.
-Node-RED reading from TAK Server.
-Node-RED decoding protobufs.
-Adding adsbx, aprs feeds to COPRS.
-Sending UGV data to COPRS.
