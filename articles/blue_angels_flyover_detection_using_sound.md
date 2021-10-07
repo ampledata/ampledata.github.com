@@ -21,21 +21,21 @@ A word about [Splunk](http://www.splunk.com): Splunk is the 'Engine for Machine 
 Splunk Storm's distributed nature would allow central collection & analysis of readings from multiple physical locations. We'll use this to collect sound level data for our 'Blue Angles' detection project.
 
 # Concept & Solution
-![Sounding Concept](https://dl.dropbox.com/u/4036736/Screenshots/Sounding_Concept.png)
+![Sounding Concept](img/blue_angels/Sounding_Concept.png)
 
 To collect the sound levels we decided to go with the simplest possible solution using COTS equipment, thus avoiding expensive specialized recording equipment. Luckily each of our recording sites came with pre-existing sound capture and data collection devices: our laptops and their built-in microphones. We would periodically record the sound level with our laptops and log the data to Splunk Storm. 
 
 # Benchmarking & Testing
 To detect the sound of a Blue Angels fly-over we would first need to determine our normal background noise level. We plotted our diurnal noise levels in all locations to locally calibrate our microphone gains. From there we would need a baseline signal that we would be able to detect in all monitoring locations. Luckily the City of San Francisco provides this for free with it's weekly Tuesday city-wide Siren test at Noon:
 
-![San Francisco city-wide Tuesday Siren](https://pbs.twimg.com/media/A4OscIyCQAEuJgt.png:large)
+![San Francisco city-wide Tuesday Siren](img/blue_angels/A4OscIyCQAEuJgt.png)
 
 # The Setup
 We had initially planned to triangulate the sound source using three different physical locations around San Francisco. Unfortunately our third listening station on Alameda Island was too far off to pickup any discernible sound difference. Our two remaining stations were on Gurerro & 16th in San Francisco's Mission District, and Judah & 10th in San Francisco's Inner Sunset District.
 
-![Mission: Raspberry PI + H2 Zoom Recorder](http://farm9.staticflickr.com/8225/8375016640_4cfd936ef5.jpg)
+![Mission: Raspberry PI + H2 Zoom Recorder](img/blue_angels/375016640_4cfd936ef5.jpg)
 
-![Inner Sunset: Lenovo R500 ThinkPad Laptop](https://dl.dropbox.com/u/4036736/Screenshots/Inner_Sunset_Listener.jpg)
+![Inner Sunset: Lenovo R500 ThinkPad Laptop](img/blue_angels/Inner_Sunset_Listener.jpg)
 
 # Data Format
 Two methods of data recording were attempted for this project. 
@@ -53,20 +53,20 @@ The Inner Sunset Listening Station used constant readings of dB levels as heard 
 ## Practice Runs
 The following graph shows 4 flyovers of the Blue Angels during a test-run over the city on Friday October 5th from 3PM to 4PM at the Inner Sunset listening station:
 
-![Annotated Blue Angel's Flyovers from the Inner Sunset](https://dl.dropbox.com/u/4036736/Screenshots/etq_.png)
+![Annotated Blue Angel's Flyovers from the Inner Sunset](img/blue_angels/etq_.png)
 
 This graph shows the same flyovers from the Mission listening station:
-![Mission Listening Station (normalized)](http://dl.dropbox.com/u/4036736/Screenshots/_j6q.png)
+![Mission Listening Station (normalized)](img/blue_angels/_j6q.png)
 
-![Mission Listening Station](http://dl.dropbox.com/u/4036736/Screenshots/x6hj.png)
+![Mission Listening Station](img/blue_angels/x6hj.png)
 
 ## Air Show
-![Both Stations](http://dl.dropbox.com/u/4036736/Screenshots/-bn3.png)
+![Both Stations](img/blue_angels/-bn3.png)
 
 # Additional Results
 In addition to detecting Blue Angels fly-overs, these listening stations have been used to detect diurnal noise patterns. The following are noise levels for mornings from 12 midnight to 12 noon during the week of January 14th.
 
-![Morning Noise in the Inner Sunset](http://dl.dropbox.com/u/4036736/Screenshots/_svr.png)
+![Morning Noise in the Inner Sunset](img/blue_angels/_svr.png)
 
 # Source
 Source for the scripts that captured and transmitted noise-level are available here:

@@ -1,7 +1,7 @@
 # The Smart Wireless Mesh
 **An off-the-shelf mobile ad-hoc network with edge compute and IoT capabilities.**
 
-![JIFX 21-4 Systems Overview](file:///Users/gba/Projects/Blog/ampledata.github.com/img/jifx21-4/jifx21-4_systems_overview-25%.png)
+![JIFX 21-4 Systems Overview](img/jifx21-4/jifx21-4_systems_overview-25p.png)
 
 ## Background
 
@@ -138,7 +138,7 @@ Systems like Orion & Twilio that were capable of sending, receiving and
 understanding human voice, typing and multimedia messaging were able to 
 interact through either their own, or a native CoT channels.
 
-[![JIFX 21-4 Data Flow Diagram](img/jifx21-4/jifx21-4_data_flow_diagram_25%.png)](img/jifx21-4/jifx21-4_data_flow_diagram.png)
+[![JIFX 21-4 Data Flow Diagram](img/jifx21-4/jifx21-4_data_flow_diagram_25p.png)](img/jifx21-4/jifx21-4_data_flow_diagram.png)
 
 
 #### Splunk
@@ -161,7 +161,7 @@ Finally, for users with limited message capability within LTE denied
 environments, SMS text messages with damage assessment reports & locations 
 could be sent & received by Twilio.
 
-[![JIFX 21-4 Damage Assessment statistics displayed on a map](img/jifx21-4/jifx21-4_damage_assessment_25%.png)](img/jifx21-4/jifx21-4_damage_assessment.png)
+[![JIFX 21-4 Damage Assessment statistics displayed on a map](img/jifx21-4/jifx21-4_damage_assessment_25p.png)](img/jifx21-4/jifx21-4_damage_assessment.png)
 
 A procedure was developed on-site to transform ArduPilot Mission Planner UGS 
 location positioning data into Cursor on Target, a format used by Splunk, ATAK 
@@ -169,7 +169,7 @@ and others. In this procedure, WinTAK running on the GCS computer was used as a
 NMEA to CoT gateway. Effort was made to analyze real-time UGS operational data 
 in Splunk by utilizing a Mavlink decoder with limited success.
 
-[![JIFX 21-4 UGS PLI displayed within a TAK client](img/jifx21-4/jifx21-4_ugs_tak_25%.png)](img/jifx21-4/jifx21-4_ugs_tak.png)
+[![JIFX 21-4 UGS PLI displayed within a TAK client](img/jifx21-4/jifx21-4_ugs_tak_25p.png)](img/jifx21-4/jifx21-4_ugs_tak.png)
 
 ### Hardware & Software
 
@@ -181,7 +181,7 @@ More information on ATAK, WinTAK & TAK Server can be found at www.tak.gov
 
 #### Portable UGS ground control station (GCS)
 
-[![JIFX 21-4 UGS GCS](img/jifx21-4/jifx21-4_ugs_gcs_25%.jpg)](img/jifx21-4/jifx21-4_ugs_gcs.jpg)
+[![JIFX 21-4 UGS GCS](img/jifx21-4/jifx21-4_ugs_gcs_25p.jpg)](img/jifx21-4/jifx21-4_ugs_gcs.jpg)
 
 The Portable GCS comprised the computer, software and hardware required to 
 control the UGS. Piloting and Mission Planning utilized ArduPilot, “an open 
@@ -218,7 +218,7 @@ were developed on-site and in the field.
 
 #### UGS mounted LIDAR & Underground Mesh
 
-[![JIFX 21-4 UGS-mounted LIDAR](img/jifx21-4/jifx21-4_ugs_lidar_25%.jpg)](img/jifx21-4/jifx21-4_ugs_lidar.jpg)
+[![JIFX 21-4 UGS-mounted LIDAR](img/jifx21-4/jifx21-4_ugs_lidar_25p.jpg)](img/jifx21-4/jifx21-4_ugs_lidar.jpg)
 
 Working with Exyn, CSUB reconfigured a UGS to support carrying a LIDAR scanner 
 payload. Once the payload was mounted, UGS were tasked by Mission Plan to 
