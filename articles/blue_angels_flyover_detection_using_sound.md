@@ -53,20 +53,20 @@ The Inner Sunset Listening Station used constant readings of dB levels as heard 
 ## Practice Runs
 The following graph shows 4 flyovers of the Blue Angels during a test-run over the city on Friday October 5th from 3PM to 4PM at the Inner Sunset listening station:
 
-![Annotated Blue Angel's Flyovers from the Inner Sunset](img/blue_angels/etq_.png)
+![Annotated Blue Angel's Flyovers from the Inner Sunset](img/blue_angels/etq.png)
 
 This graph shows the same flyovers from the Mission listening station:
-![Mission Listening Station (normalized)](img/blue_angels/_j6q.png)
+![Mission Listening Station (normalized)](img/blue_angels/j6q.png)
 
 ![Mission Listening Station](img/blue_angels/x6hj.png)
 
 ## Air Show
-![Both Stations](img/blue_angels/-bn3.png)
+![Both Stations](img/blue_angels/bn3.png)
 
 # Additional Results
 In addition to detecting Blue Angels fly-overs, these listening stations have been used to detect diurnal noise patterns. The following are noise levels for mornings from 12 midnight to 12 noon during the week of January 14th.
 
-![Morning Noise in the Inner Sunset](img/blue_angels/_svr.png)
+![Morning Noise in the Inner Sunset](img/blue_angels/svr.png)
 
 # Source
 Source for the scripts that captured and transmitted noise-level are available here:
