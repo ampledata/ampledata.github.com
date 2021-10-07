@@ -33,7 +33,7 @@ To detect the sound of a Blue Angels fly-over we would first need to determine o
 # The Setup
 We had initially planned to triangulate the sound source using three different physical locations around San Francisco. Unfortunately our third listening station on Alameda Island was too far off to pickup any discernible sound difference. Our two remaining stations were on Gurerro & 16th in San Francisco's Mission District, and Judah & 10th in San Francisco's Inner Sunset District.
 
-![Mission: Raspberry PI + H2 Zoom Recorder](img/blue_angels/375016640_4cfd936ef5.jpg)
+![Mission: Raspberry PI + H2 Zoom Recorder](img/blue_angels/mission.jpg)
 
 ![Inner Sunset: Lenovo R500 ThinkPad Laptop](img/blue_angels/Inner_Sunset_Listener.jpg)
 
