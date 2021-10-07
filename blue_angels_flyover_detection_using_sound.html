@@ -86,7 +86,6 @@
 <h1>Background</h1>
 <p>Every October San Francisco hosts <a href="http://www.fleetweek.us/">Fleet Week</a>, a celebration of the United State's military services. The week includes public events, tours and demonstrations - culminating in a weekend air-show featuring the US Navy <a href="http://www.blueangels.navy.mil/">Blue Angels</a> air-acrobat fighter jets. For the week prior to the air-show the city air-space is <a href="http://www.sfgate.com/bayarea/article/Blue-Angels-highlight-Fleet-Week-3917321.php">inundated</a> with the sound of the Blue Angels F-18's performing practice maneuvers. These screamingly loud fly-overs do not go unnoticed by the twitterverse:</p>
 <blockquote class="twitter-tweet"><p>Welcome back to San Francisco @<a href="https://twitter.com/blueangels">blueangels</a> - you are the highlight of the year and we love to see you flying by our windows at Embarcadero 4.</p>&mdash; Eat My Words (@eatmywords) <a href="https://twitter.com/eatmywords/status/253951185428545536" data-datetime="2012-10-04T20:14:15+00:00">October 4, 2012</a></blockquote>
-
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <h1>Inspiration</h1>
@@ -98,39 +97,37 @@
 <p>A word about <a href="http://www.splunk.com">Splunk</a>: Splunk is the 'Engine for Machine Data', allowing anyone to capture, index and analyze data from any source, regardless of format, structure, or content. This makes Splunk the perfect tool for collecting data from disparate systems. Normally enterprises install Splunk centrally, utilizing syslog or Splunk's own Universal Forwarder to collect and aggregate data for analysis. Last year Splunk launched a SaaS version of their product called Splunk Storm, allowing users to send data from anywhere to a cloud-based service and perform the same analysts, again, regardless of the data's structure.</p>
 <p>Splunk Storm's distributed nature would allow central collection &amp; analysis of readings from multiple physical locations. We'll use this to collect sound level data for our 'Blue Angles' detection project.</p>
 <h1>Concept &amp; Solution</h1>
-<p><img alt="Sounding Concept" src="https://dl.dropbox.com/u/4036736/Screenshots/Sounding_Concept.png" /></p>
+<p><img alt="Sounding Concept" src="img/blue_angels/Sounding_Concept.png" /></p>
 <p>To collect the sound levels we decided to go with the simplest possible solution using COTS equipment, thus avoiding expensive specialized recording equipment. Luckily each of our recording sites came with pre-existing sound capture and data collection devices: our laptops and their built-in microphones. We would periodically record the sound level with our laptops and log the data to Splunk Storm. </p>
 <h1>Benchmarking &amp; Testing</h1>
 <p>To detect the sound of a Blue Angels fly-over we would first need to determine our normal background noise level. We plotted our diurnal noise levels in all locations to locally calibrate our microphone gains. From there we would need a baseline signal that we would be able to detect in all monitoring locations. Luckily the City of San Francisco provides this for free with it's weekly Tuesday city-wide Siren test at Noon:</p>
-<p><img alt="San Francisco city-wide Tuesday Siren" src="https://pbs.twimg.com/media/A4OscIyCQAEuJgt.png:large" /></p>
+<p><img alt="San Francisco city-wide Tuesday Siren" src="img/blue_angels/A4OscIyCQAEuJgt.png" /></p>
 <h1>The Setup</h1>
 <p>We had initially planned to triangulate the sound source using three different physical locations around San Francisco. Unfortunately our third listening station on Alameda Island was too far off to pickup any discernible sound difference. Our two remaining stations were on Gurerro &amp; 16th in San Francisco's Mission District, and Judah &amp; 10th in San Francisco's Inner Sunset District.</p>
-<p><img alt="Mission: Raspberry PI + H2 Zoom Recorder" src="http://farm9.staticflickr.com/8225/8375016640_4cfd936ef5.jpg" /></p>
-<p><img alt="Inner Sunset: Lenovo R500 ThinkPad Laptop" src="https://dl.dropbox.com/u/4036736/Screenshots/Inner_Sunset_Listener.jpg" /></p>
+<p><img alt="Mission: Raspberry PI + H2 Zoom Recorder" src="img/blue_angels/375016640_4cfd936ef5.jpg" /></p>
+<p><img alt="Inner Sunset: Lenovo R500 ThinkPad Laptop" src="img/blue_angels/Inner_Sunset_Listener.jpg" /></p>
 <h1>Data Format</h1>
 <p>Two methods of data recording were attempted for this project. </p>
 <p>The Mission Listening Station used periodic readings of Peak Envelope as heard by the microphone:</p>
-<div class="codehilite"><pre><span></span><span class="err">1349921818.185662 max_peak=0</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="mf">1349921818.185662</span> <span class="n">max_peak</span><span class="o">=</span><span class="mf">0</span>
+</code></pre></div>
 
 <p>The Inner Sunset Listening Station used constant readings of dB levels as heard by the microphone:</p>
-<div class="codehilite"><pre><span></span><span class="err">2012-10-08 11:33:41,655 log_src=slim CHANNELS=1 RATE=8000 MAX_AMPLITUDE=32767 rms=3510 max=9443 amplitude=0.288186 dBg=-10.806534</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="mf">2012</span><span class="o">-</span><span class="mf">10</span><span class="o">-</span><span class="mf">08</span> <span class="mf">11</span><span class="p">:</span><span class="mf">33</span><span class="p">:</span><span class="mf">41</span><span class="p">,</span><span class="mf">655</span> <span class="nb">log</span><span class="n">_src</span><span class="o">=</span><span class="n">slim</span> <span class="n">CHANNELS</span><span class="o">=</span><span class="mf">1</span> <span class="n">RATE</span><span class="o">=</span><span class="mf">8000</span> <span class="n">MAX_AMPLITUDE</span><span class="o">=</span><span class="mf">32767</span> <span class="n">rms</span><span class="o">=</span><span class="mf">3510</span> <span class="n">max</span><span class="o">=</span><span class="mf">9443</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">0.288186</span> <span class="n">dBg</span><span class="o">=-</span><span class="mf">10.806534</span>
+</code></pre></div>
 
 <h1>Results</h1>
 <h2>Practice Runs</h2>
 <p>The following graph shows 4 flyovers of the Blue Angels during a test-run over the city on Friday October 5th from 3PM to 4PM at the Inner Sunset listening station:</p>
-<p><img alt="Annotated Blue Angel's Flyovers from the Inner Sunset" src="https://dl.dropbox.com/u/4036736/Screenshots/etq_.png" /></p>
+<p><img alt="Annotated Blue Angel's Flyovers from the Inner Sunset" src="img/blue_angels/etq_.png" /></p>
 <p>This graph shows the same flyovers from the Mission listening station:
-<img alt="Mission Listening Station (normalized)" src="http://dl.dropbox.com/u/4036736/Screenshots/_j6q.png" /></p>
-<p><img alt="Mission Listening Station" src="http://dl.dropbox.com/u/4036736/Screenshots/x6hj.png" /></p>
+<img alt="Mission Listening Station (normalized)" src="img/blue_angels/_j6q.png" /></p>
+<p><img alt="Mission Listening Station" src="img/blue_angels/x6hj.png" /></p>
 <h2>Air Show</h2>
-<p><img alt="Both Stations" src="http://dl.dropbox.com/u/4036736/Screenshots/-bn3.png" /></p>
+<p><img alt="Both Stations" src="img/blue_angels/-bn3.png" /></p>
 <h1>Additional Results</h1>
 <p>In addition to detecting Blue Angels fly-overs, these listening stations have been used to detect diurnal noise patterns. The following are noise levels for mornings from 12 midnight to 12 noon during the week of January 14th.</p>
-<p><img alt="Morning Noise in the Inner Sunset" src="http://dl.dropbox.com/u/4036736/Screenshots/_svr.png" /></p>
+<p><img alt="Morning Noise in the Inner Sunset" src="img/blue_angels/_svr.png" /></p>
 <h1>Source</h1>
 <p>Source for the scripts that captured and transmitted noise-level are available here:
 <a href="https://github.com/ampledata/sounding">https://github.com/ampledata/sounding</a></p>
