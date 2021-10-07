@@ -40,7 +40,16 @@ experiment week.
 - Vivian Richards, Splunk
 - Greg Albrecht W2GMD, SFWEM & Orion Labs
 
-## Motivation
+## Themes & Motivation
+
+Experiments can be best categorized under the themes of:
+
+* Hastily Formed Networks
+* Unmanned Systems
+* Situational Awareness
+* Smart Team Communications
+
+### Hastily Formed Networks
 
 BAM utilizes commercial off-the-shelf (COTS) wireless networking equipment 
 typically running the 
@@ -54,7 +63,7 @@ connectivity - including across multiple hops, support being hastily assembled
 around the continental United States as well as abroad and represent both 
 steady-state/always-on infrastructure & field-deployable systems.
 
-### AREDN for UGS
+### Unmanned Systems
 
 Piloting of an Unmanned Ground System (UGS) typically requires an IP based 
 connection to a Ground Control Station (GCS). Similarly, UGS sub-systems like 
@@ -71,7 +80,7 @@ able to extend the range of the existing network. Combined with another UGS
 this allows a multi-hop ‘swarm’ like system were multiple different UGS can 
 extend or augment the existing network in real-time.
 
-### AREDN for SA
+### Situational Awareness
 
 Situational Awareness (SA) platforms like ATAK & WinTAK can be configured to 
 share data via a local-only IP network, or pass data out to another network 
@@ -95,13 +104,29 @@ can be used to measure user inputs, for example a Damage Assessment (DA) report
 sent via smartphone application, or spoken aloud through a PTT platform like 
 Orion.
 
-## Conclusion
+### Smart Team Communications
 
-Using commercial off-the-shelf hardware and open source software it is possible
-to establish a field expedient Smart Wireless Mesh within a near-austere 
-environment. With minimal up-front planning, a Smart Wireless Mesh can be used 
-for unmanned system command & control, real-time multimedia communication, and 
-internet of things or ISR applications.
+Smart Team and group communications systems are equipped not-only to facilitate 
+real-time messaging between disparate users, but act on those messages at a 
+System level. 
+
+Given a user engaging in team collaboration at various "bandwidths" both 
+physiologically and as a measure of information throughput, can a Smart Team 
+Communications component of a Smart Wireless Mesh act on an end-users message 
+metadata and provide a communications force multiplier. Can this Smart Team 
+Communications platform present operational data to other organizational units 
+or command?
+
+## Conclusions
+
+Using commercial off-the-shelf hardware & open-source software, it is possible
+to stand-up a field expedient Smart Wireless Mesh using AREDN. This Smart 
+Wireless Mesh provides unmanned systems command & control, group communication 
+support, real-time sensors/IoT, and SA or ISR applications. Standards-based 
+network end-points can be used immediately, and others integrated rapidly 
+using Node-RED. Integration with Smart Team Communications platforms like Orion 
+and operational intelligence platforms like Splunk enabled expedient knowledge 
+and SA propagation to all users of the Smart Wireless Mesh.
 
 ## Details
 
