@@ -115,7 +115,7 @@ An all-in-one flight case (modeled after the ViaSAT Move Out Jump Out MOJO conce
 <p>For example, some ATAK clients send CoT SA data as UTF-8 encoded UDP Broadcast, while others send Protobuf TLS. Node-RED running on the compute module allowed the CoT data to be automatically translated between these disparate ATAK clients, even across different network segments.</p>
 <p>The on-board HAP provided connectivity to the AREDN network, uplink to a WAN network, local DHCP leases. During the event we developed a Node-RED Flow to query sysinfo.json from this local HAP, as well as use it to do auto-discovery of all network nodes, and query their sysinfo.json as well. We fed this sysinfo.json data into Splunk ML, which gave predictive feedback on LoS signal readings into our </p>
 <h2>System Components</h2>
-<p><a href="img/moho/system_components.jpg"><img alt="MOHO System &amp; Infrastructure Components" src="img/moho/system_components_25p.png" /></a></p>
+<p><a href="img/moho/system_components.png"><img alt="MOHO System &amp; Infrastructure Components" src="img/moho/system_components_50p.png" /></a></p>
 <h3>Virtualization &amp; Compute</h3>
 <p>A small form factor (SFF) computer running Proxmox serves as the primary host 
 for a Debian and CentOS virtual machine. Additional virtual machines can be 

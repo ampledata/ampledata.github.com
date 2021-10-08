@@ -47,7 +47,7 @@ The on-board HAP provided connectivity to the AREDN network, uplink to a WAN net
 
 ## System Components
 
-[![MOHO System & Infrastructure Components](img/moho/system_components_25p.png)](img/moho/system_components.jpg)
+[![MOHO System & Infrastructure Components](img/moho/system_components_50p.png)](img/moho/system_components.png)
 
 
 ### Virtualization & Compute
