@@ -140,7 +140,8 @@ body worn networks, sensor deployment, and unmammed systems:
 1. Unmanned Ground System (UGS) Command, Control (C2) & Communication (C3) using Smart Wireless Mesh
 2. Situational Awareness (SA), ISR & operational data collection / analysis using Smart Wireless Mesh
 3. [FEM: Field Expedient Mesh](https://docs.google.com/document/d/e/2PACX-1vRyGsw-RGppwFkW2Hl2Mvyr_1tCyZlY9DcAW-5aExY2DaQULdS9K9BDHQ4m5f6-9IjNANNyMiEzPkIA/pub)
-4. [MoW: Mesh on Wheels](https://docs.google.com/document/d/e/2PACX-1vRsWwi4gBy-NCs_FsAWaDarw47tnnkCH6G_KbVR0FGomYfGuYnqUFXOasQs39jSxpdhP9fFxvHjTTc3/pub)
+4. [MoW: Mesh on Wheels](https://ampledata.org/mesh_on_wheels.html): Portable Smart Wireless Mesh node with edge compute, data transformation & 
+sensor capability.
 5. [MOHO: Mesh On, Head Out](https://docs.google.com/document/d/e/2PACX-1vQ3Ifm22DDEpWOroPbiniyFwpm9VnEg6Mle1H32S-YZcqxm_PcNKZcz8nVdV4PXIDQGBh4dp-R1Hb_E/pub)
 6. [HAMPR: Human Attached Mesh Portable Radio](https://docs.google.com/document/d/e/2PACX-1vQ-CQPKQoxwUs22BxCVVWEgoi6T5WjK5gj4A6dTuFdoL3xQOzWndhEsBhI49IOAK_8EMrfJ6XgIs75I/pub)
 7. [CRUMB: Compact Rugged Unattended MANET Box](https://docs.google.com/document/d/e/2PACX-1vQ9hizd-hBS7pmzbBaGV4_r0oLnm_-1yrTiFp2eHsgGJ4Frk10f46fv1rpx3IOwkm6VV1A-eb-SKC8C/pub)

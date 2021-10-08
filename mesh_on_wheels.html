@@ -82,49 +82,77 @@
 
 <!-- block templates/article.html content -->
 <h1>Mesh on Wheels (MoW)</h1>
-<p><strong>A Smart Wireless Mesh node with edge compute, data transformation, sensors &amp; IoT.</strong></p>
+<p><strong>A portable Smart Wireless Mesh node with edge compute, data transformation &amp; 
+sensor capability.</strong></p>
 <p><a href="img/mow/roof.jpg"><img alt="MoW with solar panel mounted on a vehicle roof" src="img/mow/roof_25p.jpg" /></a></p>
 <p>Mesh on Wheels (MoW) is a portable vehicle mountable Smart Wireless Mesh 
-“node”. The MoW is capable of connecting to a mobile ad-hoc network (MANET) and 
-enabling edge-compute, data transformation, sensor/IoT, SDN &amp; SDR. Other 
-capabilities include an on-board solar-charge controller and batteries.</p>
-<p>Developed by <a href="http://ampledata.org">Greg Albrecht W2GMD</a> for the Bay Area Mesh 
-<a href="http://www.sfwem.net">www.sfwem.net</a>.</p>
-<p>AREDN is Copyright © 2015-2021 Amateur Radio Emergency Data Network Inc. 
-More information on AREDN can be found at <a href="http://www.arednmesh.org">www.arednmesh.org</a></p>
+“node”. The MoW is capable of connecting to &amp; extending a mobile ad-hoc network 
+(MANET) and enabling edge-compute, ISR data transformation, sensor/IoT, SDN &amp; 
+SDR. MoW includes an on-board solar-charge controller and batteries, allowing 
+for power on-the-go or fixed installation.</p>
+<p>MoW was developed by <a href="http://ampledata.org">Greg Albrecht W2GMD</a> for the Bay 
+Area Mesh <a href="http://www.sfwem.net">www.sfwem.net</a>.</p>
+<p>AREDN is Copyright © 2015-2021 Amateur Radio Emergency Data Network Inc. More 
+information on AREDN can be found at <a href="http://www.arednmesh.org">www.arednmesh.org</a></p>
 <h2>Bill of Materials</h2>
 <p><a href="img/mow/mow_inside.jpg"><img alt="Internal contents of the MoW" src="img/mow/mow_inside_25p.jpg" /></a></p>
 <p>The bill of materials (BoM) is primarily sourced from commercial off-the-shelf 
-(COTS) components.
-1. <a href="https://store.ui.com/collections/solar/products/sunmax-solarswitch">Ubiquiti SunMAX SolarSwitch</a> 
-   solar charge controller (SCC) ($199)
-2. <a href="https://store.ui.com/collections/wireless/products/rocket-m5">Ubiquiti airMAX RocketM 5 GHz BaseStation</a> 
-   ($89), running the <a href="https://www.arednmesh.org/">AREDN</a> firmware
-3. <a href="https://www.adafruit.com/product/3055">Raspberry Pi</a>: <a href="https://nodered.org/">Node-RED</a> 
-   &amp; local compute
-4. <a href="https://www.adafruit.com/product/3583">HackRF</a>: Wideband software defined 
-   radio (SDR) ($339.95)
-5. <a href="https://www.uradmonitor.com/products/">uRadMontior model A3</a>: Environment 
-   &amp; air quality monitoring station ($549.00)
-6. <a href="https://smile.amazon.com/Converter-Module-Output-Adapter-Regulator/dp/B08RBWX2GL">12V to 5V DC Converter Buck Module</a> ($9.99)
-7. 24 VDC (2x 12 VDC) SLA batteries in series
-8. Wideband Receive Antenna
-9. Omnidirectional MIMO 5.8 GHz Antenna
-10. Solar Panel(s)</p>
+(COTS) components.</p>
+<ol>
+<li><a href="https://store.ui.com/collections/solar/products/sunmax-solarswitch">Ubiquiti SunMAX SolarSwitch</a> 
+   solar charge controller (SCC) ($199)</li>
+<li><a href="https://store.ui.com/collections/wireless/products/rocket-m5">Ubiquiti airMAX RocketM 5 GHz BaseStation</a> 
+   ($89), running the <a href="https://www.arednmesh.org/">AREDN</a> firmware</li>
+<li><a href="https://www.adafruit.com/product/3055">Raspberry Pi</a>: <a href="https://nodered.org/">Node-RED</a> 
+   &amp; local compute</li>
+<li><a href="https://www.adafruit.com/product/3583">HackRF</a>: Wideband software defined 
+   radio (SDR) ($339.95)</li>
+<li><a href="https://www.uradmonitor.com/products/">uRadMontior model A3</a>: Environment 
+   &amp; air quality monitoring station ($549.00)</li>
+<li><a href="https://smile.amazon.com/Converter-Module-Output-Adapter-Regulator/dp/B08RBWX2GL">12V to 5V DC Converter Buck Module</a> ($9.99)</li>
+<li>24 VDC (2x 12 VDC) SLA batteries in series</li>
+<li>Wideband Receive Antenna</li>
+<li>Omnidirectional MIMO 5.8 GHz Antenna</li>
+<li>Solar Panel(s)</li>
+<li>Pelican-style rugged outdoor enclosure</li>
+<li>"fish tank grids" for structural reinforcement</li>
+</ol>
 <p>A follow-up design included a Ubiquiti NanoBeam to offload establishing an 
 IP-tunnel connection to a larger mesh network.</p>
-<h2>Sub-systems &amp; Descriptions</h2>
-<p><a href="img/mow/systems_diagram.jpg"><img alt="MoW systems diagram" src="img/mow/systems_diagram_25p.jpg" /></a></p>
-<p>Mobile node is a self-contained AREDN node, AQI &amp; Meteorology sensor, software 
-defined radio (SDR) and compute node; powered by an on-board solar charge 
-controller. Alone it is capable of running at configurable levels of battery 
-consumption, combined with a solar power it could run indefinitely.</p>
-<p>The power sub-system is made up of the SCC &amp; the battery, with an optional 
-solar panel. Our selection of the Ubiquiti SolarPoint for our SCC was based on 
-familiarity with existing Ubiquiti products, and was compelled by features like 
-web administration, power customization, real time readout, and SNMP. Batteries 
-are two 12 VDC SLA batteries in series to produce 24 VDC. Solar panel is via 
-Adam O’donnell TK and is a 100 W xxxx TK.</p>
+<h2>System Description</h2>
+<p><a href="img/mow/systems_diagram.png"><img alt="MoW systems diagram" src="img/mow/systems_diagram_50p.png" /></a></p>
+<h3>Mesh radio</h3>
+<p>The mesh radio sub-system consists of a Ubiquiti Rocket M5 5 GHz wireless 
+radio running the AREDN mesh firmware and an off-the-shelf omnidirectional 
+MIMO 5 GHz antenna permanently mounted to the lid of a Pelican-style rugged 
+enclosure.</p>
+<h3>Power</h3>
+<p>The power sub-system consists of a solar panel, solar charge controller and 
+batteries. Run-time &amp; power consumption can be tuned to meet mission need by 
+adding or removing other sub-components (such as environmental sensors or 
+edge-compute). Given sufficient sunlight a MoW can run unattended for an 
+indefinite amount of time.</p>
+<p><a href="img/mow/solarswitch.png"><img alt="SolarSwitch UI" src="img/mow/solarswitch_25p.png" /></a></p>
+<p>The Ubiquiti SolarSwitch was chosen based on familiarity with existing Ubiquiti 
+products, and was compelled by features like web administration, power 
+customization, real time readout, and SNMP. Batteries are two 12 VDC SLA 
+batteries in series to produce 24 VDC. </p>
+<p>Special thanks to Adam O'Donnell N3RCS for contributing the solar panel used in 
+the proof-of-concept prototype MoW.</p>
+<h3>Edge Compute</h3>
+<p><a href="img/mow/data_flow_diagram.png"><img alt="MoW Data Flow Diagram" src="img/mow/data_flow_diagram_25p.png" /></a></p>
+<p>Edge compute capabilities are provided by a Raspberry Pi running Raspberry OS 
+with Node-RED. This allows for a rapid SA or ISR data-pipeline reconfiguration, 
+fitting new mission or end-user needs. </p>
+<p>For example, the on-board SDR can be quickly tasked to receive and parse 
+aircraft ADS-B, making it available to all users of the connected MANET through 
+their COP or SA platform of choice (ATAK, WinTAK, etc).</p>
+<p><a href="img/mow/nodered.png"><img alt="Node-RED UI" src="img/mow/nodered_25p.png" /></a></p>
+<p>The addition of a GPS and SDR allowed real-time RF intercept and positional 
+data to be collected and transformed locally or back-hauled to a a InfluxDB or 
+Splunk data collection system.</p>
+<p><a href="img/mow/influxdb.png"><img alt="Real-time InfluxDB graph" src="img/mow/influxdb_25p.png" /></a></p>
+<p><a href="img/mow/urad.png"><img alt="uRadmonitor UI" src="img/mow/urad.png" /></a></p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
