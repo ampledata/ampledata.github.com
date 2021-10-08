@@ -2,7 +2,7 @@
 **A portable Smart Wireless Mesh node with edge compute, data transformation & 
 sensor capability.**
 
-[![MoW with solar panel mounted on a vehicle roof](img/mow/roof_25p.jpg)](img/mow/roof.jpg)
+[![MoW with solar panel mounted on a vehicle roof](img/mow/roof_10p.jpg)](img/mow/roof.jpg)
 
 Mesh on Wheels (MoW) is a portable vehicle mountable Smart Wireless Mesh 
 “node”. The MoW is capable of connecting to & extending a mobile ad-hoc network 
@@ -17,7 +17,7 @@ AREDN is Copyright © 2015-2021 Amateur Radio Emergency Data Network Inc. More
 information on AREDN can be found at [www.arednmesh.org](http://www.arednmesh.org)
 
 ## Bill of Materials
-[![Internal contents of the MoW](img/mow/mow_inside_25p.jpg)](img/mow/mow_inside.jpg)
+[![Internal contents of the MoW](img/mow/mow_inside_10p.jpg)](img/mow/mow_inside.jpg)
 
 The bill of materials (BoM) is primarily sourced from commercial off-the-shelf 
 (COTS) components.
