@@ -41,7 +41,7 @@ The bill of materials (BoM) is primarily sourced from commercial off-the-shelf
 7. [12V to 5V DC Converter Buck Module](https://smile.amazon.com/Converter-Module-Output-Adapter-Regulator/dp/B08RBWX2GL) ($9.99)
 8. 24 VDC (2x 12 VDC) SLA batteries in series
 9. Wide-band VHF/UHF Receive Antenna
-10. Omnidirectional MIMO 5.8 GHz Antenna
+10. [Laird VMD24493RSM-366](https://www.lairdconnect.com/rf-antennas/public-safety-antennas/vehicle-antennas/multi-port-antennas/vmd-series-2-port-wifi-vehicle-antenna) Omnidirectional MIMO WiFi Vehicle Antenna
 11. GPS Antenna
 12. Solar Panel(s)
 13. Pelican-style rugged outdoor enclosure

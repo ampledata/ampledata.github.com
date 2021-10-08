@@ -1,7 +1,7 @@
 # The Smart Wireless Mesh
 **An off-the-shelf mobile ad-hoc network with edge compute and IoT capabilities.**
 
-![JIFX 21-4 Systems Overview](img/jifx21-4/jifx21-4_systems_overview-25p.png)
+[![JIFX 21-4 Systems Overview](img/jifx21-4/jifx21-4_systems_overview-25p.png)](img/jifx21-4/jifx21-4_systems_overview.png)
 
 ## Background
 
@@ -117,6 +117,32 @@ metadata and provide a communications force multiplier. Can this Smart Team
 Communications platform present operational data to other organizational units 
 or command?
 
+## Capabilities & Areas of Interest
+
+Several proof-of-concepts and capabilities were tested at JIFX, with novel 
+capabilities developed on-site and in ad-hoc collaboration with other JIFX 
+participants & stakeholders. These capabilities centered around the themes of:
+Unmanned Systems, mobile on-the-go connectivity, edge compute, sensors/IoT, 
+ISR & field expedience.
+
+Areas of Interest:
+
+1. [Unmanned Ground System (UGS) Command, Control (C2) & Communication (C3) using COTS & Open Source](https://ampledata.org/jifx21-4_b-02.html)
+2. Using Node-RED as a tactical data transformation backplane - [RedTAK: Tactical ETL](https://docs.google.com/document/d/e/2PACX-1vRoeGoHn6uTSmykPAltiWmhUnpA2jpKAya5xn4vYNiq9gM6AiZNzb9Sbct45mnOUoxpDXrIFpgNTFAW/pub)
+3. Real-time UGS & MANET analytics using Splunk Enterprise & Splunk Machine 
+    Learning Toolkit. [TK]
+4. Situational Awareness (SA), C2, ISR & operational data analysis using Splunk. [TK]
+5. Cross-platform messaging based SA. [TK]
+
+Proof of Concepts:
+
+1. [FEM: Field Expedient Mesh](https://docs.google.com/document/d/e/2PACX-1vRyGsw-RGppwFkW2Hl2Mvyr_1tCyZlY9DcAW-5aExY2DaQULdS9K9BDHQ4m5f6-9IjNANNyMiEzPkIA/pub)
+2. [MoW: Mesh on Wheels](https://ampledata.org/mesh_on_wheels.html): Portable Smart Wireless Mesh node with edge compute, data transformation & 
+sensor capability.
+3. [MOHO: Mesh On, Head Out](https://ampledata.org/mesh_on_head_out.html)
+4. [HAMPR: Human Attached Mesh Portable Radio](https://docs.google.com/document/d/e/2PACX-1vQ-CQPKQoxwUs22BxCVVWEgoi6T5WjK5gj4A6dTuFdoL3xQOzWndhEsBhI49IOAK_8EMrfJ6XgIs75I/pub)
+5. [CRUMB: Compact Rugged Unattended Mesh Box](https://docs.google.com/document/d/e/2PACX-1vQ9hizd-hBS7pmzbBaGV4_r0oLnm_-1yrTiFp2eHsgGJ4Frk10f46fv1rpx3IOwkm6VV1A-eb-SKC8C/pub)
+
 ## Conclusions
 
 Using commercial off-the-shelf hardware & open-source software, it is possible
@@ -128,25 +154,22 @@ using Node-RED. Integration with Smart Team Communications platforms like Orion
 and operational intelligence platforms like Splunk enabled expedient knowledge 
 and SA propagation to all users of the Smart Wireless Mesh.
 
+Novel capabilities tested at JIFX:
+
+1. UGS C2 and C3 over AREDN MANET using multiple fixed or moving hops, 
+   including other UGS.
+2. AREDN MANET extension using UGS.
+3. UGS & MANET using COTS & Open Source.
+6. UGS-based, MANET-connected, sensor & ISR Platform using COTS & Open Source.
+7. Real-time UGS & MANET analytics using Splunk Enterprise and Splunk Machine 
+   Learning Toolkit.
+
+
+
+## Experiment Reports
+* [B-02: Network Extension and UxS Control Using Commercial Off The Shelf Hardware](https://ampledata.org/jifx21-4_b-02.html)
+
 ## Details
-
-### Proof-of-Concepts Demonstrations
-
-Several Smart Wireless MANET proof-of-concepts were fielded at JIFX, with 
-several novel designs coming from collaboration with other JIFX participants & 
-stakeholders. Concepts addressed mobile on-the-go connectivity, edge compute, 
-body worn networks, sensor deployment, and unmammed systems:
-
-1. Unmanned Ground System (UGS) Command, Control (C2) & Communication (C3) using Smart Wireless Mesh
-2. Situational Awareness (SA), ISR & operational data collection / analysis using Smart Wireless Mesh
-3. [FEM: Field Expedient Mesh](https://docs.google.com/document/d/e/2PACX-1vRyGsw-RGppwFkW2Hl2Mvyr_1tCyZlY9DcAW-5aExY2DaQULdS9K9BDHQ4m5f6-9IjNANNyMiEzPkIA/pub)
-4. [MoW: Mesh on Wheels](https://ampledata.org/mesh_on_wheels.html): Portable Smart Wireless Mesh node with edge compute, data transformation & 
-sensor capability.
-5. [MOHO: Mesh On, Head Out](https://ampledata.org/mesh_on_head_out.html)
-6. [HAMPR: Human Attached Mesh Portable Radio](https://docs.google.com/document/d/e/2PACX-1vQ-CQPKQoxwUs22BxCVVWEgoi6T5WjK5gj4A6dTuFdoL3xQOzWndhEsBhI49IOAK_8EMrfJ6XgIs75I/pub)
-7. [CRUMB: Compact Rugged Unattended MANET Box](https://docs.google.com/document/d/e/2PACX-1vQ9hizd-hBS7pmzbBaGV4_r0oLnm_-1yrTiFp2eHsgGJ4Frk10f46fv1rpx3IOwkm6VV1A-eb-SKC8C/pub)
-8. [RedTAK: Tactical ETL](https://docs.google.com/document/d/e/2PACX-1vRoeGoHn6uTSmykPAltiWmhUnpA2jpKAya5xn4vYNiq9gM6AiZNzb9Sbct45mnOUoxpDXrIFpgNTFAW/pub)
-9. BLoS using COTS
 
 ### Data
 
@@ -165,7 +188,6 @@ understanding human voice, typing and multimedia messaging were able to
 interact through either their own, or a native CoT channels.
 
 [![JIFX 21-4 Data Flow Diagram](img/jifx21-4/jifx21-4_data_flow_diagram_25p.png)](img/jifx21-4/jifx21-4_data_flow_diagram.png)
-
 
 #### Splunk
 
@@ -197,74 +219,7 @@ in Splunk by utilizing a Mavlink decoder with limited success.
 
 [![JIFX 21-4 UGS PLI displayed within a TAK client](img/jifx21-4/jifx21-4_ugs_tak_25p.png)](img/jifx21-4/jifx21-4_ugs_tak.png)
 
-### Hardware & Software
-
-Ubiquiti Rocket M5 5 GHz radios were used universally in this experiment, all 
-of which had been updated to use the AREDN mesh firmware. Radios operated in 
-the Part TK portion of the 5 GHz band.
-
-More information on ATAK, WinTAK & TAK Server can be found at www.tak.gov
-
-#### Portable UGS ground control station (GCS)
-
-[![JIFX 21-4 UGS GCS](img/jifx21-4/jifx21-4_ugs_gcs_25p.jpg)](img/jifx21-4/jifx21-4_ugs_gcs.jpg)
-
-The Portable GCS comprised the computer, software and hardware required to 
-control the UGS. Piloting and Mission Planning utilized ArduPilot, “an open 
-source, unmanned vehicle Autopilot Software Suite”. Manual UGS piloting 
-utilizing a Logitech F310 Gamepad USB controller attached to the GCS computer, 
-a Dell Latitude 12 Rugged Tablet (7202) running Windows 10. On-screen UGV video 
-was transcoded & displayed using ffmpeg, VLC & gstreamer.
-
-Additionally, WinTAK was used to transform UGS positioning data into a format 
-compatible with other TAK systems, see note under Data > Splunk.
-
-#### Other Software Used
-
-* Debian
-* Node-RED
-* TAK Server
-* ATAK
-* Orion
-* ArduPilot
-* pycot
-* Proxmox
-* CentOS
-* gstreamer
-* ffmpeg
-* Splunk
-* tileserver-gl
-* Docker
-
-### Ad-Hoc Experimentation
-
-NPS encouraged and promoted ad-hoc and collaborative experimentation between 
-participants at every JIFX. Several novel concepts were fielded, many of which 
-were developed on-site and in the field.
-
-#### UGS mounted LIDAR & Underground Mesh
-
-[![JIFX 21-4 UGS-mounted LIDAR](img/jifx21-4/jifx21-4_ugs_lidar_25p.jpg)](img/jifx21-4/jifx21-4_ugs_lidar.jpg)
-
-Working with Exyn, CSUB reconfigured a UGS to support carrying a LIDAR scanner 
-payload. Once the payload was mounted, UGS were tasked by Mission Plan to 
-traverse an underground tunnel. An unexpected but recoverable failure 
-encountered during this mission was the navigation and IMU fail safes built 
-into the UGS Mission Planning software. This fail safe was encountered due to 
-the GPS denied nature of an underground tunnel, and its curved walls causing a 
-significant delta in vehicle pitch. Once bypassed the mission could succeed. 
-
-Piloting the UGS into a tunnel also required extending the mesh network into an 
-underground, network-denied environment. This was accomplished using several 
-CRUMBs placed strategically around the tunnel complex, each extending the mesh 
-into the tunnel and allowing continuous C2 while underground. 
-
-#### Other Ad-Hoc Experimentation
-
-* Collecting Mavlink data with Splunk [incomplete].
-* Transforming Mavlink data with Node-RED [incomplete].
-
-### Novel Capabilities
+### Data & SA Capabilities
 
 Several novel capabilities were developed during experimentation.
 
