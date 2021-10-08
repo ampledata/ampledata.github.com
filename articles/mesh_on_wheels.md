@@ -16,6 +16,11 @@ Area Mesh [www.sfwem.net](http://www.sfwem.net).
 AREDN is Copyright © 2015-2021 Amateur Radio Emergency Data Network Inc. More 
 information on AREDN can be found at [www.arednmesh.org](http://www.arednmesh.org)
 
+Funds for the development of MoW were provided by a grant from [Amateur Radio Digital Communications (ARDC)](http://ampr.org). 
+Experiments with MoW were conducted at the [Naval Postgraduate School (NPS)](https://www.nps.edu)'s 
+[Joint Inter-agency Field Experiment 21-4 (JIFX)](https://nps.edu/web/fx) in 
+August 2021.
+
 ## Bill of Materials
 [![Internal contents of the MoW](img/mow/mow_inside_10p.jpg)](img/mow/mow_inside.jpg)
 
