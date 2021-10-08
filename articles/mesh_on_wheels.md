@@ -28,17 +28,19 @@ The bill of materials (BoM) is primarily sourced from commercial off-the-shelf
    ($89), running the [AREDN](https://www.arednmesh.org/) firmware
 3. [Raspberry Pi](https://www.adafruit.com/product/3055): [Node-RED](https://nodered.org/) 
    & local compute
-4. [HackRF](https://www.adafruit.com/product/3583): Wideband software defined 
+4. [Adafruit Ultimate GPS Logging Shield](https://www.adafruit.com/product/1272) ($29.95)
+5. [HackRF](https://www.adafruit.com/product/3583): Wideband software defined 
    radio (SDR) ($339.95)
-5. [uRadMontior model A3](https://www.uradmonitor.com/products/): Environment 
+6. [uRadMontior model A3](https://www.uradmonitor.com/products/): Environment 
    & air quality monitoring station ($549.00)
-6. [12V to 5V DC Converter Buck Module](https://smile.amazon.com/Converter-Module-Output-Adapter-Regulator/dp/B08RBWX2GL) ($9.99)
-7. 24 VDC (2x 12 VDC) SLA batteries in series
-8. Wideband Receive Antenna
-9. Omnidirectional MIMO 5.8 GHz Antenna
-10. Solar Panel(s)
-11. Pelican-style rugged outdoor enclosure
-12. "fish tank grids" for structural reinforcement
+7. [12V to 5V DC Converter Buck Module](https://smile.amazon.com/Converter-Module-Output-Adapter-Regulator/dp/B08RBWX2GL) ($9.99)
+8. 24 VDC (2x 12 VDC) SLA batteries in series
+9. Wide-band VHF/UHF Receive Antenna
+10. Omnidirectional MIMO 5.8 GHz Antenna
+11. GPS Antenna
+12. Solar Panel(s)
+13. Pelican-style rugged outdoor enclosure
+14. "fish tank grids" for structural reinforcement
 
 A follow-up design included a Ubiquiti NanoBeam to offload establishing an 
 IP-tunnel connection to a larger mesh network.
