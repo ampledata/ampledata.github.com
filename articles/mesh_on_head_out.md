@@ -45,7 +45,10 @@ For example, some ATAK clients send CoT SA data as UTF-8 encoded UDP Broadcast, 
 
 The on-board HAP provided connectivity to the AREDN network, uplink to a WAN network, local DHCP leases. During the event we developed a Node-RED Flow to query sysinfo.json from this local HAP, as well as use it to do auto-discovery of all network nodes, and query their sysinfo.json as well. We fed this sysinfo.json data into Splunk ML, which gave predictive feedback on LoS signal readings into our 
 
-## System Description
+## System Components
+
+[![MOHO System & Infrastructure Components](img/moho/system_components_25p.png)](img/moho/system_components.jpg)
+
 
 ### Virtualization & Compute
 
