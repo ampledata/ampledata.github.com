@@ -164,8 +164,6 @@ Novel capabilities tested at JIFX:
 7. Real-time UGS & MANET analytics using Splunk Enterprise and Splunk Machine 
    Learning Toolkit.
 
-
-
 ## Experiment Reports
 * [B-02: Network Extension and UxS Control Using Commercial Off The Shelf Hardware](https://ampledata.org/jifx21-4_b-02.html)
 
