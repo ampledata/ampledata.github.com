@@ -88,11 +88,13 @@ resulted in the creation of several novel tools and solutions, outlined in
 detail below.</p>
 <p><a href="img/sfm2021/sfm2021_tak.png"><img alt="SFM2021 TAK Infrastructure" src="img/sfm2021/sfm2021_tak_25p.png" /></a></p>
 <h2>Background &amp; Motivation</h2>
-<p>SF Marathon is a yearly multi-race held in San Francisco &amp; Marin county every 
-year. </p>
+<p>The <a href="https://www.thesfmarathon.com/">San Francisco Marathon</a> is a yearly foot 
+race held in between San Francisco &amp; Marin county Runners can participate in 
+races ranging from 5K to Ultramarathon covering a diverse range of 
+environments from city to waterfront.</p>
 <p>The <a href="https://www.sfarc.org/">San Francisco Radio Club (SFRC)</a> provides 
-communications between TK first aid &amp; watering stations, TK SAGS, a 
-motorcycle-based tail, and other downrange spotters. SAG units are used to 
+communications between 30 first aid &amp; watering stations, 5 SAGs, a 
+motorcycle-based Sweep, and other down-range spotters. SAG units are used to 
 pickup and delivery racers who cannot continue back to race finish. Tracking 
 these units is the responsibility of the SFRC Net Control operators, a task 
 accomplished in previous years with a combination of paper maps and 
@@ -112,15 +114,15 @@ could cary both an APRS Beacon and a TAK Tracker.</p>
 <li>Solution: Use multiple different tracking systems.</li>
 </ul>
 <p><strong>Common Operating Picture Nomenclature &amp; Visual Communication</strong></p>
-<p>Different PLI Sources use different unit identifying information. Of need for 
-an effective COP is the use of a unified nomenclature for units &amp; assets. These
-"tactical callsigns" can vary by event, sponsoring entity and command agency.
-(Probably covered within NIMS?) </p>
-<p>A particular challenge of these different 
-tracking systems is the disparate nomenclature each system uses for tracked 
-units. (e.g. Some systems use verbose unit identifiers, others are 
-simple callsigns.) Additionally, regardless of the unit name or callsign, the 
-COP may have its own common language &amp; visual representation (icon).</p>
+<p>Different position location information (PLI) sources use different unit 
+identifying information. Of need for an effective COP is the use of a unified 
+nomenclature for units &amp; assets. These"tactical callsigns" can vary by event, 
+sponsoring entity and command agency. (Probably covered within NIMS?) </p>
+<p>A particular challenge of these different tracking systems is the disparate 
+nomenclature each system uses for tracked units. (e.g. Some systems use verbose 
+unit identifiers, others are simple callsigns.) Additionally, regardless of the 
+unit name or callsign, the COP may have its own common language &amp; visual 
+representation (icon).</p>
 <ul>
 <li>Solution: Add a nomenclature normalization layer.</li>
 </ul>
@@ -130,9 +132,9 @@ reference (icons) aids in disambiguation and communication.</p>
 <li>Solution: Create, apply &amp; utilize a COP icon set.</li>
 </ul>
 <p><strong>Situational Awareness Application Diversity</strong></p>
-<p>There are many Situational Awareness (SA) applications available across various 
-form factors and end user devices (EUD). Each SA App adheres to different 
-formats &amp; levels of support for PLI Data.</p>
+<p>There are several Situational Awareness (SA) applications available across 
+various form factors and end user devices (EUD). Each SA App adheres to 
+different formats &amp; levels of support for PLI Data.</p>
 <ul>
 <li>Solution: Add a PLI data transformation layer.</li>
 </ul>
@@ -175,20 +177,21 @@ outdoors or in moving vehicles, and none being indoors or underground.</p>
 <h2>Details</h2>
 <h3>Multiple Tracking Systems</h3>
 <p><a href="img/sfm2021/logical_data_diagram.png"><img alt="Logical data flow" src="img/sfm2021/logical_data_diagram_25p.png" /></a></p>
-<p>Several different unit tracking systems were used, each chosen to meet the 
-various geographical, signal and location positioning challenges of the 
-event's footprint.</p>
+<p>Several unit tracking systems were used, each chosen to meet the various 
+geographical, signal and location positioning challenges of the event's 
+footprint.</p>
 <ol>
 <li>VHF Ham Radio APRS Beacons</li>
-<li>Orion Labs Push-to-Talk smartphone App</li>
+<li><a href="https://www.orionlabs.io/">Orion Labs Push-to-Talk smartphone App</a></li>
 <li>TAK Tracker smartphone App</li>
-<li>Garmin inReach satellite location trackers</li>
+<li><a href="https://discover.garmin.com/en-US/inreach/personal/">Garmin inReach satellite location trackers</a></li>
 </ol>
 <h3>Cloud Infrastructure</h3>
-<p>Two Google Cloud Servers were created:</p>
+<p>Two <a href="https://cloud.google.com/">Google Cloud Computing Servers</a> instances 
+were created:</p>
 <ol>
 <li>CentOS: TAK Server</li>
-<li>Debian: node-red, tileserver-gl</li>
+<li>Debian: Docker, node-red, tileserver-gl, ownCloud</li>
 </ol>
 <h3>TAK Server &amp; TAK Tracker</h3>
 <p>TAK Server was utilized as a PLI data destination endpoint for TAK Tracker, 
@@ -256,6 +259,8 @@ contributors.</p>
 <p>Funding for BAM/SFWEM was provided by a grant from <a href="http://ampr.org">Amateur Radio Digital Communications (ARDC)</a>. </p>
 <p>AREDN is Copyright © 2015-2021 Amateur Radio Emergency Data Network Inc. More 
 information on AREDN can be found at <a href="http://www.arednmesh.org">www.arednmesh.org</a></p>
+<p>Special thanks to the Ham Radio Operators who maintain the APRS Network around 
+the San Francisco Bay Area and Northern California.</p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
