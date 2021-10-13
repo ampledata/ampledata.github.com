@@ -142,26 +142,31 @@ different formats &amp; levels of support for PLI Data.</p>
 <p>A fusion of multiple different unit tracking systems overcame many of the 
 challenges of holding a special event in a diverse and vast geographical 
 footprint. Nomenclature normalization and standardization of icons for visual 
-representation enhanced SA understanding across organizational units. </p>
+representation enhanced SA understanding across organizational units. Users 
+in different operating modes &amp; environments can use native SA Apps to achieve an 
+event-wide COP.</p>
 <h3>TAK Tracker</h3>
 <p><strong>TAK Tracker Limitations</strong></p>
 <ul>
 <li>Only uses GPS Location Provider, limiting device location &amp; positioning in 
    GPS Denied environments, such as indoors, underground, or within mobile 
    command centers with metal shielding. </li>
-<li>Cannot load Data Packages from SD Card physical install media, requiring 
-   either download of a data package through an online means (website, etc), 
-   or adb file ‘push’ with Android Developer Tools. </li>
+<li>Cannot load Data Packages from SD Card physical media, requiring either 
+  download of a data package through an online means (website, etc), or adb 
+  file ‘push’ with Android Developer Tools. </li>
 <li>Data Packages do not support ‘macros’ or name scripting. Callsign must be 
-   manually set at install time.</li>
+  manually set at install time.</li>
+<li>Data Packages cannot be installed from a remote HTTP endpoint in either ATAK 
+  or TAK Tracker.</li>
 </ul>
 <p><strong>TAK Tracker Feature Enhancements</strong></p>
 <ol>
 <li>Allow auto-configuring using QR codes or deep links.</li>
 <li>Macro style callsign configuration. E.g. ‘CA-SF-SFM-${IMEI:-4}’</li>
-<li>Recommend changing TAK Tracker to support FusedLocationProvider.</li>
-<li>Recommend changing TAK Tracker to allow loading Data Packages from physical 
-   install media.</li>
+<li>Change TAK Tracker to support FusedLocationProvider.</li>
+<li>Change TAK Tracker to allow loading Data Packages from physical media. </li>
+<li>Change ATAK &amp; TAK Tracker to allow loading Data Packages from HTTP 
+   endpoints.</li>
 </ol>
 <p><strong>Unexpected Outcome</strong></p>
 <p>TAK Tracker's use of Android GPS Location Provider alone did not present a 
@@ -169,25 +174,21 @@ notable unit tracking hindrance. This could be due to all units being either
 outdoors or in moving vehicles, and none being indoors or underground.</p>
 <h3>Future Considerations</h3>
 <p>Several gaps were identified in this project and are outlined below.</p>
-<p><strong>Add the CAD incident locations to the COP.</strong></p>
+<p><strong>Add the CAD incident locations to the COP</strong></p>
 <p>Allow both dispatch/MEDCOM and field units to populate a COP map display with 
 incident location and other SA data (call type, nature, disposition, etc).</p>
 <p><a href="img/sfm2021/runner_down.png"><img alt="&quot;Runner Down&quot; CAD incident on a map" src="img/sfm2021/runner_down_25p.png" /></a></p>
-<p><strong>Add remote event camera display to the COP.</strong></p>
-<p>A common &amp; routine request over the radio was for location census, e.g. "How 
-many runners are there currently at the intersection of 16th &amp; Potrero 
-Streets?" This question and the radio traffic/bandwidth required to answer it, 
-can instead be answered by viewing a camera fixed or pre-positioned at critical 
-positions, such as start/finish, choke points or security gateways.</p>
-<p><a href="img/sfm2021/caltrans_camera.png"><img alt="CalTrans Camera in ATAK" src="img/sfm2021/caltrans_camera_25p.png" /></a></p>
-<p><a href="img/sfm2021/bam_camera_diagram.png"><img alt="BAM Camera Diagram" src="img/sfm2021/bam_camera_diagram_50p.png" /></a></p>
-<p><a href="img/sfm2021/bam_camera.png"><img alt="BAM Camera in ATAK" src="img/sfm2021/bam_camera_25p.png" /></a></p>
-<p><strong>Create a SA Kiosk.</strong></p>
+<p><strong>Create a SA Kiosk</strong></p>
 <p>Forward operating positions, incident command posts (ICP), and emergency 
 operations centers (EOC) can vary in available IT infrastructure, capabilities, 
 and upkeep. Creating a "SA Kiosk", similar to a Google Chromecast, with PLI 
 data feed pre-configured &amp; mapping sources or tiles pre-loaded, would ease COP 
 implementation in these environments.</p>
+<p><strong>Create dynamic Data Package endpoint</strong></p>
+<p>To ease configuration of TAK clients like WinTAK, ATAK, TAK Tracker, et al, 
+Data Packages can be created dynamically from within a Node-RED Flow. This 
+allows on-the-fly or in-the-field changes to nomenclature, icons, map imagery, 
+and more, programmatically without needing to manually create Data Packages.</p>
 <h2>Details</h2>
 <h3>Multiple Tracking Systems</h3>
 <p><a href="img/sfm2021/logical_data_diagram.png"><img alt="Logical data flow" src="img/sfm2021/logical_data_diagram_25p.png" /></a></p>
@@ -256,6 +257,16 @@ Worldmap.</p>
 event map tiles to EUDs. Maps were taken from an event planning PDF and split 
 into individual map tiles using mapTiler's desktop tool. tileserver-gl was 
 running inside a Docker container on the Google Cloud Instance Debian host.</p>
+<h3>Camera feeds</h3>
+<p>A common &amp; routine request over the radio was for location census, e.g. "How 
+many runners are there currently at the intersection of 16th &amp; Potrero 
+Streets?" This question, and the radio traffic/bandwidth required to answer it, 
+can instead be answered by viewing a camera fixed or pre-positioned at critical 
+positions, such as start/finish, choke points or security gateways. Once 
+enabled these cameras can be displayed in the COP interface.</p>
+<p><a href="img/sfm2021/caltrans_camera.png"><img alt="CalTrans Camera in ATAK" src="img/sfm2021/caltrans_camera_25p.png" /></a></p>
+<p><a href="img/sfm2021/bam_camera_diagram.png"><img alt="BAM Camera Diagram" src="img/sfm2021/bam_camera_diagram_50p.png" /></a></p>
+<p><a href="img/sfm2021/bam_camera.png"><img alt="BAM Camera in ATAK" src="img/sfm2021/bam_camera_25p.png" /></a></p>
 <h3>Other</h3>
 <p>Orion utilized the Orion PTT multitenant service &amp; Orion Aster workflow tool.</p>
 <p>Garmin utilized the garmin xxx service with a Garmin inReach mini</p>
