@@ -85,17 +85,27 @@
         <div class="col-md-6">
             <h2>Articles</h2>
 
-            <h3>SA, Comms & ISR</h3>
+            <h3>SA, C2, ISR & COP</h3>
             <ul>
+                <li><a href="pace_plan.html">The "P-A-C-E" Plan</a></li>
                 <li><a href="network_gps.html">Adding a Network GPS to WinTAK & ATAK for GPS Denied Environments</a></li>
-                <li><a href="node_red_atak.html">Integrating TAK & CoT with Node-RED</a></li>
-                <li><a href="boat_race_support.html">Amateur Radio in support of an open-ocean Boat Race</a></li>
+                <li><a href="boat_race_support.html">Situational Awareness for an open-ocean Boat Race</a></li>
                 <li><a href="radio_security.html">Land Mobile Radio (LMR) Security Compendium</a></li>
                 <li><a href="on_bandwidth_and_throughput.html">On Bandwidth & Throughput</a></li>
-                <li><a href="bosch_comms.html">Communications Techniques in Bosch Season 5</a></li>
-                <li><a href="pace_plan.html">PACE Plan</a></li>
+                <li><a href="bosch_comms.html">Communications Techniques in Bosch Season 5</a></li>
                 <li><a href="podswapping.html">PodSwapping</a></li>
                 <li><a href="secure_baresip.html">Secure VoIP with Baresip</a></li>
+            </ul>
+
+            <h3>Research</h3>
+            <ul>
+              <li><a href="jifx21-4.html">NPS JIFX 21-4 Experiment Reports</a></li>
+              <li><a href="sfm2021.html">Situational Awareness at the San Francisco Marathon 2021</a></li>
+              <li><a href="volcano-ionosphere.html">Hunga Tonga volcanic eruption & Earth's ionosphere</a>, see <a href="https://youtu.be/z_rk3nTt5IU">walk-through video</a></li>
+              <li><a href="fireair.html">Urban fire activity detection using AQI sensors</a></li>
+              <li><a href="mailbot.html">Postal mailbox detectiong using OpenCV & Apache AirFlow</a></li>
+              <li><a href="blue_angels_flyover_detection_using_sound.html">Blue Angels Flyover Detection Using Sound</a></li>
+              <li><a href="san_francisco_pride_2013.html">San Francisco Pride 2013 Emergency Medical Response Statistics</a></li>
             </ul>
 
             <h3>Amateur (Ham) Radio</h3>
@@ -106,19 +116,33 @@
 
             <h3>General</h3>
             <ul>
-                <li><a href="volcano-ionosphere.html">Hunga Tonga volcanic eruption & Earth's ionosphere</a></li>
                 <li><a href="custom_ca_android.html">Using a Custom CA on Android</a></li>
-                <li><a href="blue_angels_flyover_detection_using_sound.html">Blue Angels Flyover Detection Using Sound</a></li>
                 <li><a href="force_a_remote_host_to_clear_its_arp_cache.html">Force A Remote Host To Clear Its ARP Cache</a></li>
                 <li><a href="manually_detecting_maximum_transmission_unit.html">Manually Detecting Maximum Transmission Unit (MTU)</a></li>
                 <li><a href="media_veganism.html">Media Veganism</a></li>
                 <li><a href="so_you_want_to_be_a_superhero.html">So You Want To Be A Superhero?</a></li>
                 <li><a href="san_francisco_public_safety_answering_point.html">San Francisco Public Safety Answering Point (PSAP)</a></li>
-                <li><a href="san_francisco_pride_2013.html">San Francisco Pride 2013 Emergency Medical Response Statistics</a></li>
             </ul>
         </div>
 
         <div class="col-md-6">
+
+            <h2>Videos</h2>
+            <dl>
+              <dt><a href="https://youtu.be/QaVy15l2mxM">ATAK for EMS Operations</a></dt>
+              <dd>An overview of using ATAK for EMS special event operations, including CAD integration, blue force tracking & AVL.</dd>
+
+              <dt><a href="https://youtu.be/DovftkukRik">Getting Population & Density using EPA EJ Tool</a></dt>
+              <dd>Using EPA's tool to get population data for a given area based on polygon and other drawn boundaries.</dd>
+
+              <dt><a href="https://youtu.be/m_GKk9hIJXI"></a>ATAK Map Tiles from Special Event PDF Maps</dt>
+              <dd>Creating map tiles from manually geo-referenced PDFs and PNGs.</dd>
+
+              <dt><a href="https://youtu.be/1mHphHhX4lk">Node-RED TAK on Windows</a></dt>
+              <dd>Installing and using the Node-RED TAK nodes under Windows.</dd>
+
+            </dl>
+
             <h2>Projects</h2>
 
             <h3>TAK: Team Awareness Kit</h3>
@@ -129,34 +153,45 @@
                 <dt><a href="https://github.com/ampledata/pytak">PyTAK</a> (Python)</dt>
                 <dd>Python Team Awareness Kit, a Python Module for creating TAK clients.</dd>
 
-                <dt><a href="https://github.com/ampledata/aiscot">aiscot</a> (Python)</dt>
+                <dt><a href="https://github.com/ampledata/fusedsidecar">Fused Sidecar</a> (Kotlin)</dt>
+                <dd>A Fused Location Provider for ATAK, see <a href="https://youtu.be/q8TDWoEyGAc">walk-through video</a>.</dd>
+
+                <dt><a href="https://github.com/ampledata/cotproxy">COTProxy</a> (Django)</dt>
+                <dd>CoT Proxy is a CoT transforming proxy for TAK clients, see <a href="https://www.youtube.com/watch?v=ltVxh1uQ_EQ">walk-through video</a>.</dd>
+
+                <dt><a href="https://github.com/ampledata/node-red-contrib-tak">Node-RED TAK</a> (Node.js)</dt>
+                <dd>Node-RED nodes for handling TAK Cursor on Target (CoT) data, see <a href="https://youtu.be/5i-y3Nc01Hs">walk-through video</a>.</dd>
+
+                <dt><a href="https://github.com/ampledata/aiscot">AISCoT</a> (Python)</dt>
                 <dd>Automatic Identification System (AIS) to Cursor on Target (CoT) Gateway. Transforms AIS position messages to CoT PLI Events.</dd>
 
-                <dt><a href="https://github.com/ampledata/adsbcot">adsbcot</a> (Python)</dt>
+                <dt><a href="https://github.com/ampledata/adsbcot">ADSBCoT</a> (Python)</dt>
                 <dd>Automatic Dependent Surveillance-Broadcast (ADS-B) to Cursor on Target (CoT) Gateway. Transforms ADS-B position messages to CoT PLI Events.</dd>
 
-                <dt><a href="https://github.com/ampledata/adsbxcot">adsbxcot</a> (Python)</dt>
+                <dt><a href="https://github.com/ampledata/adsbxcot">ADSBXCoT</a> (Python)</dt>
                 <dd>ADS-B Exchange to Cursor on Target (CoT) Gateway. Transforms ADS-B position messages to CoT PLI Events.</dd>
 
-                <dt><a href="https://github.com/ampledata/stratuxcot">stratuxcot</a> (Python)</dt>
+                <dt><a href="https://github.com/ampledata/stratuxcot">StratuxCOT</a> (Python)</dt>
                 <dd>Stratux ADS-B to Cursor on Target (CoT) Gateway. Transforms position messages to CoT PLI Events.</dd>
 
-                <dt><a href="https://github.com/ampledata/aprscot">aprscot</a> (Python)</dt>
+                <dt><a href="https://github.com/ampledata/aprscot">APRSCoT</a> (Python)</dt>
                 <dd>Automatic Packet Reporting System (APRS) to Cursor on Target (CoT) Gateway. Transforms APRS position messages to CoT PLI Events.</dd>
-            </dl>
 
-            <h3>SFWEM: San Francisco Wireless Emergency Mesh</h3>
-            SFWEM is building a high-speed wireless mesh capability within the San Francisco Bay Area. 
-            <a href="https://www.sfwem.net/">www.sfwem.net</a>
+                <dt><a href="https://github.com/ampledata/inrcot">INRCoT</a> (Python)</dt>
+                <dd>Garmin inReach to Cursor on Target Gateway.</dd>
 
-            <h3>Amateur (Ham) Radio</h3>
-            <dl>
-                <dt><a href="https://github.com/ampledata/aprs">aprs</a> (Python)</dt>
-                <dd>APRS Python Module, a pure-Python interface to APRS-IS and APRS-KISS.</dd>
+                <dt><a href="https://github.com/ampledata/spotcot">SpotCoT</a> (Python)</dt>
+                <dd>GlobalStar Spot to Cursor on Target Gateway.</dd>
 
-                <dt><a href="https://github.com/ampledata/kiss">kiss</a> (Python)</dt>
-                <dd>KISS Python Module, a pure-Python KISS interface library.</dd>
-            </dl>
+                <dt><a href="https://github.com/ampledata/pulsecot">PulseCoT</a> (Python)</dt>
+                <dd>Pulse Point to Cursor on Target Gateway.</dd>
+
+                <dt><a href="https://github.com/ampledata/sfpdcadcot">SFPDCADCoT</a> (Python)</dt>
+                <dd>San Francisco Police CAD to Cursor on Target Gateway.</dd>
+
+                <dt><a href="https://github.com/ampledata/zellocot">ZelloCoT</a> (Python)</dt>
+                <dd>Zello to Cursor on Target Gateway.</dd>
+              </dl>
 
             <a href="https://github.com/ampledata">...more projects on GitHub.</a>
 

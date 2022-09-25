@@ -39,8 +39,8 @@ make publish
 
 ## Meta
 
-- Author: Greg Albrecht <gba@gregalbrecht.com>
-- Copyright: Copyright 2020 Greg Albrecht
+- Author: Greg Albrecht W2GMD <oss@undef.net>
+- Copyright: Copyright 2022 Greg Albrecht
 - License: Creative Commons Attribution 3.0 Unported License.
 - URL: <http://ampledata.org/>
 - Twitter: [@ampledata](http://twitter.com/ampledata)
