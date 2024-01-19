@@ -14,11 +14,12 @@ There are many [RF waveforms for Remote ID](https://drone-remote-id.com/). This 
 2. A computer with [Wireshark](https://www.wireshark.org/) software.
 3. A LAN IP network connecting the Wireshark computer & the OpenWRT device.
 
-Tested devices:
+Compatible & Verified devices:
+
 * [Ubiquiti Rocket M2 2.4 GHz Radio](https://amzn.to/3u01S3S) (AR9342)
 * [Ubiquiti Bullet M2 2.4 GHz Radio](https://amzn.to/4aWZrzT) (AR9283)
 
-[Compatible (untested!) devices](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection)
+[Other compatible/unverified devices](https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection)
 
 ## Steps
 
@@ -30,7 +31,6 @@ Tested devices:
         :::sh linenums=True
         opkg update
         opkg install tcpdump
-
 
 3. Enable monitor mode:
 
@@ -47,11 +47,9 @@ Tested devices:
 2. Ensure network connectivity to OpenWRT device: `ping 192.168.0.1`
 3. Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:
 
-
         :::sh linenums=True
         ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
         /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -
-
 
 > * Change `192.168.0.1` to the IP address of your OpenWRT device.
 > * Change  `/Applications/Wireshark.app/Contents/MacOS/Wireshark` to the path to the Wireshark executable on your computer.
@@ -74,7 +72,9 @@ tshark is Wireshark's command-line tool.
 
 ### Capture Remote ID as JSON with tshark
 
-![](img/remoteid/tshark_json.png)
+tshark can transform (serialize) Remote ID packets as JSON by adding the `-T json` flag.
+
+![tshark output showing opendroneid data serialized as JSON](img/remoteid/tshark_json.png)
 
 ### Analyze Remote ID data with Node-RED
 
