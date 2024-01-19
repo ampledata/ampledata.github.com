@@ -62,26 +62,22 @@ Within Wireshark you should begin to see OPENDRONEID packets in the Protocol col
 
 ![](img/remoteid/wireshark1.png)
 
-Clicking through to a Remote ID packet shows details:
+### Remote ID packet details
 
 ![](img/remoteid/wireshark_details.png)
 
-Capturing Remote ID with thskar, Wireshark's command-line tool:
+### Capture Remote ID with tshark
+
+tshark is Wireshark's command-line tool.
 
 ![](img/remoteid/tshark.png)
 
-Capturing Remote ID with tshark and outputing data as JSON:
+### Capture Remote ID as JSON with tshark
 
 ![](img/remoteid/tshark_json.png)
 
-Analyzing Remote ID data with Node-RED:
+### Analyze Remote ID data with Node-RED
+
+DIAGRAM TK
 
 ![](img/remoteid/node-red.png)
-
-
-## Test Code Blocks
-
-
-    :::sh linenums=True
-    taco tab colon sh
-    taco
