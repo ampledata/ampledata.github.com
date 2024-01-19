@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -226,41 +225,39 @@ run the UA.</p>
 <ol>
 <li>
 <p>Create a <code>Dockerfile</code> with the following content:  </p>
-<div class="codehilite"><pre><span></span><span class="k">FROM</span> <span class="s">python:3-buster</span>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3-buster</span>
 
-<span class="k">WORKDIR</span><span class="s"> /baresip-docker</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/baresip-docker</span>
 
-<span class="k">RUN</span> git clone https://github.com/creytiv/re.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  <span class="nb">cd</span> re <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  make <span class="nv">RELEASE</span><span class="o">=</span>yes install
+<span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/creytiv/re.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>re<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>make<span class="w"> </span><span class="nv">RELEASE</span><span class="o">=</span>yes<span class="w"> </span>install
 
-<span class="k">RUN</span> git clone https://github.com/creytiv/rem.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  <span class="nb">cd</span> rem <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  make install
+<span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/creytiv/rem.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>rem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>make<span class="w"> </span>install
 
-<span class="k">RUN</span> git clone https://github.com/baresip/baresip.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  <span class="nb">cd</span> baresip <span class="o">&amp;&amp;</span> <span class="se">\</span>
-  make <span class="nv">USE_TLS</span><span class="o">=</span>yes <span class="nv">USE_SRTP</span><span class="o">=</span>yes install
+<span class="k">RUN</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/baresip/baresip.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>baresip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>make<span class="w"> </span><span class="nv">USE_TLS</span><span class="o">=</span>yes<span class="w"> </span><span class="nv">USE_SRTP</span><span class="o">=</span>yes<span class="w"> </span>install
 
-<span class="k">RUN</span> ldconfig
+<span class="k">RUN</span><span class="w"> </span>ldconfig
 
-<span class="k">EXPOSE</span><span class="s"> 5061</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">5061</span>
 
-<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;baresip&quot;</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;/dev_volume&quot;</span><span class="p">]</span>
-</pre></div>
-
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;baresip&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-f&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/dev_volume&quot;</span><span class="p">]</span>
+</code></pre></div>
 
 </li>
 <li>
 <p>Create an <code>accounts</code> file with the following content: </p>
-<div class="codehilite"><pre><span></span>sip:a@example.com<span class="p">;</span><span class="nv">regint</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="nv">transport</span><span class="o">=</span>tls<span class="p">;</span><span class="nv">mediaenc</span><span class="o">=</span>srtp-mand<span class="p">;</span><span class="nv">answermode</span><span class="o">=</span>early
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>sip:a@example.com<span class="p">;</span><span class="nv">regint</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="nv">transport</span><span class="o">=</span>tls<span class="p">;</span><span class="nv">mediaenc</span><span class="o">=</span>srtp-mand<span class="p">;</span><span class="nv">answermode</span><span class="o">=</span>early
+</code></pre></div>
 
 </li>
 <li>
 <p>Create a <code>config</code> file with the following content: </p>
-<div class="codehilite"><pre><span></span><span class="na">module_path /usr/local/lib/baresip/modules</span>
+<div class="codehilite"><pre><span></span><code><span class="na">module_path /usr/local/lib/baresip/modules</span>
 
 <span class="na">module stdio.so</span>
 <span class="na">module contact.so</span>
@@ -272,33 +269,31 @@ run the UA.</p>
 <span class="na">module_tmp account.so</span>
 
 <span class="na">sip_certificate /dev_volume/example.pem</span>
-<span class="na">sip_listen 0.0.0.0:5060</span>
-</pre></div>
-
+<span class="na">sip_listen 0.0.0.0</span><span class="o">:</span><span class="s">5060</span>
+</code></pre></div>
 
 </li>
 <li>
 <p>Build the container: <code>$ docker build -t baresip-docker .</code></p>
 </li>
 <li>Run the container: <code>$ docker run -itv $(pwd):/dev_volume baresip-docker:latest baresip -f /dev_volume</code></li>
-<li>With the Baresip UA running, you should see the following output:<div class="codehilite"><pre><span></span>baresip v1.0.0 Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2010</span> - <span class="m">2020</span> Alfred E. Heggestad et al.
-Local network address:  <span class="nv">IPv4</span><span class="o">=</span>eth0<span class="p">|</span><span class="m">192</span>.168.1.1
-SIP Certificate: /dev_volume/example.pem
-Populated <span class="m">0</span> contacts
-aucodec: PCMU/8000/1
-aucodec: PCMA/8000/1
-mediaenc: srtp
-mediaenc: srtp-mand
-mediaenc: srtp-mandf
-a@example.com: Using media encryption <span class="s1">&#39;srtp-mand&#39;</span>
-Populated <span class="m">1</span> account
-Populated <span class="m">2</span> audio codecs
-Populated <span class="m">0</span> audio filters
-Populated <span class="m">0</span> video codecs
-Populated <span class="m">0</span> video filters
-baresip is ready.
-</pre></div>
-
+<li>With the Baresip UA running, you should see the following output:<div class="codehilite"><pre><span></span><code>baresip<span class="w"> </span>v1.0.0<span class="w"> </span>Copyright<span class="w"> </span><span class="o">(</span>C<span class="o">)</span><span class="w"> </span><span class="m">2010</span><span class="w"> </span>-<span class="w"> </span><span class="m">2020</span><span class="w"> </span>Alfred<span class="w"> </span>E.<span class="w"> </span>Heggestad<span class="w"> </span>et<span class="w"> </span>al.
+Local<span class="w"> </span>network<span class="w"> </span>address:<span class="w">  </span><span class="nv">IPv4</span><span class="o">=</span>eth0<span class="p">|</span><span class="m">192</span>.168.1.1
+SIP<span class="w"> </span>Certificate:<span class="w"> </span>/dev_volume/example.pem
+Populated<span class="w"> </span><span class="m">0</span><span class="w"> </span>contacts
+aucodec:<span class="w"> </span>PCMU/8000/1
+aucodec:<span class="w"> </span>PCMA/8000/1
+mediaenc:<span class="w"> </span>srtp
+mediaenc:<span class="w"> </span>srtp-mand
+mediaenc:<span class="w"> </span>srtp-mandf
+a@example.com:<span class="w"> </span>Using<span class="w"> </span>media<span class="w"> </span>encryption<span class="w"> </span><span class="s1">&#39;srtp-mand&#39;</span>
+Populated<span class="w"> </span><span class="m">1</span><span class="w"> </span>account
+Populated<span class="w"> </span><span class="m">2</span><span class="w"> </span>audio<span class="w"> </span>codecs
+Populated<span class="w"> </span><span class="m">0</span><span class="w"> </span>audio<span class="w"> </span>filters
+Populated<span class="w"> </span><span class="m">0</span><span class="w"> </span>video<span class="w"> </span>codecs
+Populated<span class="w"> </span><span class="m">0</span><span class="w"> </span>video<span class="w"> </span>filters
+baresip<span class="w"> </span>is<span class="w"> </span>ready.
+</code></pre></div>
 
 </li>
 </ol>
@@ -312,57 +307,55 @@ parameters output in a manner viewable by the tester.</p>
 <p><strong>The command:</strong><br />
 <code>$ openssl s_server -accept 5071 -cert example.cert -key example.key -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -named_curve secp384r1 -no_dhe</code></p>
 <p><strong>Should return:</strong>  </p>
-<div class="codehilite"><pre><span></span><span class="err">    Using default temp ECDH parameters</span>
-<span class="err">    ACCEPT</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>    Using default temp ECDH parameters
+    ACCEPT
+</code></pre></div>
 
 <h3>Steps</h3>
 <p>These steps assume the Baresip UA is running on host <code>192.168.1.1</code>, and the 
 Simulated Receiver is running on host <code>192.168.1.2</code>.</p>
 <ol>
 <li>On the Baresip UA, dial our Simulated Receiver: <code>/dial sip:b@192.168.1.2:5071;transport=tls;mediaenc=srtp-mand</code>  </li>
-<li>On the Simulated Receiver you should see the following output:  <div class="codehilite"><pre><span></span><span class="o">-----</span><span class="n">BEGIN</span> <span class="n">SSL</span> <span class="n">SESSION</span> <span class="n">PARAMETERS</span><span class="o">-----</span>
-<span class="n">MFUCAQECAgMDBALALAQABDCRfmQvTRw1xZZ0MJKtS2Vf7FG9J0</span><span class="o">/</span><span class="n">TVZnF</span><span class="o">+</span><span class="n">YNzGx</span><span class="o">/</span><span class="n">H</span>
-<span class="n">xRuNTXrsClwHITWaTDQEB0yhBgIEXw0JLqIEAgIcIKQGBAQBAAAA</span>
-<span class="o">-----</span><span class="n">END</span> <span class="n">SSL</span> <span class="n">SESSION</span> <span class="n">PARAMETERS</span><span class="o">-----</span>
-<span class="n">Shared</span> <span class="nl">ciphers</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">CHACHA20</span><span class="o">-</span><span class="nl">POLY1305</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">DHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA384</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="nl">SHA256</span><span class="p">:</span><span class="n">AES256</span><span class="o">-</span><span class="nl">SHA</span><span class="p">:</span><span class="n">AES128</span><span class="o">-</span><span class="n">SHA</span>
-<span class="n">CIPHER</span> <span class="n">is</span> <span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="n">SHA384</span>
-<span class="n">Secure</span> <span class="n">Renegotiation</span> <span class="n">IS</span> <span class="n">supported</span>
-<span class="n">INVITE</span> <span class="nl">sip</span><span class="p">:</span><span class="n">xb192</span><span class="mf">.168.1.2</span><span class="o">:</span><span class="mi">5071</span><span class="p">;</span><span class="n">transport</span><span class="o">=</span><span class="n">tls</span><span class="p">;</span><span class="n">mediaenc</span><span class="o">=</span><span class="n">srtp</span><span class="o">-</span><span class="n">mand</span> <span class="n">SIP</span><span class="o">/</span><span class="mf">2.0</span>
-<span class="nl">Via</span><span class="p">:</span> <span class="n">SIP</span><span class="o">/</span><span class="mf">2.0</span><span class="o">/</span><span class="n">TLS</span> <span class="mf">192.168.1.1</span><span class="o">:</span><span class="mi">5061</span><span class="p">;</span><span class="n">branch</span><span class="o">=</span><span class="n">z9hG4bKc141b65f66cd0e02</span><span class="p">;</span><span class="n">rport</span>
-<span class="nl">Contact</span><span class="p">:</span> <span class="o">&lt;</span><span class="nl">sip</span><span class="p">:</span><span class="n">user</span><span class="o">-</span><span class="mh">0x55dc09027150</span><span class="mf">@192.168.1.1</span><span class="o">:</span><span class="mi">5061</span><span class="p">;</span><span class="n">transport</span><span class="o">=</span><span class="n">tls</span><span class="o">&gt;</span>
-<span class="n">Max</span><span class="o">-</span><span class="nl">Forwards</span><span class="p">:</span> <span class="mi">70</span>
-<span class="nl">To</span><span class="p">:</span> <span class="o">&lt;</span><span class="nl">sip</span><span class="p">:</span><span class="n">b</span><span class="mf">@192.168.1.2</span><span class="o">:</span><span class="mi">5071</span><span class="p">;</span><span class="n">transport</span><span class="o">=</span><span class="n">tls</span><span class="p">;</span><span class="n">mediaenc</span><span class="o">=</span><span class="n">srtp</span><span class="o">-</span><span class="n">mand</span><span class="o">&gt;</span>
-<span class="nl">From</span><span class="p">:</span> <span class="o">&lt;</span><span class="nl">sip</span><span class="p">:</span><span class="n">a</span><span class="p">@</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span><span class="p">;</span><span class="n">tag</span><span class="o">=</span><span class="mi">0</span><span class="n">a94555cd2c228dd</span>
-<span class="n">Call</span><span class="o">-</span><span class="nl">ID</span><span class="p">:</span> <span class="n">f9595791e9191927</span>
-<span class="nl">CSeq</span><span class="p">:</span> <span class="mi">59280</span> <span class="n">INVITE</span>
-<span class="n">User</span><span class="o">-</span><span class="nl">Agent</span><span class="p">:</span> <span class="n">baresip</span> <span class="n">v1</span><span class="mf">.0.0</span> <span class="p">(</span><span class="n">x86_64</span><span class="o">/</span><span class="n">linux</span><span class="p">)</span>
-<span class="nl">Allow</span><span class="p">:</span> <span class="n">INVITE</span><span class="p">,</span><span class="n">ACK</span><span class="p">,</span><span class="n">BYE</span><span class="p">,</span><span class="n">CANCEL</span><span class="p">,</span><span class="n">OPTIONS</span><span class="p">,</span><span class="n">NOTIFY</span><span class="p">,</span><span class="n">SUBSCRIBE</span><span class="p">,</span><span class="n">INFO</span><span class="p">,</span><span class="n">MESSAGE</span><span class="p">,</span><span class="n">REFER</span>
-<span class="nl">Supported</span><span class="p">:</span>
-<span class="n">Content</span><span class="o">-</span><span class="nl">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">sdp</span>
-<span class="n">Content</span><span class="o">-</span><span class="nl">Length</span><span class="p">:</span> <span class="mi">429</span>
+<li>On the Simulated Receiver you should see the following output:  <div class="codehilite"><pre><span></span><code><span class="gh">-----BEGIN SSL SESSION PARAMETERS-----</span>
+<span class="s">MFUCAQECAgMDBALALAQABDCRfmQvTRw1xZZ0MJKtS2Vf7FG9J0/TVZnF+YNzGx/H</span>
+<span class="s">xRuNTXrsClwHITWaTDQEB0yhBgIEXw0JLqIEAgIcIKQGBAQBAAAA</span>
+<span class="gh">-----END SSL SESSION PARAMETERS-----</span>
+<span class="c">Shared</span><span class="w"> </span><span class="c">ciphers:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA</span>
+<span class="c">CIPHER</span><span class="w"> </span><span class="c">is</span><span class="w"> </span><span class="c">ECDHE-ECDSA-AES256-GCM-SHA384</span>
+<span class="c">Secure</span><span class="w"> </span><span class="c">Renegotiation</span><span class="w"> </span><span class="c">IS</span><span class="w"> </span><span class="c">supported</span>
+<span class="c">INVITE</span><span class="w"> </span><span class="c">sip:xb192.168.1.2:5071;transport=tls;mediaenc=srtp-mand</span><span class="w"> </span><span class="c">SIP/2.0</span>
+<span class="c">Via:</span><span class="w"> </span><span class="c">SIP/2.0/TLS</span><span class="w"> </span><span class="c">192.168.1.1:5061;branch=z9hG4bKc141b65f66cd0e02;rport</span>
+<span class="c">Contact:</span><span class="w"> </span><span class="c">&lt;sip:user-0x55dc09027150@192.168.1.1:5061;transport=tls&gt;</span>
+<span class="c">Max-Forwards:</span><span class="w"> </span><span class="c">70</span>
+<span class="c">To:</span><span class="w"> </span><span class="c">&lt;sip:b@192.168.1.2:5071;transport=tls;mediaenc=srtp-mand&gt;</span>
+<span class="c">From:</span><span class="w"> </span><span class="c">&lt;sip:a@example.com&gt;;tag=0a94555cd2c228dd</span>
+<span class="c">Call-ID:</span><span class="w"> </span><span class="c">f9595791e9191927</span>
+<span class="c">CSeq:</span><span class="w"> </span><span class="c">59280</span><span class="w"> </span><span class="c">INVITE</span>
+<span class="c">User-Agent:</span><span class="w"> </span><span class="c">baresip</span><span class="w"> </span><span class="c">v1.0.0</span><span class="w"> </span><span class="c">(x86_64/linux)</span>
+<span class="c">Allow:</span><span class="w"> </span><span class="c">INVITE,ACK,BYE,CANCEL,OPTIONS,NOTIFY,SUBSCRIBE,INFO,MESSAGE,REFER</span>
+<span class="c">Supported:</span>
+<span class="c">Content-Type:</span><span class="w"> </span><span class="c">application/sdp</span>
+<span class="c">Content-Length:</span><span class="w"> </span><span class="c">429</span>
 
-<span class="n">v</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">o</span><span class="o">=-</span> <span class="mi">1975181172</span> <span class="mi">1106161735</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">192.168.1.1</span>
-<span class="n">s</span><span class="o">=-</span>
-<span class="n">c</span><span class="o">=</span><span class="n">IN</span> <span class="n">IP4</span> <span class="mf">192.168.1.1</span>
-<span class="n">t</span><span class="o">=</span><span class="mi">0</span> <span class="mi">0</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">tool</span><span class="p">:</span><span class="n">baresip</span> <span class="mf">1.0.0</span>
-<span class="n">m</span><span class="o">=</span><span class="n">audio</span> <span class="mi">16796</span> <span class="n">RTP</span><span class="o">/</span><span class="n">SAVP</span> <span class="mi">0</span> <span class="mi">8</span> <span class="mi">101</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">rtpmap</span><span class="p">:</span><span class="mi">0</span> <span class="n">PCMU</span><span class="o">/</span><span class="mi">8000</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">rtpmap</span><span class="p">:</span><span class="mi">8</span> <span class="n">PCMA</span><span class="o">/</span><span class="mi">8000</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">rtpmap</span><span class="p">:</span><span class="mi">101</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">8000</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">fmtp</span><span class="p">:</span><span class="mi">101</span> <span class="mi">0</span><span class="o">-</span><span class="mi">15</span>
-<span class="n">a</span><span class="o">=</span><span class="n">sendrecv</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">label</span><span class="p">:</span><span class="mi">1</span>
-<span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">rsize</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">ssrc</span><span class="p">:</span><span class="mi">2736692082</span> <span class="nl">cname</span><span class="p">:</span><span class="nl">sip</span><span class="p">:</span><span class="n">b</span><span class="p">@</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">crypto</span><span class="p">:</span><span class="mi">1</span> <span class="n">AES_CM_128_HMAC_SHA1_80</span> <span class="kr">inline</span><span class="o">:</span><span class="n">vXMep</span><span class="o">/</span><span class="n">SIW4iMD21StWgrmy024dJZfOAM7qFFJfsJ</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">minptime</span><span class="p">:</span><span class="mi">20</span>
-<span class="n">a</span><span class="o">=</span><span class="nl">ptime</span><span class="p">:</span><span class="mi">20</span>
-</pre></div>
-
+<span class="c">v=0</span>
+<span class="c">o=-</span><span class="w"> </span><span class="c">1975181172</span><span class="w"> </span><span class="c">1106161735</span><span class="w"> </span><span class="c">IN</span><span class="w"> </span><span class="c">IP4</span><span class="w"> </span><span class="c">192.168.1.1</span>
+<span class="c">s=-</span>
+<span class="c">c=IN</span><span class="w"> </span><span class="c">IP4</span><span class="w"> </span><span class="c">192.168.1.1</span>
+<span class="c">t=0</span><span class="w"> </span><span class="c">0</span>
+<span class="c">a=tool:baresip</span><span class="w"> </span><span class="c">1.0.0</span>
+<span class="c">m=audio</span><span class="w"> </span><span class="c">16796</span><span class="w"> </span><span class="c">RTP/SAVP</span><span class="w"> </span><span class="c">0</span><span class="w"> </span><span class="c">8</span><span class="w"> </span><span class="c">101</span>
+<span class="c">a=rtpmap:0</span><span class="w"> </span><span class="c">PCMU/8000</span>
+<span class="c">a=rtpmap:8</span><span class="w"> </span><span class="c">PCMA/8000</span>
+<span class="c">a=rtpmap:101</span><span class="w"> </span><span class="c">telephone-event/8000</span>
+<span class="c">a=fmtp:101</span><span class="w"> </span><span class="c">0-15</span>
+<span class="c">a=sendrecv</span>
+<span class="c">a=label:1</span>
+<span class="c">a=rtcp-rsize</span>
+<span class="c">a=ssrc:2736692082</span><span class="w"> </span><span class="c">cname:sip:b@example.com</span>
+<span class="c">a=crypto:1</span><span class="w"> </span><span class="c">AES_CM_128_HMAC_SHA1_80</span><span class="w"> </span><span class="c">inline:vXMep/SIW4iMD21StWgrmy024dJZfOAM7qFFJfsJ</span>
+<span class="c">a=minptime:20</span>
+<span class="c">a=ptime:20</span>
+</code></pre></div>
 
 </li>
 </ol>
@@ -392,19 +385,19 @@ output the connection parameters in a manner viewable by the tester.</p>
 <ol>
 <li>On the host acting as the Simulated Sender, run the following command:<br />
 <code>$ openssl s_client -connect localhost:5061 -cert example.cert -key example.key -cipher ECDHE-ECDSA-AES256-GCM-SHA384 -groups P-384</code></li>
-<li>This will provide the following output: <div class="codehilite"><pre><span></span><span class="n">CONNECTED</span><span class="p">(</span><span class="mi">00000005</span><span class="p">)</span>
-<span class="n">depth</span><span class="o">=</span><span class="mi">0</span> <span class="k">C</span> <span class="o">=</span> <span class="n">US</span><span class="p">,</span> <span class="n">ST</span> <span class="o">=</span> <span class="n">California</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="n">San</span> <span class="n">Francisco</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">Example</span> <span class="n">Co</span><span class="p">.,</span> <span class="n">OU</span> <span class="o">=</span> <span class="n">IT</span><span class="p">,</span> <span class="n">CN</span> <span class="o">=</span> <span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="n">verify</span> <span class="n">error</span><span class="p">:</span><span class="n">num</span><span class="o">=</span><span class="mi">18</span><span class="p">:</span><span class="k">self</span> <span class="n">signed</span> <span class="n">certificate</span>
-<span class="n">verify</span> <span class="k">return</span><span class="p">:</span><span class="mi">1</span>
-<span class="n">depth</span><span class="o">=</span><span class="mi">0</span> <span class="k">C</span> <span class="o">=</span> <span class="n">US</span><span class="p">,</span> <span class="n">ST</span> <span class="o">=</span> <span class="n">California</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="n">San</span> <span class="n">Francisco</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">Example</span> <span class="n">Co</span><span class="p">.,</span> <span class="n">OU</span> <span class="o">=</span> <span class="n">IT</span><span class="p">,</span> <span class="n">CN</span> <span class="o">=</span> <span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="n">verify</span> <span class="k">return</span><span class="p">:</span><span class="mi">1</span>
-<span class="c1">---</span>
-<span class="n">Certificate</span> <span class="k">chain</span>
- <span class="mi">0</span> <span class="n">s</span><span class="p">:</span><span class="o">/</span><span class="k">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-   <span class="n">i</span><span class="p">:</span><span class="o">/</span><span class="k">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="c1">---</span>
+<li>This will provide the following output: <div class="codehilite"><pre><span></span><code><span class="n">CONNECTED</span><span class="p">(</span><span class="mi">00000005</span><span class="p">)</span>
+<span class="n">depth</span><span class="o">=</span><span class="mi">0</span> <span class="n">C</span> <span class="o">=</span> <span class="n">US</span><span class="p">,</span> <span class="n">ST</span> <span class="o">=</span> <span class="n">California</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="n">San</span> <span class="n">Francisco</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">Example</span> <span class="n">Co</span><span class="p">.,</span> <span class="n">OU</span> <span class="o">=</span> <span class="n">IT</span><span class="p">,</span> <span class="n">CN</span> <span class="o">=</span> <span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">verify</span> <span class="n">error</span><span class="p">:</span><span class="n">num</span><span class="o">=</span><span class="mi">18</span><span class="p">:</span><span class="n">self</span> <span class="n">signed</span> <span class="n">certificate</span>
+<span class="n">verify</span> <span class="n">return</span><span class="p">:</span><span class="mi">1</span>
+<span class="n">depth</span><span class="o">=</span><span class="mi">0</span> <span class="n">C</span> <span class="o">=</span> <span class="n">US</span><span class="p">,</span> <span class="n">ST</span> <span class="o">=</span> <span class="n">California</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="n">San</span> <span class="n">Francisco</span><span class="p">,</span> <span class="n">O</span> <span class="o">=</span> <span class="n">Example</span> <span class="n">Co</span><span class="p">.,</span> <span class="n">OU</span> <span class="o">=</span> <span class="n">IT</span><span class="p">,</span> <span class="n">CN</span> <span class="o">=</span> <span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">verify</span> <span class="n">return</span><span class="p">:</span><span class="mi">1</span>
+<span class="o">---</span>
+<span class="n">Certificate</span> <span class="n">chain</span>
+ <span class="mi">0</span> <span class="n">s</span><span class="p">:</span><span class="o">/</span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+   <span class="n">i</span><span class="p">:</span><span class="o">/</span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="o">---</span>
 <span class="n">Server</span> <span class="n">certificate</span>
-<span class="c1">-----BEGIN CERTIFICATE-----</span>
+<span class="o">-----</span><span class="kr">BEGIN</span> <span class="n">CERTIFICATE</span><span class="o">-----</span>
 <span class="n">MIICEjCCAZkCCQDyk1urbYgWmTAKBggqhkjOPQQDAzBzMQswCQYDVQQGEwJVUzET</span>
 <span class="n">MBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzEUMBIG</span>
 <span class="n">A1UECgwLRXhhbXBsZSBDby4xCzAJBgNVBAsMAklUMRQwEgYDVQQDDAtleGFtcGxl</span>
@@ -417,46 +410,45 @@ output the connection parameters in a manner viewable by the tester.</p>
 <span class="n">MGQCMAcL3m</span><span class="o">+</span><span class="n">Snelzz8uOrLRt1eZHbMRZc3C4hL05M7FC7DL</span><span class="o">+</span><span class="n">jxCokyfWnPU5KhyL</span>
 <span class="n">RWov7wIweWQPr9Uvtovsov</span><span class="o">+</span><span class="mi">39</span><span class="n">eGU42Fitqqfv70o2SoXvRQ</span><span class="o">/</span><span class="mi">9</span><span class="n">XgDBKcHiKsQImPH</span>
 <span class="n">Opagnxks</span>
-<span class="c1">-----END CERTIFICATE-----</span>
-<span class="n">subject</span><span class="o">=/</span><span class="k">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="n">issuer</span><span class="o">=/</span><span class="k">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-<span class="c1">---</span>
-<span class="k">No</span> <span class="n">client</span> <span class="n">certificate</span> <span class="n">CA</span> <span class="k">names</span> <span class="n">sent</span>
-<span class="n">Server</span> <span class="n">Temp</span> <span class="k">Key</span><span class="p">:</span> <span class="n">ECDH</span><span class="p">,</span> <span class="n">P</span><span class="o">-</span><span class="mi">384</span><span class="p">,</span> <span class="mi">384</span> <span class="n">bits</span>
-<span class="c1">---</span>
-<span class="n">SSL</span> <span class="n">handshake</span> <span class="n">has</span> <span class="k">read</span> <span class="mi">1068</span> <span class="n">bytes</span> <span class="k">and</span> <span class="n">written</span> <span class="mi">262</span> <span class="n">bytes</span>
-<span class="c1">---</span>
-<span class="k">New</span><span class="p">,</span> <span class="n">TLSv1</span><span class="o">/</span><span class="n">SSLv3</span><span class="p">,</span> <span class="n">Cipher</span> <span class="k">is</span> <span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="n">SHA384</span>
-<span class="n">Server</span> <span class="k">public</span> <span class="k">key</span> <span class="k">is</span> <span class="mi">384</span> <span class="nb">bit</span>
-<span class="n">Secure</span> <span class="n">Renegotiation</span> <span class="k">IS</span> <span class="n">supported</span>
-<span class="n">Compression</span><span class="p">:</span> <span class="k">NONE</span>
-<span class="n">Expansion</span><span class="p">:</span> <span class="k">NONE</span>
-<span class="k">No</span> <span class="n">ALPN</span> <span class="n">negotiated</span>
-<span class="n">SSL</span><span class="o">-</span><span class="k">Session</span><span class="p">:</span>
+<span class="o">-----</span><span class="kr">END</span> <span class="n">CERTIFICATE</span><span class="o">-----</span>
+<span class="n">subject</span><span class="o">=/</span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">issuer</span><span class="o">=/</span><span class="n">C</span><span class="o">=</span><span class="n">US</span><span class="o">/</span><span class="n">ST</span><span class="o">=</span><span class="n">California</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Example</span> <span class="n">Co</span><span class="p">.</span><span class="o">/</span><span class="n">OU</span><span class="o">=</span><span class="n">IT</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="o">---</span>
+<span class="n">No</span> <span class="n">client</span> <span class="n">certificate</span> <span class="n">CA</span> <span class="n">names</span> <span class="n">sent</span>
+<span class="n">Server</span> <span class="n">Temp</span> <span class="n">Key</span><span class="p">:</span> <span class="mh">ECDH</span><span class="p">,</span> <span class="n">P</span><span class="o">-</span><span class="mi">384</span><span class="p">,</span> <span class="mi">384</span> <span class="n">bits</span>
+<span class="o">---</span>
+<span class="n">SSL</span> <span class="n">handshake</span> <span class="n">has</span> <span class="n">read</span> <span class="mi">1068</span> <span class="n">bytes</span> <span class="n">and</span> <span class="n">written</span> <span class="mi">262</span> <span class="n">bytes</span>
+<span class="o">---</span>
+<span class="n">New</span><span class="p">,</span> <span class="n">TLSv1</span><span class="o">/</span><span class="n">SSLv3</span><span class="p">,</span> <span class="n">Cipher</span> <span class="n">is</span> <span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="n">SHA384</span>
+<span class="n">Server</span> <span class="n">public</span> <span class="n">key</span> <span class="n">is</span> <span class="mi">384</span> <span class="n">bit</span>
+<span class="n">Secure</span> <span class="n">Renegotiation</span> <span class="kr">IS</span> <span class="n">supported</span>
+<span class="n">Compression</span><span class="p">:</span> <span class="n">NONE</span>
+<span class="n">Expansion</span><span class="p">:</span> <span class="n">NONE</span>
+<span class="n">No</span> <span class="n">ALPN</span> <span class="n">negotiated</span>
+<span class="n">SSL</span><span class="o">-</span><span class="n">Session</span><span class="p">:</span>
     <span class="n">Protocol</span>  <span class="p">:</span> <span class="n">TLSv1</span><span class="p">.</span><span class="mi">2</span>
     <span class="n">Cipher</span>    <span class="p">:</span> <span class="n">ECDHE</span><span class="o">-</span><span class="n">ECDSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="n">SHA384</span>
-    <span class="k">Session</span><span class="o">-</span><span class="n">ID</span><span class="p">:</span> <span class="mi">0966</span><span class="n">C0600004F9A7DF9F67EF90FAAF412191E5239F38929CE80F495FEDD78352</span>
-    <span class="k">Session</span><span class="o">-</span><span class="n">ID</span><span class="o">-</span><span class="n">ctx</span><span class="p">:</span>
-    <span class="n">Master</span><span class="o">-</span><span class="k">Key</span><span class="p">:</span> <span class="n">AF01D67E554CF8B8BED9732CE8DEFD02C97FFBA9F7B1DF36E7E37163F3E1633250BD9E96FEBB35217BF3FC0ACB1668F8</span>
-    <span class="n">TLS</span> <span class="k">session</span> <span class="n">ticket</span> <span class="n">lifetime</span> <span class="n">hint</span><span class="p">:</span> <span class="mi">7200</span> <span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
-    <span class="n">TLS</span> <span class="k">session</span> <span class="n">ticket</span><span class="p">:</span>
+    <span class="n">Session</span><span class="o">-</span><span class="n">ID</span><span class="p">:</span> <span class="mi">0966</span><span class="n">C0600004F9A7DF9F67EF90FAAF412191E5239F38929CE80F495FEDD78352</span>
+    <span class="n">Session</span><span class="o">-</span><span class="n">ID</span><span class="o">-</span><span class="n">ctx</span><span class="p">:</span>
+    <span class="n">Master</span><span class="o">-</span><span class="n">Key</span><span class="p">:</span> <span class="n">AF01D67E554CF8B8BED9732CE8DEFD02C97FFBA9F7B1DF36E7E37163F3E1633250BD9E96FEBB35217BF3FC0ACB1668F8</span>
+    <span class="n">TLS</span> <span class="n">session</span> <span class="n">ticket</span> <span class="n">lifetime</span> <span class="n">hint</span><span class="p">:</span> <span class="mi">7200</span> <span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
+    <span class="n">TLS</span> <span class="n">session</span> <span class="n">ticket</span><span class="p">:</span>
     <span class="mi">0000</span> <span class="o">-</span> <span class="mi">39</span> <span class="mi">65</span> <span class="n">eb</span> <span class="n">dd</span> <span class="mi">81</span> <span class="n">b8</span> <span class="mi">07</span> <span class="mi">1</span><span class="n">f</span><span class="o">-</span><span class="mi">2</span><span class="n">b</span> <span class="mi">0</span><span class="n">e</span> <span class="n">a3</span> <span class="mi">52</span> <span class="n">c1</span> <span class="n">c2</span> <span class="mi">3</span><span class="n">e</span> <span class="n">f1</span>   <span class="mi">9</span><span class="n">e</span><span class="p">......</span><span class="o">+</span><span class="p">..</span><span class="n">R</span><span class="p">..</span><span class="o">&gt;</span><span class="p">.</span>
-    <span class="mi">0010</span> <span class="o">-</span> <span class="n">ba</span> <span class="mi">41</span> <span class="mi">2</span><span class="n">a</span> <span class="mi">58</span> <span class="mi">6</span><span class="n">e</span> <span class="n">b0</span> <span class="mi">16</span> <span class="mi">28</span><span class="o">-</span><span class="mi">56</span> <span class="n">e5</span> <span class="n">a4</span> <span class="mi">81</span> <span class="n">c3</span> <span class="mi">7</span><span class="k">c</span> <span class="n">a3</span> <span class="n">ee</span>   <span class="p">.</span><span class="n">A</span><span class="o">*</span><span class="n">Xn</span><span class="p">..(</span><span class="n">V</span><span class="p">....</span><span class="o">|</span><span class="p">..</span>
-    <span class="mi">0020</span> <span class="o">-</span> <span class="mi">8</span><span class="n">d</span> <span class="n">ba</span> <span class="mi">7</span><span class="n">f</span> <span class="mi">4</span><span class="n">e</span> <span class="n">ff</span> <span class="mi">65</span> <span class="mi">53</span> <span class="n">ef</span><span class="o">-</span><span class="n">be</span> <span class="mi">80</span> <span class="n">c8</span> <span class="mi">98</span> <span class="n">ca</span> <span class="mi">12</span> <span class="mi">0</span><span class="n">a</span> <span class="mi">8</span><span class="k">c</span>   <span class="p">...</span><span class="n">N</span><span class="p">.</span><span class="n">eS</span><span class="p">.........</span>
-    <span class="mi">0030</span> <span class="o">-</span> <span class="n">c9</span> <span class="n">e1</span> <span class="n">f8</span> <span class="n">c7</span> <span class="n">cc</span> <span class="n">d7</span> <span class="n">f5</span> <span class="mi">6</span><span class="k">c</span><span class="o">-</span><span class="mi">8</span><span class="n">d</span> <span class="n">bc</span> <span class="n">f1</span> <span class="mi">3</span><span class="n">e</span> <span class="mi">53</span> <span class="mi">09</span> <span class="mi">43</span> <span class="mi">2</span><span class="n">f</span>   <span class="p">.......</span><span class="n">l</span><span class="p">...</span><span class="o">&gt;</span><span class="n">S</span><span class="p">.</span><span class="k">C</span><span class="o">/</span>
-    <span class="mi">0040</span> <span class="o">-</span> <span class="n">b9</span> <span class="mi">7</span><span class="k">c</span> <span class="mi">3</span><span class="n">f</span> <span class="mi">0</span><span class="n">a</span> <span class="mi">9</span><span class="n">e</span> <span class="mi">39</span> <span class="mi">30</span> <span class="n">cf</span><span class="o">-</span><span class="n">f2</span> <span class="n">eb</span> <span class="mi">72</span> <span class="n">fd</span> <span class="n">f3</span> <span class="mi">51</span> <span class="mi">08</span> <span class="mi">25</span>   <span class="p">.</span><span class="o">|?</span><span class="p">..</span><span class="mi">90</span><span class="p">...</span><span class="n">r</span><span class="p">..</span><span class="n">Q</span><span class="p">.</span><span class="o">%</span>
+    <span class="mi">0010</span> <span class="o">-</span> <span class="n">ba</span> <span class="mi">41</span> <span class="mi">2</span><span class="n">a</span> <span class="mi">58</span> <span class="mi">6</span><span class="n">e</span> <span class="n">b0</span> <span class="mi">16</span> <span class="mi">28</span><span class="o">-</span><span class="mi">56</span> <span class="n">e5</span> <span class="n">a4</span> <span class="mi">81</span> <span class="n">c3</span> <span class="mi">7</span><span class="n">c</span> <span class="n">a3</span> <span class="n">ee</span>   <span class="p">.</span><span class="n">A</span><span class="o">*</span><span class="n">Xn</span><span class="p">..(</span><span class="n">V</span><span class="p">....|..</span>
+    <span class="mi">0020</span> <span class="o">-</span> <span class="mi">8</span><span class="n">d</span> <span class="n">ba</span> <span class="mi">7</span><span class="n">f</span> <span class="mi">4</span><span class="n">e</span> <span class="n">ff</span> <span class="mi">65</span> <span class="mi">53</span> <span class="n">ef</span><span class="o">-</span><span class="n">be</span> <span class="mi">80</span> <span class="n">c8</span> <span class="mi">98</span> <span class="n">ca</span> <span class="mi">12</span> <span class="mi">0</span><span class="n">a</span> <span class="mi">8</span><span class="n">c</span>   <span class="p">...</span><span class="n">N</span><span class="p">.</span><span class="n">eS</span><span class="p">.........</span>
+    <span class="mi">0030</span> <span class="o">-</span> <span class="n">c9</span> <span class="n">e1</span> <span class="n">f8</span> <span class="n">c7</span> <span class="n">cc</span> <span class="n">d7</span> <span class="n">f5</span> <span class="mi">6</span><span class="n">c</span><span class="o">-</span><span class="mi">8</span><span class="n">d</span> <span class="n">bc</span> <span class="n">f1</span> <span class="mi">3</span><span class="n">e</span> <span class="mi">53</span> <span class="mi">09</span> <span class="mi">43</span> <span class="mi">2</span><span class="n">f</span>   <span class="p">.......</span><span class="n">l</span><span class="p">...</span><span class="o">&gt;</span><span class="n">S</span><span class="p">.</span><span class="n">C</span><span class="o">/</span>
+    <span class="mi">0040</span> <span class="o">-</span> <span class="n">b9</span> <span class="mi">7</span><span class="n">c</span> <span class="mi">3</span><span class="n">f</span> <span class="mi">0</span><span class="n">a</span> <span class="mi">9</span><span class="n">e</span> <span class="mi">39</span> <span class="mi">30</span> <span class="n">cf</span><span class="o">-</span><span class="n">f2</span> <span class="n">eb</span> <span class="mi">72</span> <span class="n">fd</span> <span class="n">f3</span> <span class="mi">51</span> <span class="mi">08</span> <span class="mi">25</span>   <span class="p">.|</span><span class="err">?</span><span class="p">..</span><span class="mi">90</span><span class="p">...</span><span class="n">r</span><span class="p">..</span><span class="n">Q</span><span class="p">.</span><span class="err">%</span>
     <span class="mi">0050</span> <span class="o">-</span> <span class="n">f1</span> <span class="mi">4</span><span class="n">a</span> <span class="mi">58</span> <span class="mi">49</span> <span class="n">f0</span> <span class="mi">11</span> <span class="n">c1</span> <span class="mi">75</span><span class="o">-</span><span class="mi">03</span> <span class="n">ef</span> <span class="mi">79</span> <span class="mi">93</span> <span class="mi">9</span><span class="n">f</span> <span class="mi">20</span> <span class="mi">85</span> <span class="n">ba</span>   <span class="p">.</span><span class="n">JXI</span><span class="p">...</span><span class="n">u</span><span class="p">..</span><span class="n">y</span><span class="p">..</span> <span class="p">..</span>
-    <span class="mi">0060</span> <span class="o">-</span> <span class="n">d2</span> <span class="mi">80</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">d</span> <span class="mi">9</span><span class="n">e</span> <span class="mi">6</span><span class="n">a</span> <span class="mi">03</span> <span class="mi">7</span><span class="n">e</span><span class="o">-</span><span class="n">a6</span> <span class="mi">38</span> <span class="mi">2</span><span class="k">c</span> <span class="mi">75</span> <span class="n">f4</span> <span class="n">d1</span> <span class="n">c5</span> <span class="mi">67</span>   <span class="p">..</span><span class="n">s</span><span class="o">-</span><span class="p">.</span><span class="n">j</span><span class="p">.</span><span class="o">~</span><span class="p">.</span><span class="mi">8</span><span class="p">,</span><span class="n">u</span><span class="p">...</span><span class="k">g</span>
-    <span class="mi">0070</span> <span class="o">-</span> <span class="mi">44</span> <span class="mi">09</span> <span class="n">ae</span> <span class="n">f0</span> <span class="mi">7</span><span class="n">d</span> <span class="n">ad</span> <span class="mi">0</span><span class="n">e</span> <span class="n">b5</span><span class="o">-</span><span class="mi">6</span><span class="k">c</span> <span class="n">b2</span> <span class="mi">3</span><span class="k">c</span> <span class="n">b0</span> <span class="n">ca</span> <span class="mi">28</span> <span class="mi">4</span><span class="n">d</span> <span class="mi">1</span><span class="k">c</span>   <span class="n">D</span><span class="p">...</span><span class="err">}</span><span class="p">...</span><span class="n">l</span><span class="p">.</span><span class="o">&lt;</span><span class="p">..(</span><span class="n">M</span><span class="p">.</span>
+    <span class="mi">0060</span> <span class="o">-</span> <span class="n">d2</span> <span class="mi">80</span> <span class="mi">73</span> <span class="mi">2</span><span class="n">d</span> <span class="mi">9</span><span class="n">e</span> <span class="mi">6</span><span class="n">a</span> <span class="mi">03</span> <span class="mi">7</span><span class="n">e</span><span class="o">-</span><span class="n">a6</span> <span class="mi">38</span> <span class="mi">2</span><span class="n">c</span> <span class="mi">75</span> <span class="n">f4</span> <span class="n">d1</span> <span class="n">c5</span> <span class="mi">67</span>   <span class="p">..</span><span class="n">s</span><span class="o">-</span><span class="p">.</span><span class="n">j</span><span class="p">.</span><span class="o">~</span><span class="p">.</span><span class="mi">8</span><span class="p">,</span><span class="n">u</span><span class="p">...</span><span class="n">g</span>
+    <span class="mi">0070</span> <span class="o">-</span> <span class="mi">44</span> <span class="mi">09</span> <span class="n">ae</span> <span class="n">f0</span> <span class="mi">7</span><span class="n">d</span> <span class="n">ad</span> <span class="mi">0</span><span class="n">e</span> <span class="n">b5</span><span class="o">-</span><span class="mi">6</span><span class="n">c</span> <span class="n">b2</span> <span class="mi">3</span><span class="n">c</span> <span class="n">b0</span> <span class="n">ca</span> <span class="mi">28</span> <span class="mi">4</span><span class="n">d</span> <span class="mi">1</span><span class="n">c</span>   <span class="n">D</span><span class="p">...}...</span><span class="n">l</span><span class="p">.</span><span class="o">&lt;</span><span class="p">..(</span><span class="n">M</span><span class="p">.</span>
     <span class="mi">0080</span> <span class="o">-</span> <span class="n">e0</span> <span class="mi">04</span> <span class="n">c9</span> <span class="mi">5</span><span class="n">e</span> <span class="mi">6</span><span class="n">b</span> <span class="n">dd</span> <span class="mi">8</span><span class="n">d</span> <span class="n">e1</span><span class="o">-</span><span class="n">a6</span> <span class="mi">81</span> <span class="mi">19</span> <span class="mi">03</span> <span class="n">c4</span> <span class="n">b9</span> <span class="mi">77</span> <span class="mi">4</span><span class="n">b</span>   <span class="p">...</span><span class="o">^</span><span class="n">k</span><span class="p">.........</span><span class="n">wK</span>
     <span class="mi">0090</span> <span class="o">-</span> <span class="mi">2</span><span class="n">f</span> <span class="mi">61</span> <span class="mi">5</span><span class="n">f</span> <span class="mi">72</span> <span class="mi">2</span><span class="n">d</span> <span class="n">d7</span> <span class="n">f9</span> <span class="n">c0</span><span class="o">-</span><span class="mi">65</span> <span class="mi">18</span> <span class="mi">30</span> <span class="mi">72</span> <span class="mi">85</span> <span class="mi">10</span> <span class="mi">99</span> <span class="mi">55</span>   <span class="o">/</span><span class="n">a_r</span><span class="o">-</span><span class="p">...</span><span class="n">e</span><span class="p">.</span><span class="mi">0</span><span class="n">r</span><span class="p">...</span><span class="n">U</span>
 
-    <span class="k">Start</span> <span class="k">Time</span><span class="p">:</span> <span class="mi">1594689170</span>
+    <span class="n">Start</span> <span class="n">Time</span><span class="p">:</span> <span class="mi">1594689170</span>
     <span class="n">Timeout</span>   <span class="p">:</span> <span class="mi">7200</span> <span class="p">(</span><span class="n">sec</span><span class="p">)</span>
-    <span class="n">Verify</span> <span class="k">return</span> <span class="n">code</span><span class="p">:</span> <span class="mi">18</span> <span class="p">(</span><span class="k">self</span> <span class="n">signed</span> <span class="n">certificate</span><span class="p">)</span>
-<span class="c1">---</span>
-</pre></div>
-
+    <span class="n">Verify</span> <span class="n">return</span> <span class="n">code</span><span class="p">:</span> <span class="mi">18</span> <span class="p">(</span><span class="n">self</span> <span class="n">signed</span> <span class="n">certificate</span><span class="p">)</span>
+<span class="o">---</span>
+</code></pre></div>
 
 </li>
 </ol>
@@ -478,34 +470,15 @@ Encryption Standard (AES) with a 256 bit key (AES256): <code>Cipher    : ECDHE-E
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

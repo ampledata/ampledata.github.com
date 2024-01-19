@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -119,10 +118,9 @@ mail: <code>virtual_alias_domains = sfeserv01.splunk.com,sfeserv31.splunk.com</c
 <li>
 <p>In Postfix's <strong>virtual_alias_map</strong> file create a catch-all alias for each 
 host from which you'll be accepting mail:</p>
-<div class="codehilite"><pre><span></span><span class="err">@sfeserv01.splunk.com  catch-all</span>
-<span class="err">@sfeserv31.splunk.com  catch-all</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nv">@sfeserv01</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span><span class="w">  </span><span class="k">catch</span><span class="o">-</span><span class="ow">all</span>
+<span class="nv">@sfeserv31</span><span class="p">.</span><span class="n">splunk</span><span class="p">.</span><span class="n">com</span><span class="w">  </span><span class="k">catch</span><span class="o">-</span><span class="ow">all</span>
+</code></pre></div>
 
 </li>
 <li>
@@ -131,50 +129,46 @@ Maildir: <code>catch-all: /var/mail/catch-all/</code></p>
 </li>
 <li>
 <p>Refresh aliases, rehash maps, and reload Postfix configs:</p>
-<div class="codehilite"><pre><span></span><span class="err">sudo newaliases</span>
-<span class="err">sudo postmap /etc/postfix/virtual</span>
-<span class="err">sudo postfix reload</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">newaliases</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">postmap</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">postfix</span><span class="o">/</span><span class="n">virtual</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">postfix</span><span class="w"> </span><span class="n">reload</span>
+</code></pre></div>
 
 </li>
 <li>
 <p>In Splunk's <strong>inputs.conf</strong> file configure batch monitor of the catch-all 
 Maildir:</p>
-<div class="codehilite"><pre><span></span><span class="err"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
-<span class="err">[batch:///var/mail/catch-all]</span>
-<span class="err">interval = 300</span>
-<span class="err">disabled = false</span>
-<span class="err">index = admin_mail</span>
-<span class="err">source = admin_mail</span>
-<span class="err">move_policy = sinkhole</span>
-<span class="err">sourcetype = admin_mail</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="c1"># $SPLUNK_HOME/etc/system/local/inputs.conf</span>
+<span class="p">[</span><span class="n">batch</span><span class="p">:</span><span class="o">///</span><span class="k">var</span><span class="o">/</span><span class="n">mail</span><span class="o">/</span><span class="n">catch</span><span class="o">-</span><span class="n">all</span><span class="p">]</span>
+<span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span>
+<span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">false</span>
+<span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">admin_mail</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">admin_mail</span>
+<span class="n">move_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinkhole</span>
+<span class="n">sourcetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">admin_mail</span>
+</code></pre></div>
 
 </li>
 <li>
 <p>In Splunk's <strong>props.conf</strong> file configure email event parsing:</p>
-<div class="codehilite"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">props</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
-<span class="o">[</span><span class="n">admin_mail</span><span class="o">]</span><span class="w"></span>
-<span class="k">TRUNCATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="n">MAX_EVENTS</span><span class="o">=</span><span class="mi">200000</span><span class="w"></span>
-<span class="n">TIME_PREFIX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Date</span><span class="err">:\</span><span class="n">s</span><span class="w"></span>
-<span class="n">LINE_BREAKER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span><span class="w"></span>
-<span class="n">BREAK_ONLY_BEFORE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span><span class="w"></span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">props</span><span class="p">.</span><span class="n">conf</span>
+<span class="o">[</span><span class="n">admin_mail</span><span class="o">]</span>
+<span class="k">TRUNCATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">MAX_EVENTS</span><span class="o">=</span><span class="mi">200000</span>
+<span class="n">TIME_PREFIX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Date</span><span class="err">:\</span><span class="n">s</span>
+<span class="n">LINE_BREAKER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+<span class="n">BREAK_ONLY_BEFORE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x6939844b3e9eae3093ed00e67a0dd33b</span>
+</code></pre></div>
 
 </li>
 <li>
 <p>In Splunk's <strong>indexes.conf</strong> file configure the email index:</p>
-<div class="codehilite"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">indexes</span><span class="p">.</span><span class="n">conf</span><span class="w"></span>
-<span class="o">[</span><span class="n">admin_mail</span><span class="o">]</span><span class="w"></span>
-<span class="n">homePath</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">db</span><span class="w"></span>
-<span class="n">coldPath</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">colddb</span><span class="w"></span>
-<span class="n">thawedPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">thaweddb</span><span class="w"></span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">indexes</span><span class="p">.</span><span class="n">conf</span>
+<span class="o">[</span><span class="n">admin_mail</span><span class="o">]</span>
+<span class="n">homePath</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">db</span>
+<span class="n">coldPath</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">colddb</span>
+<span class="n">thawedPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">SPLUNK_DB</span><span class="o">/</span><span class="n">admin_mail</span><span class="o">/</span><span class="n">thaweddb</span>
+</code></pre></div>
 
 </li>
 <li>
@@ -194,34 +188,15 @@ In Postfix this can be accomplished in <strong>main.cfg</strong>: <code>relayhos
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

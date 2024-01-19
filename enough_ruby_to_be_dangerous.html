@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -128,33 +127,29 @@ number, for example, as an Integer. There are also a number of things that
 can be done to the number, such as changing it into a Floating Point Integer. </p>
 <p>This is how Ruby sees the world.</p>
 <p>The line of Ruby below converts the integer 1 into a floating point integer:</p>
-<div class="codehilite"><pre><span></span><span class="mi">1</span><span class="o">.</span><span class="n">to_f</span>
- <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="mi">1</span><span class="o">.</span><span class="n">to_f</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+</code></pre></div>
 
 <p>What about Strings? What can we do to strings? Well, they're objects too:</p>
-<div class="codehilite"><pre><span></span><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;ocat&quot;</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;ocat&quot;</span>
+</code></pre></div>
 
 <p>In fact, everything you do something to an object in Ruby, you're really
 just getting that object back, but changed. You can continue this recursion
 almost indefinitely:</p>
-<div class="codehilite"><pre><span></span><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span><span class="o">.</span><span class="n">reverse</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;taco&quot;</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span><span class="o">.</span><span class="n">reverse</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;taco&quot;</span>
+</code></pre></div>
 
 <p>This is a little different than how other languages behave. In Python, for
 example, it might look something like this:</p>
-<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="mf">1.0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;taco&#39;</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="s1">&#39;ocat&#39;</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>It's about the same amount of code, but unless you're reversing a string
 every day in Python, are you really going to remember what <code>[::-1]</code> does? </p>
@@ -164,12 +159,11 @@ every day in Python, are you really going to remember what <code>[::-1]</code> d
 object-oriented programming prowess. I would browse the <a href="http://www.ruby-doc.org">Ruby Standard Library</a>
 and chain together ridiculous programs, which, upon later inspection, even I
 couldn't understand:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># I have no idea what this does:</span>
-<span class="n">build</span> <span class="o">=</span> <span class="p">(</span><span class="n">url_body</span><span class="o">/</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span>
-  <span class="n">l</span><span class="o">.</span><span class="n">inner_html</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">inner_html</span><span class="o">.</span><span class="n">start_with?</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">-&quot;</span> 
+<div class="codehilite"><pre><span></span><code><span class="c1"># I have no idea what this does:</span>
+<span class="n">build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">url_body</span><span class="o">/</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">l</span><span class="o">|</span>
+<span class="w">  </span><span class="n">l</span><span class="o">.</span><span class="n">inner_html</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">l</span><span class="o">.</span><span class="n">inner_html</span><span class="o">.</span><span class="n">start_with?</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">-&quot;</span><span class="w"> </span>
 <span class="k">end</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|!</span><span class="n">i</span><span class="o">.</span><span class="n">nil?</span><span class="p">}</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">|</span><span class="n">y</span><span class="o">&lt;=&gt;</span><span class="n">x</span><span class="p">}</span><span class="o">.</span><span class="n">first</span>
-</pre></div>
-
+</code></pre></div>
 
 <h2>What did I learn?</h2>
 <p>It's important to write code that other people can read. A great guideline 
@@ -193,18 +187,17 @@ risking introducing bugs into existing programs (or production systems!):</p>
 <p>Below are some examples of running some Ruby code through the irb Interactive
 Shell. You'll see that irb provides a wide variety of information on the code 
 being executed, the environment it's being executed in, and more:</p>
-<div class="codehilite"><pre><span></span><span class="err">$</span> <span class="n">irb</span>
-<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s1">&#39;this is irb&#39;</span>
-<span class="n">this</span> <span class="n">is</span> <span class="n">irb</span>
- <span class="o">=&gt;</span> <span class="kp">nil</span> 
-<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="n">me</span> <span class="o">=</span> <span class="s1">&#39;gba&#39;</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;gba&quot;</span> 
-<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s2">&quot;hi </span><span class="si">#{</span><span class="n">me</span><span class="si">}</span><span class="s2">, welcome to irb.&quot;</span>
-<span class="n">hi</span> <span class="n">gba</span><span class="p">,</span> <span class="n">welcome</span> <span class="n">to</span> <span class="n">irb</span><span class="o">.</span>
- <span class="o">=&gt;</span> <span class="kp">nil</span> 
-<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="n">quit</span><span class="p">()</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">irb</span>
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span><span class="w"> </span><span class="p">:</span><span class="mo">001</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">puts</span><span class="w"> </span><span class="s1">&#39;this is irb&#39;</span>
+<span class="n">this</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">irb</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">nil</span><span class="w"> </span>
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span><span class="w"> </span><span class="p">:</span><span class="mo">002</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;gba&#39;</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;gba&quot;</span><span class="w"> </span>
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span><span class="w"> </span><span class="p">:</span><span class="mo">003</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">puts</span><span class="w"> </span><span class="s2">&quot;hi </span><span class="si">#{</span><span class="n">me</span><span class="si">}</span><span class="s2">, welcome to irb.&quot;</span>
+<span class="n">hi</span><span class="w"> </span><span class="n">gba</span><span class="p">,</span><span class="w"> </span><span class="n">welcome</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">irb</span><span class="o">.</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">nil</span><span class="w"> </span>
+<span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">p352</span><span class="w"> </span><span class="p">:</span><span class="mo">004</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div>
 
 <p>irb comes installed with most standard Ruby distributions.</p>
 <h1>Primitive Primer</h1>
@@ -212,7 +205,7 @@ being executed, the environment it's being executed in, and more:</p>
 These are the fundamental - atomic - types of knowledge representation in
 any language.</p>
 <p>Below are some of primitive object types you'll be dealing with in Ruby:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># String</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># String</span>
 <span class="s1">&#39;taco&#39;</span>
 
 <span class="c1"># Integer</span>
@@ -222,41 +215,36 @@ any language.</p>
 <span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
 
 <span class="c1"># Array</span>
-<span class="o">[</span><span class="s1">&#39;taco&#39;</span><span class="p">,</span> <span class="s1">&#39;burrito&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;taco&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;burrito&#39;</span><span class="o">]</span>
 
 <span class="c1"># Hash</span>
-<span class="p">{</span><span class="s1">&#39;lunch&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;taco&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
-</pre></div>
-
+<span class="p">{</span><span class="s1">&#39;lunch&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;taco&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;price&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span>
+</code></pre></div>
 
 <p>The power of these primitives can be seen in the types of actions we can take
 on them. We can introspect into this object and see what it's capable of
 with the <code>method</code> method.</p>
 <p>Here's a sample of some of the dozens of built-in things we can do to an
 object type 'string':</p>
-<div class="codehilite"><pre><span></span><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">methods</span>
- <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;upcase!&quot;</span><span class="p">,</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span> <span class="s2">&quot;find_index&quot;</span><span class="p">,</span> <span class="s2">&quot;between?&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack&quot;</span><span class="p">,</span> <span class="o">...]</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">methods</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;upcase!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;zip&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;find_index&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;between?&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;unpack&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">...]</span>
+</code></pre></div>
 
 <p>You've already seen an example of this with <code>reverse</code>:</p>
-<div class="codehilite"><pre><span></span><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
- <span class="o">=&gt;</span> <span class="s1">&#39;ocat&#39;</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;taco&#39;</span><span class="o">.</span><span class="n">reverse</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;ocat&#39;</span>
+</code></pre></div>
 
 <p>In addition to the methods listed for each of the primitives, Ruby also
 includes many built-in methods.</p>
-<div class="codehilite"><pre><span></span><span class="nb">methods</span>
-<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;irb_print_working_binding&quot;</span><span class="p">,</span> <span class="s2">&quot;inspect&quot;</span><span class="p">,</span> <span class="s2">&quot;workspaces&quot;</span><span class="p">,</span> <span class="s2">&quot;tap&quot;</span><span class="p">,</span> <span class="o">...]</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nb">methods</span>
+<span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;irb_print_working_binding&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;inspect&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;workspaces&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;tap&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">...]</span>
+</code></pre></div>
 
 <p>There are also many methods inherited from Unix system calls &amp; Kernel:</p>
-<div class="codehilite"><pre><span></span><span class="no">Kernel</span><span class="o">.</span><span class="n">methods</span>
-<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;inspect&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;private_class_method&quot;</span><span class="p">,</span> <span class="s2">&quot;exit!&quot;</span><span class="p">,</span> <span class="s2">&quot;chomp!&quot;</span><span class="p">,</span> <span class="o">...]</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="no">Kernel</span><span class="o">.</span><span class="n">methods</span>
+<span class="o">=&gt;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;inspect&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;private_class_method&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;exit!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;chomp!&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">...]</span>
+</code></pre></div>
 
 <h1>Libraries</h1>
 <p>Languages gain their power through their extensibility, including their
@@ -265,22 +253,20 @@ Using the <code>require</code> statement we can easily import libraries included
 the standard Ruby distribution, and those created by external authors. </p>
 <p>Here we're importing the <code>open-uri</code> library, which extends the
 built-in <code>open</code> method to support.. opening URIs!:</p>
-<div class="codehilite"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
-<span class="n">gba</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;http://ampledata.org&#39;</span><span class="p">)</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;open-uri&#39;</span>
+<span class="n">gba</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;http://ampledata.org&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <h1>Files &amp; Exceptions</h1>
 <p>On to the fun stuff. Lets actually do something. Lets start by opening a
 file. Since we've probably all got access to a Unix system, lets check 
 out what our BOFH has left in our MOTD:</p>
-<div class="codehilite"><pre><span></span><span class="err">open(&#39;/etc/motd&#39;, &#39;r&#39;)</span>
-<span class="err"> =&gt; Errno::ENOENT: No such file or directory - /etc/motd</span>
-<span class="err">  from (irb):1:in `initialize&#39;</span>
-<span class="err">  from (irb):1:in `open&#39;</span>
-<span class="err">  from (irb):1</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>open(&#39;/etc/motd&#39;, &#39;r&#39;)
+ =&gt; Errno::ENOENT: No such file or directory - /etc/motd
+  from (irb):1:in `initialize&#39;
+  from (irb):1:in `open&#39;
+  from (irb):1
+</code></pre></div>
 
 <p>Something's gone awry here. We raised an exception, or a program interrupt.
 There's no shell return-codes here!</p>
@@ -296,14 +282,13 @@ proactively avoid this by catching this exception using Ruby's
 <p>Here we're telling Ruby that we want to rescue the specific error 
 <strong>Errno::ENOENT</strong>, and when it does happen, we actually just want to return
 a friendlier message:</p>
-<div class="codehilite"><pre><span></span><span class="k">begin</span>
-  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="k">rescue</span> <span class="no">Errno</span><span class="o">::</span><span class="no">ENOENT</span>
-  <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">begin</span>
+<span class="w">  </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">rescue</span><span class="w"> </span><span class="no">Errno</span><span class="o">::</span><span class="no">ENOENT</span>
+<span class="w">  </span><span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
 <span class="k">end</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
-</pre></div>
-
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;dude the file isn&#39;t there&quot;</span>
+</code></pre></div>
 
 <p>Awesome. Our pager is quiet, back to drinking.</p>
 <p>But wait, we still don't have a MOTD!</p>
@@ -312,47 +297,44 @@ a friendlier message:</p>
 to write our MOTD, here too Ruby can help. From the command line we can 
 invoke the <code>ri</code> utility to look at the embedded documentation for <code>open</code>.</p>
 <p>Here we're using <code>ri IO.open</code> to understand <code>open</code>'s capabilities:</p>
-<div class="codehilite"><pre><span></span><span class="o">---------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="nb">open</span>
-     <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span>               <span class="o">=&gt;</span> <span class="n">io</span>
-     <span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span> <span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">io</span><span class="o">|</span> <span class="n">block</span> <span class="p">}</span> <span class="o">=&gt;</span> <span class="n">obj</span>
+<div class="codehilite"><pre><span></span><code><span class="o">---------------------------------------------------------------</span><span class="w"> </span><span class="no">IO</span><span class="o">::</span><span class="nb">open</span>
+<span class="w">     </span><span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="w"> </span><span class="p">)</span><span class="w">               </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">io</span>
+<span class="w">     </span><span class="no">IO</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">mode_string</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="o">|</span><span class="n">io</span><span class="o">|</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">obj</span>
 <span class="o">------------------------------------------------------------------------</span>
-     <span class="no">With</span> <span class="n">no</span> <span class="n">associated</span> <span class="n">block</span><span class="p">,</span> <span class="o">+</span><span class="nb">open</span><span class="o">+</span> <span class="n">is</span> <span class="n">a</span> <span class="n">synonym</span> <span class="k">for</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="kp">new</span><span class="o">+.</span> <span class="no">If</span> <span class="n">the</span>
-     <span class="n">optional</span> <span class="n">code</span> <span class="n">block</span> <span class="n">is</span> <span class="n">given</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">passed</span> <span class="n">_io_</span> <span class="n">as</span> <span class="n">an</span>
-     <span class="n">argument</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="no">IO</span> <span class="n">object</span> <span class="n">will</span> <span class="n">automatically</span> <span class="n">be</span> <span class="n">closed</span> <span class="k">when</span> <span class="n">the</span>
-     <span class="n">block</span> <span class="n">terminates</span><span class="o">.</span> <span class="no">In</span> <span class="n">this</span> <span class="n">instance</span><span class="p">,</span> <span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="nb">open</span><span class="o">+</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span>
-     <span class="n">the</span> <span class="n">block</span><span class="o">.</span>
-</pre></div>
-
+<span class="w">     </span><span class="no">With</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">associated</span><span class="w"> </span><span class="n">block</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nb">open</span><span class="o">+</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">synonym</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="kp">new</span><span class="o">+.</span><span class="w"> </span><span class="no">If</span><span class="w"> </span><span class="n">the</span>
+<span class="w">     </span><span class="n">optional</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">given</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="n">_io_</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">an</span>
+<span class="w">     </span><span class="n">argument</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="no">IO</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">automatically</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">closed</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">the</span>
+<span class="w">     </span><span class="n">block</span><span class="w"> </span><span class="n">terminates</span><span class="o">.</span><span class="w"> </span><span class="no">In</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="no">IO</span><span class="o">::</span><span class="nb">open</span><span class="o">+</span><span class="w"> </span><span class="n">returns</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">of</span>
+<span class="w">     </span><span class="n">the</span><span class="w"> </span><span class="n">block</span><span class="o">.</span>
+</code></pre></div>
 
 <p>The page above tell us that <code>IO.open</code> is really a synonym of <code>IO.new</code>, so
 lets use <code>ri IO.new</code> to check out it's capabilities:</p>
-<div class="codehilite"><pre><span></span><span class="o">----------------------------------------------------------------</span> <span class="no">IO</span><span class="o">::</span><span class="kp">new</span>
-     <span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>   <span class="o">=&gt;</span> <span class="n">io</span>
+<div class="codehilite"><pre><span></span><code><span class="o">----------------------------------------------------------------</span><span class="w"> </span><span class="no">IO</span><span class="o">::</span><span class="kp">new</span>
+<span class="w">     </span><span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">mode</span><span class="p">)</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">io</span>
 <span class="o">------------------------------------------------------------------------</span>
-     <span class="no">Returns</span> <span class="n">a</span> <span class="kp">new</span> <span class="o">+</span><span class="no">IO</span><span class="o">+</span> <span class="n">object</span> <span class="p">(</span><span class="n">a</span> <span class="n">stream</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">given</span> <span class="n">integer</span> <span class="n">file</span>
-     <span class="n">descriptor</span> <span class="ow">and</span> <span class="n">mode</span> <span class="n">string</span><span class="o">.</span> <span class="no">See</span> <span class="n">also</span> <span class="o">+</span><span class="no">IO</span><span class="c1">#fileno+ and +IO::for_fd+.</span>
+<span class="w">     </span><span class="no">Returns</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kp">new</span><span class="w"> </span><span class="o">+</span><span class="no">IO</span><span class="o">+</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="n">stream</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">integer</span><span class="w"> </span><span class="n">file</span>
+<span class="w">     </span><span class="n">descriptor</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">string</span><span class="o">.</span><span class="w"> </span><span class="no">See</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="o">+</span><span class="no">IO</span><span class="c1">#fileno+ and +IO::for_fd+.</span>
 
-        <span class="n">a</span> <span class="o">=</span> <span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>      <span class="c1"># &#39;2&#39; is standard error</span>
-        <span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;Hello&quot;</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;World&quot;</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">IO</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1"># &#39;2&#39; is standard error</span>
+<span class="w">        </span><span class="vg">$stderr</span><span class="o">.</span><span class="n">puts</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span>
+<span class="w">        </span><span class="n">a</span><span class="o">.</span><span class="n">puts</span><span class="w"> </span><span class="s2">&quot;World&quot;</span>
 
-     <span class="ss">_produces</span><span class="p">:</span><span class="n">_</span>
+<span class="w">     </span><span class="ss">_produces</span><span class="p">:</span><span class="n">_</span>
 
-        <span class="no">Hello</span>
-        <span class="no">World</span>
-</pre></div>
-
+<span class="w">        </span><span class="no">Hello</span>
+<span class="w">        </span><span class="no">World</span>
+</code></pre></div>
 
 <p>It looks like we can pass the <code>w</code> flag to <code>open</code> to write to files.</p>
 <h1>Will the real MOTD please stand up?</h1>
 <p>Where are we going to get the content for our MOTD? Luckily I know an
 inspirational source:</p>
-<div class="codehilite"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
-<span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=georgetakei&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;open-uri&#39;</span>
+<span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=georgetakei&#39;</span><span class="p">)</span>
 <span class="n">fd</span><span class="o">.</span><span class="n">read</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;[{</span><span class="se">\&quot;</span><span class="s2">created_at</span><span class="se">\&quot;</span><span class="s2">:</span><span class="se">\&quot;</span><span class="s2">Sat May 05 15:27:11 +0000 2012</span><span class="se">\&quot;</span><span class="s2">,</span><span class="se">\&quot;</span><span class="s2">id</span><span class="se">\&quot;</span><span class="s2">:198795...</span>
-</pre></div>
-
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;[{</span><span class="se">\&quot;</span><span class="s2">created_at</span><span class="se">\&quot;</span><span class="s2">:</span><span class="se">\&quot;</span><span class="s2">Sat May 05 15:27:11 +0000 2012</span><span class="se">\&quot;</span><span class="s2">,</span><span class="se">\&quot;</span><span class="s2">id</span><span class="se">\&quot;</span><span class="s2">:198795...</span>
+</code></pre></div>
 
 <p>I have an idea for a Chef lightweight resource provider!</p>
 <h1>Of Resources &amp; Men</h1>
@@ -364,59 +346,54 @@ Provider, or LWRP:</p>
 </ol>
 <p>You can think of a Resource as a method definition, and the Provider as the
 method itself:</p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">resource</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-  <span class="n">provider</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resource</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="w">  </span><span class="n">provider</span>
 <span class="k">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>First, lets create a new Cookbook: <code>knife cookbook create motd</code></p>
 <p>Now lets create our Resource: <code>vi motd/resources/default.rb</code></p>
-<div class="codehilite"><pre><span></span><span class="n">actions</span> <span class="ss">:create</span>
+<div class="codehilite"><pre><span></span><code><span class="n">actions</span><span class="w"> </span><span class="ss">:create</span>
 
-<span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-  <span class="k">super</span>
-  <span class="vi">@action</span> <span class="o">=</span> <span class="ss">:create</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="w">  </span><span class="k">super</span>
+<span class="w">  </span><span class="vi">@action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">:create</span>
 <span class="k">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Finally, we'll create our Provider: <code>vi motd/providers/default.rb</code></p>
-<div class="codehilite"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;open-uri&#39;</span>
+<span class="nb">require</span><span class="w"> </span><span class="s1">&#39;json&#39;</span>
 
-<span class="n">action</span> <span class="ss">:create</span> <span class="k">do</span>
-  <span class="n">tw</span> <span class="o">=</span> <span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=&#39;</span>
-  <span class="n">tweet</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">action</span><span class="w"> </span><span class="ss">:create</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">tw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=&#39;</span>
+<span class="w">  </span><span class="n">tweet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
 
-  <span class="c1"># Connect to twitter, ask them for the goods, parse the JSON:</span>
-  <span class="nb">open</span><span class="p">(</span><span class="n">tw</span> <span class="o">+</span> <span class="n">new_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">tweet</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">)</span> <span class="p">}</span>
+<span class="w">  </span><span class="c1"># Connect to twitter, ask them for the goods, parse the JSON:</span>
+<span class="w">  </span><span class="nb">open</span><span class="p">(</span><span class="n">tw</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">new_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;r&#39;</span><span class="p">){</span><span class="w"> </span><span class="o">|</span><span class="n">t</span><span class="o">|</span><span class="w"> </span><span class="n">tweet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">JSON</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-  <span class="c1"># Write only the text of the tweet to our file:</span>
-  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="n">m</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span><span class="p">)</span> <span class="p">}</span>
+<span class="w">  </span><span class="c1"># Write only the text of the tweet to our file:</span>
+<span class="w">  </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;w&#39;</span><span class="p">){</span><span class="w"> </span><span class="o">|</span><span class="n">m</span><span class="o">|</span><span class="w"> </span><span class="n">m</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-  <span class="c1"># Let the other Resources know we did some work today:</span>
-  <span class="n">new_resource</span><span class="o">.</span><span class="n">updated_by_last_action</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+<span class="w">  </span><span class="c1"># Let the other Resources know we did some work today:</span>
+<span class="w">  </span><span class="n">new_resource</span><span class="o">.</span><span class="n">updated_by_last_action</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>As an added bonus, we'll include a base recipe: <code>vi motd/recipe/default.rb</code></p>
-<div class="codehilite"><pre><span></span><span class="n">motd</span> <span class="s1">&#39;georgetakei&#39;</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="n">motd</span><span class="w"> </span><span class="s1">&#39;georgetakei&#39;</span>
+</code></pre></div>
 
 <p>Cool, lets see if it works with <strong>shef</strong>:</p>
-<div class="codehilite"><pre><span></span><span class="n">chef</span> <span class="o">&gt;</span> <span class="n">recipe</span>
-<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="n">include_recipe</span> <span class="s1">&#39;motd&#39;</span>
-<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="n">run_chef</span>
-<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="ss">DEBUG</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">on</span> <span class="n">jupiter</span><span class="o">.</span><span class="n">splunk</span><span class="o">.</span><span class="n">com</span>
-<span class="o">[</span><span class="no">Sun</span><span class="p">,</span> <span class="n">xxx</span> <span class="o">-</span><span class="mo">0700</span><span class="o">]</span> <span class="ss">INFO</span><span class="p">:</span> <span class="no">Processing</span> <span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span> <span class="n">action</span> <span class="n">create</span> <span class="p">(</span><span class="n">motd</span><span class="o">::</span><span class="n">default</span> <span class="n">line</span> <span class="mi">1</span><span class="p">)</span>
- <span class="o">=&gt;</span> <span class="kp">true</span>
-<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span> <span class="o">&gt;</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
- <span class="o">=&gt;</span> <span class="s2">&quot;Ke$ha dubs herself </span><span class="se">\&quot;</span><span class="s2">Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&quot;</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="n">chef</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">recipe</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">include_recipe</span><span class="w"> </span><span class="s1">&#39;motd&#39;</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">run_chef</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span><span class="w"> </span><span class="n">xxx</span><span class="w"> </span><span class="o">-</span><span class="mo">0700</span><span class="o">]</span><span class="w"> </span><span class="ss">DEBUG</span><span class="p">:</span><span class="w"> </span><span class="no">Processing</span><span class="w"> </span><span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">jupiter</span><span class="o">.</span><span class="n">splunk</span><span class="o">.</span><span class="n">com</span>
+<span class="o">[</span><span class="no">Sun</span><span class="p">,</span><span class="w"> </span><span class="n">xxx</span><span class="w"> </span><span class="o">-</span><span class="mo">0700</span><span class="o">]</span><span class="w"> </span><span class="ss">INFO</span><span class="p">:</span><span class="w"> </span><span class="no">Processing</span><span class="w"> </span><span class="n">motd</span><span class="o">[</span><span class="n">georgetakei</span><span class="o">]</span><span class="w"> </span><span class="n">action</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="p">(</span><span class="n">motd</span><span class="o">::</span><span class="n">default</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">true</span>
+<span class="ss">chef</span><span class="p">:</span><span class="n">recipe</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
+<span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;Ke$ha dubs herself </span><span class="se">\&quot;</span><span class="s2">Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&quot;</span>
+</code></pre></div>
 
 <h1>Testing</h1>
 <blockquote>
@@ -424,62 +401,59 @@ method itself:</p>
 Lets refactor our MOTD Provider out to a Library that we can then 
 test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
 </blockquote>
-<div class="codehilite"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;open-uri&#39;</span>
+<span class="nb">require</span><span class="w"> </span><span class="s1">&#39;json&#39;</span>
 
-<span class="n">tw</span> <span class="o">=</span> <span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=&#39;</span>
+<span class="n">tw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=&#39;</span>
 
 <span class="c1"># Connects to twitter, retrieves tweets for screen_name.</span>
-<span class="k">def</span> <span class="nf">get_tweet</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
-  <span class="nb">open</span><span class="p">(</span><span class="n">tw</span> <span class="o">+</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="no">JSON</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_tweet</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">open</span><span class="p">(</span><span class="n">tw</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">screen_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;r&#39;</span><span class="p">){</span><span class="w"> </span><span class="o">|</span><span class="n">t</span><span class="o">|</span><span class="w"> </span><span class="no">JSON</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="k">end</span>
 
 <span class="c1"># Writes tweet out to /etc/motd.</span>
-<span class="k">def</span> <span class="nf">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
-  <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">){</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="n">m</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;w&#39;</span><span class="p">){</span><span class="w"> </span><span class="o">|</span><span class="n">m</span><span class="o">|</span><span class="w"> </span><span class="n">m</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="k">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Now lets create some tests for our Library: <code>vi motd/libraries/default.rb</code></p>
-<div class="codehilite"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;test/unit&#39;</span>
 
-<span class="k">class</span> <span class="nc">TestMOTDLibrary</span> <span class="o">&lt;</span> <span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
-  <span class="k">def</span> <span class="nf">test_get_tweet</span>
-    <span class="n">tweets</span> <span class="o">=</span> <span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
-    <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestMOTDLibrary</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_tweet</span>
+<span class="w">    </span><span class="n">tweets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">tweet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
 
-    <span class="n">assert_kind_of</span><span class="p">(</span><span class="nb">String</span><span class="p">,</span> <span class="n">tweet</span><span class="p">)</span>
-    <span class="n">assert_match</span><span class="p">(</span><span class="sr">/Shields Up!/</span><span class="p">,</span> <span class="n">tweet</span><span class="p">)</span>
-  <span class="k">end</span>
+<span class="w">    </span><span class="n">assert_kind_of</span><span class="p">(</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">tweet</span><span class="p">)</span>
+<span class="w">    </span><span class="n">assert_match</span><span class="p">(</span><span class="sr">/Shields Up!/</span><span class="p">,</span><span class="w"> </span><span class="n">tweet</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
 
-  <span class="k">def</span> <span class="nf">test_write_motd</span>
-    <span class="n">tweets</span> <span class="o">=</span> <span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
-    <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">test_write_motd</span>
+<span class="w">    </span><span class="n">tweets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_tweets</span><span class="p">(</span><span class="s1">&#39;georgetakei&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">tweet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tweets</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
 
-    <span class="n">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
-    <span class="n">motd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
+<span class="w">    </span><span class="n">write_motd</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+<span class="w">    </span><span class="n">motd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span>
 
-    <span class="n">assert_equal</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span> <span class="n">motd</span><span class="p">)</span>
-  <span class="k">end</span>
+<span class="w">    </span><span class="n">assert_equal</span><span class="p">(</span><span class="n">tweet</span><span class="p">,</span><span class="w"> </span><span class="n">motd</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
 <span class="k">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>And lets run our tests <code>ruby libraries/default.rb</code>:</p>
-<div class="codehilite"><pre><span></span><span class="no">Loaded</span> <span class="n">suite</span> <span class="n">libraries</span><span class="o">/</span><span class="n">default</span>
+<div class="codehilite"><pre><span></span><code><span class="no">Loaded</span><span class="w"> </span><span class="n">suite</span><span class="w"> </span><span class="n">libraries</span><span class="o">/</span><span class="n">default</span>
 <span class="no">Started</span>
 <span class="n">F</span><span class="o">.</span>
-<span class="no">Finished</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="mi">428887</span> <span class="n">seconds</span><span class="o">.</span>
+<span class="no">Finished</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="mi">428887</span><span class="w"> </span><span class="n">seconds</span><span class="o">.</span>
 
-  <span class="mi">1</span><span class="p">)</span> <span class="ss">Failure</span><span class="p">:</span>
-<span class="n">test_get_tweet</span><span class="p">(</span><span class="no">TestMOTDLibrary</span><span class="p">)</span> <span class="o">[</span><span class="n">libraries</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">26</span><span class="o">]</span><span class="p">:</span>
-<span class="o">&lt;</span><span class="no">Ke</span><span class="vg">$ha</span> <span class="n">dubs</span> <span class="n">herself</span> <span class="p">\</span><span class="s2">&quot;Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&gt; expected to be =~</span>
+<span class="w">  </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="ss">Failure</span><span class="p">:</span>
+<span class="n">test_get_tweet</span><span class="p">(</span><span class="no">TestMOTDLibrary</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">libraries</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">26</span><span class="o">]</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="no">Ke</span><span class="vg">$ha</span><span class="w"> </span><span class="n">dubs</span><span class="w"> </span><span class="n">herself</span><span class="w"> </span><span class="p">\</span><span class="s2">&quot;Pop&#39;s dirty little sister.</span><span class="se">\&quot;</span><span class="s2"> Didn&#39;t realize she was from</span><span class="se">\n</span><span class="s2">the Ozarks.&gt; expected to be =~</span>
 <span class="s2">&lt;/Shields Up!/&gt;.</span>
 
 <span class="s2">2 tests, 3 assertions, 1 failures, 0 errors</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Oh, right :)</p>
 <h1>References</h1>
@@ -492,7 +466,7 @@ test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
 <li><a href="http://www.rubycentral.com/pickaxe/">Programming Ruby</a></li>
 </ul>
 <h1>Slides</h1>
-<iframe
+<p><iframe
   src="https://docs.google.com/presentation/embed?id=1wvruJYudlj2Mb951PFiDOC072oWc2TS4vbWX5PNNYOg&start=false&loop=false&delayms=3000"
   frameborder="0"
   width="960"
@@ -501,6 +475,7 @@ test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
   mozallowfullscreen="true"
   webkitallowfullscreen="true">
 </iframe>
+</p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
@@ -508,34 +483,15 @@ test it at the unit level: <code>vi motd/libraries/default.rb</code></p>
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

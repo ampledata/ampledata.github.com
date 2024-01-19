@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -100,9 +99,8 @@ Storm</a>.</p>
 <h3>Bonus</h3>
 <p>Here's another useful search that extracts the message body and displays it
 as a table:</p>
-<div class="codehilite"><pre><span></span><span class="err">*simpleyak* | spath output=TextBody TextBody | table TextBody</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="nx">simpleyak</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">spath</span><span class="w"> </span><span class="nx">output</span><span class="p">=</span><span class="nx">TextBody</span><span class="w"> </span><span class="nx">TextBody</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">table</span><span class="w"> </span><span class="nx">TextBody</span>
+</code></pre></div>
 
 <h3>Other Email Services</h3>
 <p>When I initially wrote this article I chose Email Yak as my provider
@@ -114,11 +112,11 @@ where as mailgun POSTs messages in their original RFC2822 format.</p>
 <p>It is possible to index both of these formats with Splunk Storm given one
 change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype</code> from
 <code>generic_single_line</code> to <strong>storm_multi_line</strong>:</p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">storm</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Endpoint handler for POST requests.&quot;&quot;&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">storm</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Endpoint handler for POST requests.&quot;&quot;&quot;</span>
     <span class="n">sourcetype</span> <span class="o">=</span> <span class="s1">&#39;storm_multi_line&#39;</span>
     <span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;webhook&#39;</span>
-</pre></div>
+</code></pre></div>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
@@ -126,34 +124,15 @@ change in my Webhook. In <code>app.py</code> on line 31 change <code>sourcetype<
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

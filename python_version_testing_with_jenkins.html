@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -109,24 +108,23 @@ Jenkins to automatically download and install our dependent versions of Python.<
 <li>After Jenkins restarts, from the console, browse to <strong>Manage Jenkins &gt; Script Console</strong>.</li>
 <li>
 <p>Paste in the following Groovy script and click <strong>Run</strong>:</p>
-<div class="codehilite"><pre><span></span><span class="kt">def</span> <span class="n">download</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;curl -skLO http://xrl.us/pythonbrewinstall&quot;&quot;&quot;</span>
-<span class="kt">def</span> <span class="n">download_proc</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
-<span class="kt">def</span> <span class="n">install</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;bash pythonbrewinstall&quot;&quot;&quot;</span>
-<span class="kt">def</span> <span class="n">install_proc</span> <span class="o">=</span> <span class="n">install</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
+<div class="codehilite"><pre><span></span><code><span class="kt">def</span><span class="w"> </span><span class="n">download</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;&quot;curl -skLO http://xrl.us/pythonbrewinstall&quot;&quot;&quot;</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">download_proc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">download</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;&quot;bash pythonbrewinstall&quot;&quot;&quot;</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">install_proc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">install</span><span class="o">.</span><span class="na">execute</span><span class="o">()</span>
 
 <span class="n">download_proc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">()</span>
 
-<span class="n">println</span> <span class="s2">&quot;return code: ${download_proc.exitValue()}&quot;</span>
-<span class="n">println</span> <span class="s2">&quot;stderr: ${download_proc.err.text}&quot;</span>
-<span class="n">println</span> <span class="s2">&quot;stdout: ${download_proc.in.text}&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;return code: ${download_proc.exitValue()}&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;stderr: ${download_proc.err.text}&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;stdout: ${download_proc.in.text}&quot;</span>
 
 <span class="n">install_proc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">()</span>
 
-<span class="n">println</span> <span class="s2">&quot;return code: ${install_proc.exitValue()}&quot;</span>
-<span class="n">println</span> <span class="s2">&quot;stderr: ${install_proc.err.text}&quot;</span>
-<span class="n">println</span> <span class="s2">&quot;stdout: ${install_proc.in.text}&quot;</span>
-</pre></div>
-
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;return code: ${install_proc.exitValue()}&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;stderr: ${install_proc.err.text}&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;stdout: ${install_proc.in.text}&quot;</span>
+</code></pre></div>
 
 </li>
 <li>
@@ -162,10 +160,9 @@ Jenkins to automatically download and install our dependent versions of Python.<
 </ol>
 <h1>Usage</h1>
 <p>I prefer using the <strong>Virtualenv Builder</strong> for my project, with the following <strong>Command</strong>s:</p>
-<div class="codehilite"><pre><span></span><span class="nv">$PYTHON_EXE</span> setup.py install
-<span class="nv">$PYTHON_EXE</span> setup.py nosetests
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nv">$PYTHON_EXE</span><span class="w"> </span>setup.py<span class="w"> </span>install
+<span class="nv">$PYTHON_EXE</span><span class="w"> </span>setup.py<span class="w"> </span>nosetests
+</code></pre></div>
 
 <p><img alt="'Virtualenv Builder' dialog" src="http://dl.dropbox.com/u/4036736/Screenshots/811y.png" /></p>
 <p>Which leaves me with healthy, all natural, self-installed multiple Python version
@@ -178,34 +175,15 @@ job configuration:</p>
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

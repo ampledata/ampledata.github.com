@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -99,53 +98,48 @@
 </ul>
 <h2>Steps</h2>
 <p>Normally when I ping yahoo.com I see:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>: <span class="m">56</span> data bytes
-<span class="m">64</span> bytes from <span class="m">66</span>.94.234.13: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">47</span> <span class="nv">time</span><span class="o">=</span><span class="m">256</span>.573 ms
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received, <span class="m">0</span>% packet loss
-round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">256</span>.573/256.573/256.573/0.000 ms
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>:<span class="w"> </span><span class="m">56</span><span class="w"> </span>data<span class="w"> </span>bytes
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">66</span>.94.234.13:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">47</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">256</span>.573<span class="w"> </span>ms
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+round-trip<span class="w"> </span>min/avg/max/stddev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">256</span>.573/256.573/256.573/0.000<span class="w"> </span>ms
+</code></pre></div>
 
 <p>Now I'll ping yahoo.com with a packet size of 1492 bytes:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> -D -s <span class="m">1500</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>: <span class="m">1500</span> data bytes
-ping: sendto: Message too long
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">0</span> packets received, <span class="m">100</span>% packet loss
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>-s<span class="w"> </span><span class="m">1500</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>:<span class="w"> </span><span class="m">1500</span><span class="w"> </span>data<span class="w"> </span>bytes
+ping:<span class="w"> </span>sendto:<span class="w"> </span>Message<span class="w"> </span>too<span class="w"> </span>long
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">0</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">100</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+</code></pre></div>
 
 <p>Next I'll ping yahoo.com with a smaller packet size:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> -D -s <span class="m">1300</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>: <span class="m">1300</span> data bytes
-<span class="m">1308</span> bytes from <span class="m">66</span>.94.234.13: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">47</span> <span class="nv">time</span><span class="o">=</span><span class="m">172</span>.396 ms
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received, <span class="m">0</span>% packet loss
-round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">172</span>.396/172.396/172.396/0.000 ms
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>-s<span class="w"> </span><span class="m">1300</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>:<span class="w"> </span><span class="m">1300</span><span class="w"> </span>data<span class="w"> </span>bytes
+<span class="m">1308</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">66</span>.94.234.13:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">47</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">172</span>.396<span class="w"> </span>ms
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+round-trip<span class="w"> </span>min/avg/max/stddev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">172</span>.396/172.396/172.396/0.000<span class="w"> </span>ms
+</code></pre></div>
 
 <p>From our testing so far we can safely assume that our MTU is less than 1500 bytes and more than 1300 bytes. We can continue testing until we find a happy medium. </p>
 <p>Lets try 1329 bytes:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> -D -s <span class="m">1329</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>: <span class="m">1329</span> data bytes
-ping: sendto: Message too long
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">0</span> packets received, <span class="m">100</span>% packet loss
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>-s<span class="w"> </span><span class="m">1329</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>:<span class="w"> </span><span class="m">1329</span><span class="w"> </span>data<span class="w"> </span>bytes
+ping:<span class="w"> </span>sendto:<span class="w"> </span>Message<span class="w"> </span>too<span class="w"> </span>long
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">0</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">100</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+</code></pre></div>
 
 <p>Lets try 1328 bytes:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> -D -s <span class="m">1328</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>: <span class="m">1328</span> data bytes
-<span class="m">1336</span> bytes from <span class="m">66</span>.94.234.13: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">48</span> <span class="nv">time</span><span class="o">=</span><span class="m">288</span>.600 ms
---- yahoo.com ping statistics --
-<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received, <span class="m">0</span>% packet loss
-round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">288</span>.600/288.600/288.600/0.000 ms
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>-s<span class="w"> </span><span class="m">1328</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">66</span>.94.234.13<span class="o">)</span>:<span class="w"> </span><span class="m">1328</span><span class="w"> </span>data<span class="w"> </span>bytes
+<span class="m">1336</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">66</span>.94.234.13:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">48</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">288</span>.600<span class="w"> </span>ms
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>--
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+round-trip<span class="w"> </span>min/avg/max/stddev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">288</span>.600/288.600/288.600/0.000<span class="w"> </span>ms
+</code></pre></div>
 
 <p>Got it!</p>
 <p>Our MTU is going to be a number less than 1336 bytes that is a multiple of 8:</p>
@@ -164,34 +158,15 @@ round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">288</span
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

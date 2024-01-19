@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -85,34 +84,31 @@
 returned by splunkd's
 <a href="http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI/RESTaccess#authentication.2Fhttpauth-tokens">login endpoint</a>
 to double check daemon health. (excuse my awk ignorance)</p>
-<div class="codehilite"><pre><span></span><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span>
 <span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">;</span>
 <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">;</span>
-<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl --max-time <span class="m">60</span> -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> -d <span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span> -d <span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span> https://localhost:8089/services/auth/login<span class="p">|</span>egrep <span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span><span class="p">|</span>awk -F<span class="s1">&#39;&gt;&#39;</span> <span class="s1">&#39;{print $2}&#39;</span><span class="p">|</span>awk -F<span class="s1">&#39;&lt;&#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span>
-curl --max-time <span class="m">60</span> -f -o /dev/null -s -k -u <span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span> https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span><span class="p">;</span>
-<span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span><span class="p">;</span>
-logger -p local1.debug -t splunkd_auth_status <span class="nv">$STATUS</span>
-</pre></div>
-
+<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>--max-time<span class="w"> </span><span class="m">60</span><span class="w"> </span>-f<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span><span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">username</span><span class="o">=</span><span class="nv">$SPL_USER</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">password</span><span class="o">=</span><span class="nv">$SPL_PASS</span><span class="w"> </span>https://localhost:8089/services/auth/login<span class="p">|</span>egrep<span class="w"> </span><span class="s1">&#39;&lt;sessionKey&gt;[[:alnum:]]+&lt;/sessionKey&gt;&#39;</span><span class="p">|</span>awk<span class="w"> </span>-F<span class="s1">&#39;&gt;&#39;</span><span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="p">|</span>awk<span class="w"> </span>-F<span class="s1">&#39;&lt;&#39;</span><span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span>
+curl<span class="w"> </span>--max-time<span class="w"> </span><span class="m">60</span><span class="w"> </span>-f<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span><span class="nv">$SPL_USER</span>:<span class="nv">$SPL_PASS</span><span class="w"> </span>https://localhost:8089/services/authentication/httpauth-tokens/<span class="nv">$TOKEN</span><span class="p">;</span>
+<span class="o">[[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span><span class="p">;</span>
+logger<span class="w"> </span>-p<span class="w"> </span>local1.debug<span class="w"> </span>-t<span class="w"> </span>splunkd_auth_status<span class="w"> </span><span class="nv">$STATUS</span>
+</code></pre></div>
 
 <p>I've intentionally left the semicolon at the end of each line for one
 reason: This entire script can be concatinated into a single line and
 executed via crontab:</p>
-<div class="codehilite"><pre><span></span>*/5 * * * * <span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span><span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">;</span><span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">;</span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>*/5<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="nv">SPL_USER</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">;</span><span class="nv">SPL_PASS</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">;</span><span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">;</span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>...
+</code></pre></div>
 
 <p>This command will print a line similar to this when there's an error:</p>
-<div class="codehilite"><pre><span></span><span class="err">Apr  4 05:55:01 domU-12-31-39-00-E5-32 splunkd_auth_status: err</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>Apr  4 05:55:01 domU-12-31-39-00-E5-32 splunkd_auth_status: err
+</code></pre></div>
 
 <p>Using a Splunk Saved Search with Alerting, you could easily match this event
 and trigger and alert.</p>
 <p>Alternatively, if you're using Cloudkick you could change the logger
 call at the end of this command to a simple echo:</p>
-<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;status </span><span class="nv">$STATUS</span><span class="s2">&quot;</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;status </span><span class="nv">$STATUS</span><span class="s2">&quot;</span>
+</code></pre></div>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
@@ -120,34 +116,15 @@ call at the end of this command to a simple echo:</p>
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -128,9 +127,9 @@ the port to send NMEA:</p>
 the network payload by newline into individual messages. This allow us to filter NMEA 
 sentence type later.</p>
 <p>Buffer.toString() Function Node code content:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">oldPayload</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
-<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
-<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">oldPayload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">msg</span><span class="p">;</span>
 </code></pre></div>
 
 <h3>Step 3 - Filter NMEA Sentence type, send NMEA directly to WinTAK</h3>
@@ -154,54 +153,54 @@ the network to ATAK on port 4349. </p>
 <span class="cm">*/</span>
 
 <span class="c1">// Geenrate a timestamp for the CoT Event</span>
-<span class="kd">const</span> <span class="nx">dt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">dtD</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dt</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">dtD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">dt</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
 <span class="c1">// &quot;stale&quot; Period (mostly ignored for this type of Event)</span>
-<span class="kd">const</span> <span class="nx">dtD5</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dt</span> <span class="o">+</span> <span class="mf">250000</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">dtD5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">dt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">250000</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
 
 <span class="c1">// Copy old event for reference</span>
-<span class="kd">let</span> <span class="nx">oldPayload</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">oldPayload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
 
-<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">event</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">version</span><span class="o">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
-            <span class="nx">uid</span><span class="o">:</span> <span class="s2">&quot;External-GPS&quot;</span><span class="p">,</span>
-            <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;a-f-G-E-S&quot;</span><span class="p">,</span>
-            <span class="nx">time</span><span class="o">:</span> <span class="nx">dtD</span><span class="p">,</span>
-            <span class="nx">start</span><span class="o">:</span> <span class="nx">dtD</span><span class="p">,</span>
-            <span class="nx">stale</span><span class="o">:</span> <span class="nx">dtD5</span><span class="p">,</span>
-            <span class="nx">how</span><span class="o">:</span> <span class="s2">&quot;m-g&quot;</span>
-        <span class="p">},</span>
-        <span class="nx">point</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span> 
-            <span class="nx">$</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">lat</span><span class="o">:</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">lat</span><span class="p">,</span>
-                <span class="nx">lon</span><span class="o">:</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">lon</span><span class="p">,</span>
-                <span class="nx">hae</span><span class="o">:</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">alt</span><span class="p">)</span> <span class="o">+</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">geoidalSep</span><span class="p">),</span>
-                <span class="nx">ce</span><span class="o">:</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">horDilution</span><span class="p">,</span>
-                <span class="nx">le</span><span class="o">:</span> <span class="mf">0</span>
-            <span class="p">}</span>
-        <span class="p">}</span> <span class="p">],</span>
-        <span class="nx">detail</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
-            <span class="nx">precisionlocation</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
-                <span class="nx">$</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="nx">geopointsrc</span><span class="o">:</span> <span class="s2">&quot;GPS&quot;</span><span class="p">,</span>
-                    <span class="nx">altitudesrc</span><span class="o">:</span> <span class="s2">&quot;GPS&quot;</span>
-                <span class="p">}</span>
-            <span class="p">}</span> <span class="p">],</span>
-            <span class="nx">remarks</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;External GPS&quot;</span><span class="p">],</span>
-            <span class="nx">extendedGpsDetails</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span>
-                <span class="nx">$</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="nx">fixQuality</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
-                    <span class="nx">numSatellites</span><span class="o">:</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">numSat</span><span class="p">,</span>
-                    <span class="nx">time</span><span class="o">:</span> <span class="nx">oldPayload</span><span class="p">.</span><span class="nx">timestamp</span>
-                <span class="p">}</span>
-            <span class="p">}</span> <span class="p">]</span>
-        <span class="p">}</span> <span class="p">]</span>
-    <span class="p">}</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">$</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">uid</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;External-GPS&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;a-f-G-E-S&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">time</span><span class="o">:</span><span class="w"> </span><span class="nx">dtD</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="nx">dtD</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">stale</span><span class="o">:</span><span class="w"> </span><span class="nx">dtD5</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">how</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;m-g&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">point</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">$</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">lat</span><span class="o">:</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">lat</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">lon</span><span class="o">:</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">lon</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">hae</span><span class="o">:</span><span class="w"> </span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">alt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">geoidalSep</span><span class="p">),</span>
+<span class="w">                </span><span class="nx">ce</span><span class="o">:</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">horDilution</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">le</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="p">],</span>
+<span class="w">        </span><span class="nx">detail</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">precisionlocation</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">$</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">geopointsrc</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;GPS&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">altitudesrc</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;GPS&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="p">],</span>
+<span class="w">            </span><span class="nx">remarks</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;External GPS&quot;</span><span class="p">],</span>
+<span class="w">            </span><span class="nx">extendedGpsDetails</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">$</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">fixQuality</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">numSatellites</span><span class="o">:</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">numSat</span><span class="p">,</span>
+<span class="w">                    </span><span class="nx">time</span><span class="o">:</span><span class="w"> </span><span class="nx">oldPayload</span><span class="p">.</span><span class="nx">timestamp</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">msg</span><span class="p">;</span>
 </code></pre></div>
 
 <h1>ATAK Steps</h1>
@@ -223,34 +222,15 @@ the network to ATAK on port 4349. </p>
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->

@@ -26,7 +26,7 @@
       })();
     </script>
 
-    <title>Splunk Storm Chef Handler</title>
+    <title>Openwrt Remoteid Receiver</title>
     <link href="http://feeds.feedburner.com/ampledata" rel="alternate" title="RSS" type="application/rss+xml" />
 
     <!-- Le styles -->
@@ -64,7 +64,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Splunk Storm Chef Handler</a>
+          <a class="navbar-brand" href="#">Openwrt Remoteid Receiver</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -80,40 +80,28 @@
 <!-- block templates/base.html content -->
 
 <!-- block templates/article.html content -->
-<h3>Overview</h3>
-<p>Using my <a href="https://github.com/ampledata/chef-handler-splunkstorm">Chef Exception &amp; Reporting Handler for Splunk Storm</a>
-you can easily search for and report on your chef-client runs.</p>
-<h3>Steps</h3>
+<h1>OpenWRT Remote ID Receiver</h1>
+<p>This guide describes the process of creating a FAA Remote ID receiver using commercial off the shelf components and open source software. This receiver captures &amp; analyzes Remote ID beacons from FAA compliant UAV, UAS, Drones &amp; other unmanned and uncrewed aircraft. Captured Remote ID beacons contain pertinant telemetry about the airborne object, including position, operator location, speed, heading &amp; more. Remote ID data is viewed within the Wireshark packet capture software.</p>
+<p>There are many RF waveforms for Remote ID. This receiver uses the 2.4 GHz WiFi Remote ID waveform - additional waveforms and frequencies are possible with further development.</p>
+<h2>Prerequisites</h2>
 <ol>
-<li>Create a <a href="https://www.splunkstorm.com">Splunk Storm</a> account.</li>
-<li>Retrieve your Splunk Storm <a href="http://docs.splunk.com/Documentation/Storm/Beta/User/UseStormsRESTAPI">REST API Credentials</a>.</li>
-<li>Download the <a href="http://community.opscode.com/cookbooks/chef_handler">chef_handler</a>
-Cookbook.</li>
-<li>Given you've retrieved your Access Token as <strong>ACCESS_TOKEN</strong> and Project ID
-as <strong>PROJECT_ID</strong>, add a Recipe similar to the example below:<div class="codehilite"><pre><span></span><code><span class="n">include_recipe</span><span class="w"> </span><span class="s1">&#39;chef_handler&#39;</span>
-
-<span class="n">gem_package</span><span class="p">(</span><span class="s1">&#39;chef-handler-splunkstorm&#39;</span><span class="p">){</span><span class="n">action</span><span class="w"> </span><span class="ss">:nothing</span><span class="p">}</span><span class="o">.</span><span class="n">run_action</span><span class="p">(</span><span class="ss">:install</span><span class="p">)</span>
-
-<span class="n">chef_handler</span><span class="w"> </span><span class="s1">&#39;Chef::Handler::SplunkStorm&#39;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="n">action</span><span class="w"> </span><span class="ss">:enable</span>
-<span class="w">  </span><span class="n">arguments</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;ACCESS_TOKEN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PROJECT_ID&#39;</span><span class="o">]</span>
-<span class="w">  </span><span class="n">source</span><span class="w"> </span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">Gem</span><span class="o">.</span><span class="n">all_load_paths</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="sr">/chef-handler-splunkstorm/</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">,</span>
-<span class="w">                   </span><span class="s1">&#39;chef&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;handler&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;splunkstorm.rb&#39;</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div>
-
-</li>
+<li>An OpenWRT compatible device with a WiFi chipset that supports Monitor Mode.</li>
+<li>A computer with Wireshark software.</li>
+<li>A LAN IP network connecting the Wireshark computer &amp; the OpenWRT device.</li>
 </ol>
-<h3>Usage</h3>
-<h4>Search</h4>
-<p>A search for * should result in events like these:</p>
-<p><img alt="chef-client report in Splunk Storm" src="http://dl.dropbox.com/u/4036736/Screenshots/h2hc.png" /></p>
-<h4>Report</h4>
-<p>The following dashboard shows the <strong>Average chef-client Elapsed Time by Host</strong>:</p>
-<p><img alt="Average chef-client Elapsed Time by Host" src="http://dl.dropbox.com/u/4036736/Screenshots/qx9j.png" /></p>
-<p>Here's the assocaited search:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">*</span> | spath path=elapsed_time output=elapsed_time | timechart span=&quot;15m&quot; avg(elapsed_time) by host
-</code></pre></div>
+<h2>Steps</h2>
+<h3>OpenWRT device</h3>
+<ol>
+<li>Install OpenWRT.</li>
+<li>Install tcpdump OPKG (via Internet access or manual copy): <code>opkg update;opkg install tcpdump</code></li>
+</ol>
+<h3>Wireshark computer</h3>
+<ol>
+<li>Install Wireshark.</li>
+<li>Ensure network connectivity to OpenWRT device: <code>ping 192.168.0.20</code></li>
+<li>Download the openwrt_remoteid.sh script.</li>
+<li>Run the openwrt_remoteid.sh command: <code>bash openwrt_remoteid.sh 192.168.0.20</code></li>
+</ol>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->

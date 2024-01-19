@@ -70,7 +70,6 @@
           <ul class="nav navbar-nav">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="https://www.linkedin.com/in/ampledata">LinkedIn</a></li>
-              <li><a href="https://twitter.com/ampledata">Twitter</a></li>
               <li><a href="https://github.com/ampledata">Github</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -98,43 +97,40 @@
 <h1>Example Usage</h1>
 <p>In this example the default gateway for our network is <strong>10.10.1.1</strong> - this is the device who's ARP cache we're going to clear. The IP address of the new host is <strong>10.10.1.2</strong>. The MAC address of the old host was <strong>00:1a</strong>, and the MAC address of the new host is <strong>00:1b</strong> (neither MAC is important, they're just here for reference).</p>
 <p>First, let's examine our routing table:</p>
-<div class="codehilite"><pre><span></span>$ netstat -rn
-Routing tables
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>netstat<span class="w"> </span>-rn
+Routing<span class="w"> </span>tables
 Internet:
-Destination  Gateway               Flags     Refs      Use  Netif Expire
-default      <span class="m">10</span>.10.1.1             UGS       <span class="m">0</span>         <span class="m">0</span>    fxp0
-<span class="m">10</span>.10.1.0    ff:ff:ff:ff:ff:ff     UHLWb     <span class="m">0</span>         <span class="m">3</span>    <span class="nv">fxp0</span> <span class="o">=</span>&gt;
-<span class="m">10</span>.10.1/24   link#1                UC        <span class="m">0</span>         <span class="m">0</span>    fxp0
-<span class="m">10</span>.10.1.1    <span class="m">00</span>:13:60:b8:f3:7f     UHLW      <span class="m">0</span>         <span class="m">3</span>    fxp0   <span class="m">1164</span>
-<span class="m">10</span>.10.1.2    <span class="m">00</span>:02:55:54:00:1b     UHLW      <span class="m">0</span>         <span class="m">3</span>    lo0
-</pre></div>
-
+Destination<span class="w">  </span>Gateway<span class="w">               </span>Flags<span class="w">     </span>Refs<span class="w">      </span>Use<span class="w">  </span>Netif<span class="w"> </span>Expire
+default<span class="w">      </span><span class="m">10</span>.10.1.1<span class="w">             </span>UGS<span class="w">       </span><span class="m">0</span><span class="w">         </span><span class="m">0</span><span class="w">    </span>fxp0
+<span class="m">10</span>.10.1.0<span class="w">    </span>ff:ff:ff:ff:ff:ff<span class="w">     </span>UHLWb<span class="w">     </span><span class="m">0</span><span class="w">         </span><span class="m">3</span><span class="w">    </span><span class="nv">fxp0</span><span class="w"> </span><span class="o">=</span>&gt;
+<span class="m">10</span>.10.1/24<span class="w">   </span>link#1<span class="w">                </span>UC<span class="w">        </span><span class="m">0</span><span class="w">         </span><span class="m">0</span><span class="w">    </span>fxp0
+<span class="m">10</span>.10.1.1<span class="w">    </span><span class="m">00</span>:13:60:b8:f3:7f<span class="w">     </span>UHLW<span class="w">      </span><span class="m">0</span><span class="w">         </span><span class="m">3</span><span class="w">    </span>fxp0<span class="w">   </span><span class="m">1164</span>
+<span class="m">10</span>.10.1.2<span class="w">    </span><span class="m">00</span>:02:55:54:00:1b<span class="w">     </span>UHLW<span class="w">      </span><span class="m">0</span><span class="w">         </span><span class="m">3</span><span class="w">    </span>lo0
+</code></pre></div>
 
 <p>Here's our first failed attempt at reaching the Internet from the new host:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>: <span class="m">56</span> data bytes
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">0</span> packets received, <span class="m">100</span>% packet loss
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>:<span class="w"> </span><span class="m">56</span><span class="w"> </span>data<span class="w"> </span>bytes
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">0</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">100</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+</code></pre></div>
 
 <p>Now we'll <em>arping</em> our default gateway. This will cause the gateway to flush the ARP cache for the new host's IP address. The flags we'll use for this operation are: "<strong>-c 1</strong>" to send one arping, and "<strong>-S 10.10.1.2</strong>" to set my source IP to 10.10.1.2 (this is optional but could be useful for a host with multiple <a href="http://www.freebsd.org/cgi/man.cgi?query=ifconfig">aliased</a> IPs, such as eth0:1, eth0:2, etc.).</p>
-<div class="codehilite"><pre><span></span>$ arping -c <span class="m">1</span> -S <span class="m">10</span>.10.1.2 <span class="m">10</span>.10.1.1
-ARPING <span class="m">10</span>.10.1.1
-<span class="m">60</span> bytes from <span class="m">00</span>:13:60:b8:f3:7f <span class="o">(</span><span class="m">10</span>.10.1.1<span class="o">)</span>: <span class="nv">index</span><span class="o">=</span><span class="m">0</span> <span class="nv">time</span><span class="o">=</span><span class="m">13</span>.884 msec
---- <span class="m">10</span>.10.1.1 statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received,   <span class="m">0</span>% unanswered
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>arping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-S<span class="w"> </span><span class="m">10</span>.10.1.2<span class="w"> </span><span class="m">10</span>.10.1.1
+ARPING<span class="w"> </span><span class="m">10</span>.10.1.1
+<span class="m">60</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">00</span>:13:60:b8:f3:7f<span class="w"> </span><span class="o">(</span><span class="m">10</span>.10.1.1<span class="o">)</span>:<span class="w"> </span><span class="nv">index</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">13</span>.884<span class="w"> </span>msec
+---<span class="w"> </span><span class="m">10</span>.10.1.1<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w">   </span><span class="m">0</span>%<span class="w"> </span>unanswered
+</code></pre></div>
 
 <p>Now we can successfully reach the Internet from the new host:</p>
-<div class="codehilite"><pre><span></span>$ ping -c <span class="m">1</span> yahoo.com
-PING yahoo.com <span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>: <span class="m">56</span> data bytes
-<span class="m">64</span> bytes from <span class="m">216</span>.109.112.135: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">55</span> <span class="nv">time</span><span class="o">=</span><span class="m">83</span>.822 ms
---- yahoo.com ping statistics ---
-<span class="m">1</span> packets transmitted, <span class="m">1</span> packets received, <span class="m">0</span>% packet loss
-round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">83</span>.822/83.822/83.822/0.000 ms
-</pre></div>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>yahoo.com
+PING<span class="w"> </span>yahoo.com<span class="w"> </span><span class="o">(</span><span class="m">216</span>.109.112.135<span class="o">)</span>:<span class="w"> </span><span class="m">56</span><span class="w"> </span>data<span class="w"> </span>bytes
+<span class="m">64</span><span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span><span class="m">216</span>.109.112.135:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">55</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">83</span>.822<span class="w"> </span>ms
+---<span class="w"> </span>yahoo.com<span class="w"> </span>ping<span class="w"> </span>statistics<span class="w"> </span>---
+<span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>transmitted,<span class="w"> </span><span class="m">1</span><span class="w"> </span>packets<span class="w"> </span>received,<span class="w"> </span><span class="m">0</span>%<span class="w"> </span>packet<span class="w"> </span>loss
+round-trip<span class="w"> </span>min/avg/max/stddev<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">83</span>.822/83.822/83.822/0.000<span class="w"> </span>ms
+</code></pre></div>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
@@ -142,34 +138,15 @@ round-trip min/avg/max/stddev <span class="o">=</span> <span class="m">83</span>
 
 
 <!-- block templates/article.html footer -->
-<h2>Share</h2>
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="ampledata">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<h2>Comments</h2>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ampledata';
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <!-- block templates/base.html footer -->
 <footer class="footer">
   <div class="container">
       Contact Greg Albrecht: Email <a
-        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a> Twitter <a
-        href="http://twitter.com/ampledata">@ampledata</a> Github <a
+        href="mailto:gba@gregalbrecht.com">gba@gregalbrecht.com</a>  Github <a
         href="https://github.com/ampledata">ampledata</a>.
 
-      <p>This work by <a href="http://twitter.com/ampledata">Greg Albrecht</a> is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
+      <p>This work by Greg Albrecht is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>. Based on a work at <a href="http://ampledata.org">ampledata.org</a>.</p>
   </div>
 </footer>
 <!-- endblock templates/base.html footer -->
