@@ -101,17 +101,19 @@
 <li>Install OpenWRT.</li>
 <li>
 <p>Install <a href="https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark">tcpdump</a> OPKG (via Internet access or manual copy):</p>
-<p>:::bash
-opkg update
-opkg install tcpdump</p>
+<div class="codehilite"><pre><span></span><code>opkg<span class="w"> </span>update
+opkg<span class="w"> </span>install<span class="w"> </span>tcpdump
+</code></pre></div>
+
 </li>
 <li>
 <p>Enable monitor mode:</p>
-<p>:::bash
-uci set wireless.@wifi-device[0].disabled=0
-uci commit
-iw phy phy0 interface add mon0 type monitor;
-ifconfig mon0 up</p>
+<div class="codehilite"><pre><span></span><code>uci<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wireless.@wifi-device<span class="o">[</span><span class="m">0</span><span class="o">]</span>.disabled<span class="o">=</span><span class="m">0</span>
+uci<span class="w"> </span>commit
+iw<span class="w"> </span>phy<span class="w"> </span>phy0<span class="w"> </span>interface<span class="w"> </span>add<span class="w"> </span>mon0<span class="w"> </span><span class="nb">type</span><span class="w"> </span>monitor<span class="p">;</span>
+ifconfig<span class="w"> </span>mon0<span class="w"> </span>up
+</code></pre></div>
+
 </li>
 </ol>
 <h3>Wireshark computer</h3>
@@ -119,11 +121,10 @@ ifconfig mon0 up</p>
 <li>Install <a href="https://www.wireshark.org/">Wireshark</a>.</li>
 <li>Install the <a href="https://github.com/opendroneid/wireshark-dissector">Wireshark Remote ID Dissector</a>.</li>
 <li>Ensure network connectivity to OpenWRT device: <code>ping 192.168.0.1</code></li>
-<li>
-<p>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:</p>
-<p>:::bash
-ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
-/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</p>
+<li>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>no<span class="w"> </span>root@192.168.0.1<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>mon0<span class="w"> </span>-U<span class="w"> </span>-s0<span class="w"> </span>-w<span class="w"> </span>-<span class="w"> </span><span class="s1">&#39;not port 22&#39;</span><span class="p">|</span><span class="se">\</span>
+/Applications/Wireshark.app/Contents/MacOS/Wireshark<span class="w"> </span>-k<span class="w"> </span>-i<span class="w"> </span>-
+</code></pre></div>
+
 </li>
 </ol>
 <blockquote>
