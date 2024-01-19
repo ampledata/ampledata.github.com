@@ -99,16 +99,20 @@
 <h3>OpenWRT device</h3>
 <ol>
 <li>Install OpenWRT.</li>
-<li>Install <a href="https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark">tcpdump</a> OPKG (via Internet access or manual copy):
-    <code>sh linenum="1"
-    opkg update
-    opkg install tcpdump</code></li>
-<li>Enable monitor mode:
-    <code>sh linenum="1"
-    uci set wireless.@wifi-device[0].disabled=0
-    uci commit
-    iw phy phy0 interface add mon0 type monitor;
-    ifconfig mon0 up</code></li>
+<li>
+<p>Install <a href="https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark">tcpdump</a> OPKG (via Internet access or manual copy):</p>
+<p>:::sh linenums=True
+opkg update
+opkg install tcpdump</p>
+</li>
+<li>
+<p>Enable monitor mode:</p>
+<p>:::sh linenums=True
+uci set wireless.@wifi-device[0].disabled=0
+uci commit
+iw phy phy0 interface add mon0 type monitor;
+ifconfig mon0 up</p>
+</li>
 </ol>
 <h3>Wireshark computer</h3>
 <ol>
@@ -116,16 +120,16 @@
 <li>Install the <a href="https://github.com/opendroneid/wireshark-dissector">Wireshark Remote ID Dissector</a>.</li>
 <li>Ensure network connectivity to OpenWRT device: <code>ping 192.168.0.1</code></li>
 <li>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:
-<code>sh linenum="1"
+:::sh linenums=True
 ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
-/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</code><blockquote>
+/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</li>
+</ol>
+<blockquote>
 <ul>
 <li>Change <code>192.168.0.1</code> to the IP address of your OpenWRT device.</li>
 <li>Change  <code>/Applications/Wireshark.app/Contents/MacOS/Wireshark</code> to the path to the Wireshark executable on your computer.</li>
 </ul>
 </blockquote>
-</li>
-</ol>
 <h2>Results</h2>
 <p>Within Wireshark you should begin to see OPENDRONEID packets in the Protocol column. You can filter for these packets by using the filter: <code>opendroneid</code></p>
 <p><img alt="" src="img/remoteid/wireshark1.png" /></p>
