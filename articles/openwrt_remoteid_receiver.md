@@ -27,12 +27,15 @@ Tested devices:
 1. Install OpenWRT.
 2. Install [tcpdump](https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark) OPKG (via Internet access or manual copy):
 
+
     :::bash
     opkg update
     opkg install tcpdump
 
+
 3. Enable monitor mode:
-    
+
+
     :::bash
     uci set wireless.@wifi-device[0].disabled=0
     uci commit
@@ -46,9 +49,11 @@ Tested devices:
 2. Ensure network connectivity to OpenWRT device: `ping 192.168.0.1`
 3. Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:
 
+
     :::bash
     ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
     /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -
+
 
 > * Change `192.168.0.1` to the IP address of your OpenWRT device.
 > * Change  `/Applications/Wireshark.app/Contents/MacOS/Wireshark` to the path to the Wireshark executable on your computer.
@@ -78,40 +83,7 @@ Analyzing Remote ID data with Node-RED:
 
 ## Test Code Blocks
 
-```
-#sh
-taco hash sh
-taco
-```
-
-:::sh
-taco colon sh
-taco 
-
-```sh
-taco raw sh
-taco
-```
 
     :::sh
     taco tab colon sh
     taco
-
-    ```
-    #sh
-    taco tab hash sh
-    taco
-    ```
-
-    taco tab
-    taco
-
-:::bash
-taco bash
-taco
-
-```
-#bash
-taco hash bash
-taco
-```
