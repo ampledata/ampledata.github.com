@@ -1,4 +1,4 @@
-![Ubiquiti Bullet M2](../img/remoteid/bullet.jpg)
+![Ubiquiti Bullet M2](img/remoteid/bullet.jpg)
 
 # OpenWRT Remote ID Receiver
 
@@ -6,7 +6,7 @@ This guide describes the process of creating a [FAA Remote ID](https://www.faa.g
 
 There are many [RF waveforms for Remote ID](https://drone-remote-id.com/). This receiver uses the 2.4 GHz WiFi Remote ID waveform - additional waveforms and frequencies are possible with further development.
 
-![CONOP](../img/remoteid/wand_conop.png)
+![CONOP](img/remoteid/wand_conop.png)
 
 ## Prerequisites
 
@@ -55,20 +55,20 @@ ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'no
 
 Within Wireshark you should begin to see OPENDRONEID packets in the Protocol column. You can filter for these packets by using the filter: `opendroneid`
 
-![](../img/remoteid/wireshark1.png)
+![](img/remoteid/wireshark1.png)
 
 Clicking through to a Remote ID packet shows details:
 
-![](../img/remoteid/wireshark_details.png)
+![](img/remoteid/wireshark_details.png)
 
 Capturing Remote ID with thskar, Wireshark's command-line tool:
 
-![](../img/remoteid/tshark.png)
+![](img/remoteid/tshark.png)
 
 Capturing Remote ID with tshark and outputing data as JSON:
 
-![](../img/remoteid/tshark_json.png)
+![](img/remoteid/tshark_json.png)
 
 Analyzing Remote ID data with Node-RED:
 
-![](../img/remoteid/node-red.png)
+![](img/remoteid/node-red.png)
