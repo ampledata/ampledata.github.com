@@ -80,7 +80,7 @@ Analyzing Remote ID data with Node-RED:
 
 ```
 #sh
-taco #sh
+taco hash sh
 taco
 ```
 
@@ -93,3 +93,25 @@ taco raw sh
 taco
 ```
 
+    :::sh
+    taco tab colon sh
+    taco
+
+    ```
+    #sh
+    taco tab hash sh
+    taco
+    ```
+
+    taco tab
+    taco
+
+:::bash
+taco bash
+taco
+
+```
+#bash
+taco hash bash
+taco
+```
