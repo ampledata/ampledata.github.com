@@ -58,26 +58,30 @@ Compatible & Verified devices:
 
 Within Wireshark you should begin to see OPENDRONEID packets in the Protocol column. You can filter for these packets by using the filter: `opendroneid`
 
-![](img/remoteid/wireshark1.png)
+![Wireshark displaying Remote ID packet](img/remoteid/wireshark1.png)
 
 ### Remote ID packet details
 
-![](img/remoteid/wireshark_details.png)
+![Wireshark displaying Remote ID packet details](img/remoteid/wireshark_details.png)
 
 ### Capture Remote ID with tshark
 
 tshark is Wireshark's command-line tool.
 
-![](img/remoteid/tshark.png)
+![tshark displaying a decoded Remote ID packet](img/remoteid/tshark.png)
 
 ### Capture Remote ID as JSON with tshark
 
 tshark can transform (serialize) Remote ID packets as JSON by adding the `-T json` flag.
 
-![tshark output showing opendroneid data serialized as JSON](img/remoteid/tshark_json.png)
+![tshark displaying Remote ID packet serialized as JSON](img/remoteid/tshark_json.png)
 
-### Analyze Remote ID data with Node-RED
+### Analyze Remote ID with Node-RED
 
-DIAGRAM TK
+Options:
 
-![](img/remoteid/node-red.png)
+1. Remote ID can be saved to a JSON file using the `-T json` transform and read-into Node-RED using the `file-in` Node.
+2. Remote ID can be transformed to JSON using `-T json` and piped to Node-RED with Netcat & a `tcp-in` Node.
+3. Remote ID can be transformed to JSON using `-T json` and piped into Node-RED via an `exec` Node.
+
+![Node-RED displaying Open ](img/remoteid/node-red.png)

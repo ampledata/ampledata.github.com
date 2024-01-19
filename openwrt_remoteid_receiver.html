@@ -91,10 +91,12 @@
 <li>A computer with <a href="https://www.wireshark.org/">Wireshark</a> software.</li>
 <li>A LAN IP network connecting the Wireshark computer &amp; the OpenWRT device.</li>
 </ol>
-<p>Tested devices:
-* <a href="https://amzn.to/3u01S3S">Ubiquiti Rocket M2 2.4 GHz Radio</a> (AR9342)
-* <a href="https://amzn.to/4aWZrzT">Ubiquiti Bullet M2 2.4 GHz Radio</a> (AR9283)</p>
-<p><a href="https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection">Compatible (untested!) devices</a></p>
+<p>Compatible &amp; Verified devices:</p>
+<ul>
+<li><a href="https://amzn.to/3u01S3S">Ubiquiti Rocket M2 2.4 GHz Radio</a> (AR9342)</li>
+<li><a href="https://amzn.to/4aWZrzT">Ubiquiti Bullet M2 2.4 GHz Radio</a> (AR9283)</li>
+</ul>
+<p><a href="https://deviwiki.com/wiki/List_of_Wireless_Adapters_That_Support_Monitor_Mode_and_Packet_Injection">Other compatible/unverified devices</a></p>
 <h2>Steps</h2>
 <h3>OpenWRT device</h3>
 <ol>
@@ -135,17 +137,23 @@ ifconfig<span class="w"> </span>mon0<span class="w"> </span>up
 </blockquote>
 <h2>Results</h2>
 <p>Within Wireshark you should begin to see OPENDRONEID packets in the Protocol column. You can filter for these packets by using the filter: <code>opendroneid</code></p>
-<p><img alt="" src="img/remoteid/wireshark1.png" /></p>
+<p><img alt="Wireshark displaying Remote ID packet" src="img/remoteid/wireshark1.png" /></p>
 <h3>Remote ID packet details</h3>
-<p><img alt="" src="img/remoteid/wireshark_details.png" /></p>
+<p><img alt="Wireshark displaying Remote ID packet details" src="img/remoteid/wireshark_details.png" /></p>
 <h3>Capture Remote ID with tshark</h3>
 <p>tshark is Wireshark's command-line tool.</p>
-<p><img alt="" src="img/remoteid/tshark.png" /></p>
+<p><img alt="tshark displaying a decoded Remote ID packet" src="img/remoteid/tshark.png" /></p>
 <h3>Capture Remote ID as JSON with tshark</h3>
-<p><img alt="" src="img/remoteid/tshark_json.png" /></p>
-<h3>Analyze Remote ID data with Node-RED</h3>
-<p>DIAGRAM TK</p>
-<p><img alt="" src="img/remoteid/node-red.png" /></p>
+<p>tshark can transform (serialize) Remote ID packets as JSON by adding the <code>-T json</code> flag.</p>
+<p><img alt="tshark displaying Remote ID packet serialized as JSON" src="img/remoteid/tshark_json.png" /></p>
+<h3>Analyze Remote ID with Node-RED</h3>
+<p>Options:</p>
+<ol>
+<li>Remote ID can be saved to a JSON file using the <code>-T json</code> transform and read-into Node-RED using the <code>file-in</code> Node.</li>
+<li>Remote ID can be transformed to JSON using <code>-T json</code> and piped to Node-RED with Netcat &amp; a <code>tcp-in</code> Node.</li>
+<li>Remote ID can be transformed to JSON using <code>-T json</code> and piped into Node-RED via an <code>exec</code> Node.</li>
+</ol>
+<p><img alt="Node-RED displaying Open " src="img/remoteid/node-red.png" /></p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
