@@ -80,11 +80,11 @@
 <!-- block templates/base.html content -->
 
 <!-- block templates/article.html content -->
-<p><img alt="Ubiquiti Bullet M2" src="../img/remoteid/bullet.jpg" /></p>
+<p><img alt="Ubiquiti Bullet M2" src="img/remoteid/bullet.jpg" /></p>
 <h1>OpenWRT Remote ID Receiver</h1>
 <p>This guide describes the process of creating a <a href="https://www.faa.gov/uas/getting_started/remote_id">FAA Remote ID</a> broadcast receiver using commercial off the shelf components, and open-source software. The receiver captures &amp; analyzes Remote ID broadcasts from <a href="https://uasdoc.faa.gov/listDocs">compliant</a> UAV, UAS, Drones &amp; other unmanned and uncrewed aircraft. Captured Remote ID broadcasts contain pertinant telemetry about the airborne object, including position, operator location, speed, heading &amp; more. Remote ID data is viewed within the Wireshark packet capture software.</p>
 <p>There are many <a href="https://drone-remote-id.com/">RF waveforms for Remote ID</a>. This receiver uses the 2.4 GHz WiFi Remote ID waveform - additional waveforms and frequencies are possible with further development.</p>
-<p><img alt="CONOP" src="../img/remoteid/wand_conop.png" /></p>
+<p><img alt="CONOP" src="img/remoteid/wand_conop.png" /></p>
 <h2>Prerequisites</h2>
 <ol>
 <li>An <a href="https://openwrt.org/">OpenWRT</a> compatible device with a WiFi chipset that supports <a href="https://wiki.wireshark.org/CaptureSetup/WLAN">Monitor Mode</a>.</li>
@@ -128,15 +128,15 @@ ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'no
 </ol>
 <h2>Results</h2>
 <p>Within Wireshark you should begin to see OPENDRONEID packets in the Protocol column. You can filter for these packets by using the filter: <code>opendroneid</code></p>
-<p><img alt="" src="../img/remoteid/wireshark1.png" /></p>
+<p><img alt="" src="img/remoteid/wireshark1.png" /></p>
 <p>Clicking through to a Remote ID packet shows details:</p>
-<p><img alt="" src="../img/remoteid/wireshark_details.png" /></p>
+<p><img alt="" src="img/remoteid/wireshark_details.png" /></p>
 <p>Capturing Remote ID with thskar, Wireshark's command-line tool:</p>
-<p><img alt="" src="../img/remoteid/tshark.png" /></p>
+<p><img alt="" src="img/remoteid/tshark.png" /></p>
 <p>Capturing Remote ID with tshark and outputing data as JSON:</p>
-<p><img alt="" src="../img/remoteid/tshark_json.png" /></p>
+<p><img alt="" src="img/remoteid/tshark_json.png" /></p>
 <p>Analyzing Remote ID data with Node-RED:</p>
-<p><img alt="" src="../img/remoteid/node-red.png" /></p>
+<p><img alt="" src="img/remoteid/node-red.png" /></p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
