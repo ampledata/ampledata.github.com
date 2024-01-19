@@ -101,13 +101,13 @@
 <li>Install OpenWRT.</li>
 <li>
 <p>Install <a href="https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark">tcpdump</a> OPKG (via Internet access or manual copy):</p>
-<p>:::sh
+<p>:::bash
 opkg update
 opkg install tcpdump</p>
 </li>
 <li>
 <p>Enable monitor mode:</p>
-<p>:::sh
+<p>:::bash
 uci set wireless.@wifi-device[0].disabled=0
 uci commit
 iw phy phy0 interface add mon0 type monitor;
@@ -121,7 +121,7 @@ ifconfig mon0 up</p>
 <li>Ensure network connectivity to OpenWRT device: <code>ping 192.168.0.1</code></li>
 <li>
 <p>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:</p>
-<p>:::sh
+<p>:::bash
 ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
 /Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</p>
 </li>
@@ -143,6 +143,18 @@ ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'no
 <p><img alt="" src="img/remoteid/tshark_json.png" /></p>
 <p>Analyzing Remote ID data with Node-RED:</p>
 <p><img alt="" src="img/remoteid/node-red.png" /></p>
+<h2>Test Code Blocks</h2>
+<p>```</p>
+<h1>sh</h1>
+<p>taco #sh
+taco
+```</p>
+<p>:::sh
+taco colon sh
+taco </p>
+<p><code>sh
+taco raw sh
+taco</code></p>
 <!-- endblock templates/article.html content -->
 
 <!-- endblock templates/base.html content -->
