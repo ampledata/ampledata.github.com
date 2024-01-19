@@ -101,17 +101,15 @@
 <li>Install OpenWRT.</li>
 <li>
 <p>Install <a href="https://openwrt.org/docs/guide-user/firewall/misc/tcpdump_wireshark">tcpdump</a> OPKG (via Internet access or manual copy):</p>
-<p>:::sh linenums=True
-opkg update
-opkg install tcpdump</p>
+<p><code>opkg update
+opkg install tcpdump</code></p>
 </li>
 <li>
 <p>Enable monitor mode:</p>
-<p>:::sh linenums=True
-uci set wireless.@wifi-device[0].disabled=0
+<p><code>uci set wireless.@wifi-device[0].disabled=0
 uci commit
 iw phy phy0 interface add mon0 type monitor;
-ifconfig mon0 up</p>
+ifconfig mon0 up</code></p>
 </li>
 </ol>
 <h3>Wireshark computer</h3>
@@ -119,10 +117,11 @@ ifconfig mon0 up</p>
 <li>Install <a href="https://www.wireshark.org/">Wireshark</a>.</li>
 <li>Install the <a href="https://github.com/opendroneid/wireshark-dissector">Wireshark Remote ID Dissector</a>.</li>
 <li>Ensure network connectivity to OpenWRT device: <code>ping 192.168.0.1</code></li>
-<li>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:
-:::sh linenums=True
-ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
-/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</li>
+<li>
+<p>Run tcpdump on the OpenWRT host and pipe output to Wireshark, using ssh:</p>
+<p><code>ssh -o StrictHostKeyChecking=no root@192.168.0.1 tcpdump -i mon0 -U -s0 -w - 'not port 22'|\
+/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i -</code></p>
+</li>
 </ol>
 <blockquote>
 <ul>
